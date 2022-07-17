@@ -6,6 +6,8 @@ import org.json.simple.parser.ParseException;
 
 import java.awt.GridLayout;
 
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,6 +16,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.awt.FlowLayout;
 import com.jgoodies.forms.layout.FormLayout;
@@ -39,6 +43,7 @@ public class PauseScene extends JPanel {
 	
 	private JList<SaveFile> listSaveFile;
 	private DefaultListModel<SaveFile> model;
+	private JButton btnHome;
 	
 	/**
 	 * Create the panel.
@@ -102,15 +107,19 @@ public class PauseScene extends JPanel {
 		gbc_btnSaveGame.gridy = 2;
 		pnlButton.add(btnSaveGame, gbc_btnSaveGame);
 		
-		JButton btnHome = new JButton("Home");
-		btnHome.setForeground(Color.WHITE);
-		btnHome.setBackground(Color.GRAY);
+		btnHome = new JButton("");
+		btnHome.setOpaque(false);
+		btnHome.setFocusPainted(false);
+		btnHome.setBorderPainted(false);
+		btnHome.setContentAreaFilled(false);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		btnHome.setIcon(new ImageIcon("data/btnHome.png"));
 		GridBagConstraints gbc_btnHome = new GridBagConstraints();
 		gbc_btnHome.fill = GridBagConstraints.BOTH;
 		gbc_btnHome.gridx = 0;
 		gbc_btnHome.gridy = 4;
 		pnlButton.add(btnHome, gbc_btnHome);
-		btnHome.addActionListener(new BtnHome());
+		btnHome.addMouseListener(new MouseHome());
 		
 		JPanel pnlSaveFile = new JPanel();
 		pnlSaveFile.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
@@ -156,13 +165,6 @@ public class PauseScene extends JPanel {
 		}
 	}
 	
-	class BtnHome implements ActionListener {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			container.showMenuScene();
-		}
-	}
 	
 	class BtnSaveGame implements ActionListener {
 
@@ -178,6 +180,34 @@ public class PauseScene extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			container.showSinglePlayerSceneAgain();
+		}
+		
+	}
+	class MouseHome implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			container.showMenuScene();
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnHome.setIcon(new ImageIcon("data/btnHome.png"));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnHome.setIcon(new ImageIcon("data/btnHome.png"));
 		}
 		
 	}
