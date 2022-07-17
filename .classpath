@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="scene/" kind="src" path="Client"/>
+	<classpathentry kind="src" path="Client/scene"/>
+	<classpathentry kind="src" path="Server"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/naman/Downloads/json-simple-1.1.1 (1).jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,4 +1,4 @@
-package minhdeptrai;
+package object;
 
 import algorithm.Cooldown;
 

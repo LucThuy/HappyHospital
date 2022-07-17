@@ -12,7 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import algorithm.Position;
-import minhdeptrai.Blink;
+import object.Blink;
 
 public class PlayerC {
 	public Position position = new Position();

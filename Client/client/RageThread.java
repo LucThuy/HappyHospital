@@ -140,15 +140,15 @@ public class RageThread extends Thread {
 	}
 	
 	private void addCat(int x, int y, int id, int end) throws IOException {
-		playScene.getBoard().addCat(x, y, id, end);
+		playScene.getBoard().addAgent(x, y, id, end);
 	}
 	
 	private void catMove(int x, int y, int i) {
-		playScene.getBoard().catMove(x, y, i);
+		playScene.getBoard().agentMove(x, y, i);
 	}
 	
 	private void catDone(int i) {
-		playScene.getBoard().catDone(i);
+		playScene.getBoard().agentDone(i);
 	}
 	
 	private void calScoreHost(String score) {

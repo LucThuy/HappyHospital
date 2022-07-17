@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 import algorithm.Position;
 
-public class CatC {
+public class AgentC {
 	public Position position = new Position();
 	
 	public int id;
@@ -22,7 +22,7 @@ public class CatC {
 	public final int HEIGHT = 28;
 	public final int SIZE = 28;
 	
-	public CatC(int x, int y, int id) throws IOException {
+	public AgentC(int x, int y, int id) throws IOException {
 		this.position.x = x;
 		this.position.y = y;
 		this.id = id;

@@ -4,8 +4,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import minhdeptrai.ZaWarudo;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -19,6 +17,8 @@ import java.io.IOException;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import object.ZaWarudo;
 
 public class MutilPlayerScene extends JPanel {
 

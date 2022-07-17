@@ -26,10 +26,11 @@ import algorithm.Node;
 import algorithm.Position;
 import map.EndPoint;
 import map.Map;
-import minhdeptrai.Cat;
-import minhdeptrai.Dog;
-import minhdeptrai.Player;
-import minhdeptrai.ZaWarudo;
+import object.Agent;
+import object.Agv;
+import object.Player;
+import object.ZaWarudo;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
@@ -40,15 +41,15 @@ public class PlayScene extends JPanel {
 
 	public Container container;
 	
-	public Vector<Dog> dog = new Vector<>();
-	private int dogID = 0;
-	private Vector<EndPoint> endPointDog = new Vector<>();
-	public Cooldown dogCD;
+	public Vector<Agv> agv = new Vector<>();
+	private int agvID = 0;
+	private Vector<EndPoint> endPointAgv = new Vector<>();
+	public Cooldown agvCD;
 	
-	public Vector<Cat> cat = new Vector<>();
-	private int catID = 0;
-	private Vector<EndPoint> endPointCat = new Vector<>();
-	public Cooldown catCD;
+	public Vector<Agent> agent = new Vector<>();
+	private int agentID = 0;
+	private Vector<EndPoint> endPointAgent = new Vector<>();
+	public Cooldown agentCD;
 	
 	public Vector<ZaWarudo> zaWarudo = new Vector<>();	
 	public Cooldown zaWarudoCD;
@@ -70,8 +71,8 @@ public class PlayScene extends JPanel {
 	
 	public PlayScene(Container container) throws FileNotFoundException, IOException, ParseException {
 		this.container = container;
-		this.dogCD = new Cooldown(5000);
-		this.catCD = new Cooldown(5000);
+		this.agvCD = new Cooldown(5000);
+		this.agentCD = new Cooldown(5000);
 		
 		this.zaWarudoCD = new Cooldown(20000);
 		
@@ -86,13 +87,13 @@ public class PlayScene extends JPanel {
 	}
 	
 	public void setUp() throws IOException {
-		this.dogID = 0;
-		endPointDog.clear();
-		dog.clear();
+		this.agvID = 0;
+		endPointAgv.clear();
+		agv.clear();
 		
-		this.catID = 0;
-		endPointCat.clear();
-		cat.clear();
+		this.agentID = 0;
+		endPointAgent.clear();
+		agent.clear();
 		
 		zaWarudo.clear();
 		
@@ -107,15 +108,15 @@ public class PlayScene extends JPanel {
 				this.map.layer.get(i).draw(g, true);
 			}	
 			
-			if(this.dog != null) {
-				for(int i = 0; i < this.dog.size(); i++) {
-					this.dog.get(i).draw(g, true);
+			if(this.agv != null) {
+				for(int i = 0; i < this.agv.size(); i++) {
+					this.agv.get(i).draw(g, true);
 				}
 			}
 			
-			if(this.cat != null) {
-				for(int i = 0; i < this.cat.size(); i++) {
-					this.cat.get(i).draw(g, true);
+			if(this.agent != null) {
+				for(int i = 0; i < this.agent.size(); i++) {
+					this.agent.get(i).draw(g, true);
 				}
 			}			
 		}
@@ -124,19 +125,19 @@ public class PlayScene extends JPanel {
 				this.map.layer.get(i).draw(g);
 			}
 			
-			if(this.dog != null) {
-				for(int i = 0; i < this.dog.size(); i++) {
-					this.dog.get(i).draw(g);
+			if(this.agv != null) {
+				for(int i = 0; i < this.agv.size(); i++) {
+					this.agv.get(i).draw(g);
 				}
 			}
-			this.map.door.drawEnd(g, endPointDog, "dog");
+			this.map.door.drawEnd(g, endPointAgv, "dog");
 			
-			if(this.cat != null) {
-				for(int i = 0; i < this.cat.size(); i++) {
-					this.cat.get(i).draw(g);
+			if(this.agent != null) {
+				for(int i = 0; i < this.agent.size(); i++) {
+					this.agent.get(i).draw(g);
 				}
 			}			
-			this.map.door.drawEnd(g, endPointCat, "cat");
+			this.map.door.drawEnd(g, endPointAgent, "cat");
 		}
 		
 		if(this.zaWarudo != null) {
@@ -162,7 +163,7 @@ public class PlayScene extends JPanel {
 		Random rd = new Random();
 		int tmp = rd.nextInt(1000);
 		if(tmp < 3) {
-			if(!dogCD.isCD()) {
+			if(!agvCD.isCD()) {
 				int index = rd.nextInt(this.map.door.bound.size());
 				Rectangle endPos = this.map.door.bound.get(index);
 				
@@ -170,10 +171,10 @@ public class PlayScene extends JPanel {
 				Node start = this.AStar.map[startPos.x / SIZE][startPos.y / SIZE];
 				Node end = this.AStar.map[endPos.x / SIZE][endPos.y / SIZE];
 				
-				this.endPointDog.add(new EndPoint(dogID, index));
+				this.endPointAgv.add(new EndPoint(agvID, index));
 				Vector<Node> path = this.AStar.AStarAlgorithm(start, end);
-				Dog newDog = new Dog(startPos.x, startPos.y, path, dogID++);
-				this.dog.add(newDog);
+				Agv newAgv = new Agv(startPos.x, startPos.y, path, agvID++);
+				this.agv.add(newAgv);
 			}
 		}
 	}
@@ -182,7 +183,7 @@ public class PlayScene extends JPanel {
 		Random rd = new Random();
 		int tmp = rd.nextInt(1000);
 		if(tmp < 10) {
-			if(!catCD.isCD()) {
+			if(!agentCD.isCD()) {
 				int indexStart = rd.nextInt(this.map.door.bound.size());
 				Rectangle startPos = this.map.door.bound.get(indexStart);
 				int indexEnd = rd.nextInt(this.map.door.bound.size());
@@ -196,9 +197,9 @@ public class PlayScene extends JPanel {
 				
 				Vector<Node> path = this.AStar.AStarAlgorithmND(start, end);
 				if(path != null) {
-					this.endPointCat.add(new EndPoint(catID, indexEnd));
-					Cat newCat = new Cat(startPos.x, startPos.y, path, catID++);
-					this.cat.add(newCat);
+					this.endPointAgent.add(new EndPoint(agentID, indexEnd));
+					Agent newAgent = new Agent(startPos.x, startPos.y, path, agentID++);
+					this.agent.add(newAgent);
 				}
 			}
 		}
@@ -298,38 +299,38 @@ public class PlayScene extends JPanel {
 				dogBlock.addAll(map.nopath.bound);
 //				dogBlock.addAll(catBound);
 				dogBlock.add(player.bound);
-				for(int i = 0; i < dog.size(); i++) {
+				for(int i = 0; i < agv.size(); i++) {
 					Vector<Rectangle> tmpBlock = new Vector<>();
-					for(int j = 0; j < dog.size(); j++) {
+					for(int j = 0; j < agv.size(); j++) {
 						if(j == i) {
 							continue;
 						}
-						tmpBlock.add(dog.get(j).bound);
+						tmpBlock.add(agv.get(j).bound);
 					}
 					dogBlock.addAll(tmpBlock);
-					dog.get(i).move(dogBlock);
+					agv.get(i).move(dogBlock);
 					dogBlock.removeAll(tmpBlock);
 					
-					if(dog.get(i).isDogDone && dog.get(i).task == 1) {
-						endPointDog.get(i).doorID = -1;
-						dog.get(i).isDogDone = false;
-						dog.get(i).task = 0;
+					if(agv.get(i).isAgvDone && agv.get(i).task == 1) {
+						endPointAgv.get(i).doorID = -1;
+						agv.get(i).isAgvDone = false;
+						agv.get(i).task = 0;
 						Random rd = new Random();
 						int tmp = rd.nextInt(2);
 						if(tmp == 0) {
-							dog.get(i).path = AStar.AStarAlgorithm(dog.get(i).nextNode, AStar.map[50][13]);
+							agv.get(i).path = AStar.AStarAlgorithm(agv.get(i).nextNode, AStar.map[50][13]);
 						}
 						else {
-							dog.get(i).path = AStar.AStarAlgorithm(dog.get(i).nextNode, AStar.map[50][14]);
+							agv.get(i).path = AStar.AStarAlgorithm(agv.get(i).nextNode, AStar.map[50][14]);
 						}
 						
 					}
-					else if(dog.get(i).isDogDone && dog.get(i).task == 0) {
-						endPointDog.remove(i);
-						dog.remove(i);
+					else if(agv.get(i).isAgvDone && agv.get(i).task == 0) {
+						endPointAgv.remove(i);
+						agv.remove(i);
 					}
 					else {
-						dogBound.add(dog.get(i).bound);
+						dogBound.add(agv.get(i).bound);
 					}
 				}
 				
@@ -346,7 +347,7 @@ public class PlayScene extends JPanel {
 				catBlock.addAll(map.nopath.bound);
 				catBlock.addAll(dogBound);
 				catBlock.add(player.bound);
-				for(int i = 0; i < cat.size(); i++) {
+				for(int i = 0; i < agent.size(); i++) {
 //					Vector<Rectangle> tmpBlock = new Vector<>();
 //					for(int j = 0; j < cat.size(); j++) {
 //						if(j == i) {
@@ -355,16 +356,16 @@ public class PlayScene extends JPanel {
 //						tmpBlock.add(cat.get(j).bound);
 //					}
 //					catBlock.addAll(tmpBlock);
-					cat.get(i).move(catBlock);
+					agent.get(i).move(catBlock);
 //					catBlock.removeAll(tmpBlock);
 					
-					if(cat.get(i).isCatDone) {
-						endPointCat.remove(i);
-						cat.remove(i);
+					if(agent.get(i).isAgentDone) {
+						endPointAgent.remove(i);
+						agent.remove(i);
 					}
 					else {
-						catBound.add(cat.get(i).bound);
-						catBlock.add(cat.get(i).bound);
+						catBound.add(agent.get(i).bound);
+						catBlock.add(agent.get(i).bound);
 					}
 				}
 			}
@@ -461,15 +462,15 @@ public class PlayScene extends JPanel {
 
 		data.put("player", player);
 		
-		data.put("numDog", this.dog.size());
+		data.put("numDog", this.agv.size());
 		JSONArray dog = new JSONArray();
-		for(int i = 0; i < this.dog.size(); i++) {
+		for(int i = 0; i < this.agv.size(); i++) {
 			JSONObject tmp = new JSONObject();
-			tmp.put("id", this.dog.get(i).dogID);
-			tmp.put("x", this.dog.get(i).position.x);
-			tmp.put("y", this.dog.get(i).position.y);
-			tmp.put("xEnd", this.dog.get(i).path.get(0).position.x);
-			tmp.put("yEnd", this.dog.get(i).path.get(0).position.y);
+			tmp.put("id", this.agv.get(i).agvID);
+			tmp.put("x", this.agv.get(i).position.x);
+			tmp.put("y", this.agv.get(i).position.y);
+			tmp.put("xEnd", this.agv.get(i).path.get(0).position.x);
+			tmp.put("yEnd", this.agv.get(i).path.get(0).position.y);
 		}
 	}
 }

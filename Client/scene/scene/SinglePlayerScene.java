@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 import org.json.simple.parser.ParseException;
 
-import minhdeptrai.ZaWarudo;
+import object.ZaWarudo;
 import scene.PlayScene.CustomKeyListener;
 
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package minhdeptrai;
+package object;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,12 +14,12 @@ import javax.imageio.ImageIO;
 import algorithm.Node;
 import algorithm.Position;
 
-public class Cat {
+public class Agv {
 
 	public Position position = new Position();
 	public Rectangle bound = new Rectangle();
 	
-	public int catID;
+	public int agvID;
 
 	public int msE;
 	public int msN;
@@ -27,7 +27,8 @@ public class Cat {
 	public int msS;
 	public int ms;
 	
-	public boolean isCatDone = false;
+	public boolean isAgvDone = false;
+	public int task = 1;
 	
 	public Vector<Node> path;
 	public Node nextNode = new Node();
@@ -38,7 +39,7 @@ public class Cat {
 	public final int HEIGHT = 28;
 	public final int SIZE = 28;
 
-	public Cat(int x, int y, Vector<Node> path, int catID) throws IOException {
+	public Agv(int x, int y, Vector<Node> path, int agvID) throws IOException {
 		this.position.x = x;
 		this.position.y = y;
 		this.ms = 1;
@@ -46,23 +47,23 @@ public class Cat {
 		this.msN = 0;
 		this.msW = 0;
 		this.msS = 0;
-		this.catID = catID;
+		this.agvID = agvID;
 		
 		this.path = path;
 		this.nextNode = path.remove(path.size() - 1);
-		updateDirect(nextNode);	
+		updateDirect(nextNode);
 		
 		BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-		bigImage = ImageIO.read(new File("data/hospital.png"));
-		img = bigImage.getSubimage(35, 67, 26, 24);
+		bigImage = ImageIO.read(new File("data/agv.png"));
+		img = bigImage.getSubimage(3, 5, 24, 24);
 	}
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.drawRect(this.position.x, this.position.y, WIDTH, HEIGHT);
 		g.drawImage(img, this.position.x, this.position.y, WIDTH, HEIGHT, null);
-		g.setColor(Color.GRAY);
-		g.drawString(String.valueOf(catID), this.position.x + 15, this.position.y - 3);
+		g.setColor(Color.BLACK);
+		g.drawString(String.valueOf(agvID), this.position.x + 3, this.position.y - 3);
 	}
 	
 	public void draw(Graphics g, boolean isZaWarudo) {
@@ -81,7 +82,7 @@ public class Cat {
 			this.msW = 0;
 			this.msS = 0;
 			if(path.isEmpty()) {
-				this.isCatDone = true;
+				this.isAgvDone = true;
 			}
 			else {
 				nextNode = path.remove(path.size() - 1);

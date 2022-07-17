@@ -1,4 +1,4 @@
-package minhdeptrai;
+package object;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,12 +14,12 @@ import javax.imageio.ImageIO;
 import algorithm.Node;
 import algorithm.Position;
 
-public class Dog {
+public class Agent {
 
 	public Position position = new Position();
 	public Rectangle bound = new Rectangle();
 	
-	public int dogID;
+	public int agentID;
 
 	public int msE;
 	public int msN;
@@ -27,8 +27,7 @@ public class Dog {
 	public int msS;
 	public int ms;
 	
-	public boolean isDogDone = false;
-	public int task = 1;
+	public boolean isAgentDone = false;
 	
 	public Vector<Node> path;
 	public Node nextNode = new Node();
@@ -39,7 +38,7 @@ public class Dog {
 	public final int HEIGHT = 28;
 	public final int SIZE = 28;
 
-	public Dog(int x, int y, Vector<Node> path, int dogID) throws IOException {
+	public Agent(int x, int y, Vector<Node> path, int agentID) throws IOException {
 		this.position.x = x;
 		this.position.y = y;
 		this.ms = 1;
@@ -47,23 +46,23 @@ public class Dog {
 		this.msN = 0;
 		this.msW = 0;
 		this.msS = 0;
-		this.dogID = dogID;
+		this.agentID = agentID;
 		
 		this.path = path;
 		this.nextNode = path.remove(path.size() - 1);
-		updateDirect(nextNode);
+		updateDirect(nextNode);	
 		
 		BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-		bigImage = ImageIO.read(new File("data/agv.png"));
-		img = bigImage.getSubimage(3, 5, 24, 24);
+		bigImage = ImageIO.read(new File("data/hospital.png"));
+		img = bigImage.getSubimage(35, 67, 26, 24);
 	}
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.drawRect(this.position.x, this.position.y, WIDTH, HEIGHT);
 		g.drawImage(img, this.position.x, this.position.y, WIDTH, HEIGHT, null);
-		g.setColor(Color.BLACK);
-		g.drawString(String.valueOf(dogID), this.position.x + 3, this.position.y - 3);
+		g.setColor(Color.GRAY);
+		g.drawString(String.valueOf(agentID), this.position.x + 15, this.position.y - 3);
 	}
 	
 	public void draw(Graphics g, boolean isZaWarudo) {
@@ -82,7 +81,7 @@ public class Dog {
 			this.msW = 0;
 			this.msS = 0;
 			if(path.isEmpty()) {
-				this.isDogDone = true;
+				this.isAgentDone = true;
 			}
 			else {
 				nextNode = path.remove(path.size() - 1);

@@ -45,9 +45,10 @@ public class Main extends JFrame {
 	 * @throws FileNotFoundException 
 	 */
 	public Main() throws FileNotFoundException, IOException, ParseException {
-		setTitle("MINH SIEU CAP DEP TRAI");
+		setTitle("Happy Hospital");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 854, 500);
+		setBounds(0, 0, 1540, 850);
+		this.setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

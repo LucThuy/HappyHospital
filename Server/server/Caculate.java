@@ -19,20 +19,19 @@ import algorithm.Cooldown;
 import algorithm.Node;
 import map.EndPoint;
 import map.Map;
-import minhdeptrai.Cat;
-import minhdeptrai.Dog;
-import minhdeptrai.Player;
-import minhdeptrai.ZaWarudo;
+import object.Agent;
+import object.Player;
+import object.ZaWarudo;
 import server.Server.SubServer;
 
 public class Caculate {
 	
 	private SubServer server;
 	
-	private Vector<Cat> cat = new Vector<>();
-	private int catID = 0;
-	private Vector<EndPoint> endPointCat = new Vector<>();
-	private Cooldown catCD;
+	private Vector<Agent> agent = new Vector<>();
+	private int agentID = 0;
+	private Vector<EndPoint> endPointAgent = new Vector<>();
+	private Cooldown agentCD;
 	
 	private Vector<ZaWarudo> zaWarudo = new Vector<>();	
 	private Cooldown zaWarudoCD;
@@ -66,7 +65,7 @@ public class Caculate {
 		this.server = server;		
 		this.server.getGuest().getClientName();
 
-		this.catCD = new Cooldown(5000);
+		this.agentCD = new Cooldown(5000);
 		
 		this.zaWarudoCD = new Cooldown(20000);
 		
@@ -83,9 +82,9 @@ public class Caculate {
 	}
 	
 	public void setUp() throws IOException {		
-		this.catID = 0;
-		endPointCat.clear();
-		cat.clear();
+		this.agentID = 0;
+		endPointAgent.clear();
+		agent.clear();
 		
 		zaWarudo.clear();
 	}
@@ -162,7 +161,7 @@ public class Caculate {
 		Random rd = new Random();
 		int tmp = rd.nextInt(1000);
 		if(tmp < 10) {
-			if(!catCD.isCD()) {
+			if(!agentCD.isCD()) {
 				int indexStart = rd.nextInt(this.map.door.bound.size());
 				Rectangle startPos = this.map.door.bound.get(indexStart);
 				int indexEnd = rd.nextInt(this.map.door.bound.size());
@@ -176,12 +175,12 @@ public class Caculate {
 				
 				Vector<Node> path = this.AStar.AStarAlgorithmND(start, end);
 				if(path != null) {
-					this.endPointCat.add(new EndPoint(catID, indexEnd));
-					Cat newCat = new Cat(startPos.x, startPos.y, path, catID);
-					this.cat.add(newCat);
+					this.endPointAgent.add(new EndPoint(agentID, indexEnd));
+					Agent newAgent = new Agent(startPos.x, startPos.y, path, agentID);
+					this.agent.add(newAgent);
 					
-					this.server.sendToAll("addCat " + startPos.x + " " + startPos.y + " " + catID + " " + indexEnd);
-					catID++;
+					this.server.sendToAll("addCat " + startPos.x + " " + startPos.y + " " + agentID + " " + indexEnd);
+					agentID++;
 				}
 			}
 		}
@@ -202,7 +201,7 @@ public class Caculate {
 	}
 	
 	private void catMove(int i) {
-		this.server.sendToAll("catMove " + cat.get(i).position.x + " " + cat.get(i).position.y + " " + i);
+		this.server.sendToAll("catMove " + agent.get(i).position.x + " " + agent.get(i).position.y + " " + i);
 	}
 	
 	private void catDone(int i) {
@@ -342,7 +341,7 @@ public class Caculate {
 				catBlock.addAll(map.nopath.bound);
 				catBlock.add(playerHost.bound);
 				catBlock.add(playerGuest.bound);
-				for(int i = 0; i < cat.size(); i++) {
+				for(int i = 0; i < agent.size(); i++) {
 //					Vector<Rectangle> tmpBlock = new Vector<>();
 //					for(int j = 0; j < cat.size(); j++) {
 //						if(j == i) {
@@ -351,19 +350,19 @@ public class Caculate {
 //						tmpBlock.add(cat.get(j).bound);
 //					}
 //					catBlock.addAll(tmpBlock);
-					cat.get(i).move(catBlock);
+					agent.get(i).move(catBlock);
 					catMove(i);
 					
 //					catBlock.removeAll(tmpBlock);
 					
-					if(cat.get(i).isCatDone) {
-						endPointCat.remove(i);
-						cat.remove(i);
+					if(agent.get(i).isAgentDone) {
+						endPointAgent.remove(i);
+						agent.remove(i);
 						catDone(i);
 					}
 					else {
-						catBound.add(cat.get(i).bound);
-						catBlock.add(cat.get(i).bound);
+						catBound.add(agent.get(i).bound);
+						catBlock.add(agent.get(i).bound);
 					}
 				}
 			}

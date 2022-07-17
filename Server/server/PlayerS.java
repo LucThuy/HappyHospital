@@ -10,7 +10,7 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 
 import algorithm.Position;
-import minhdeptrai.Blink;
+import object.Blink;
 
 public class PlayerS {
 	public Position position = new Position();

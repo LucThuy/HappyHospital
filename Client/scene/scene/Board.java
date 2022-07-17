@@ -16,20 +16,19 @@ import org.json.simple.parser.ParseException;
 
 import algorithm.AStar;
 import algorithm.Cooldown;
-import client.CatC;
+import client.AgentC;
 import client.PlayerC;
 import map.EndPoint;
 import map.Map;
-import minhdeptrai.Dog;
-import minhdeptrai.ZaWarudo;
+import object.ZaWarudo;
 import scene.PlayScene.CustomActionListener;
 
 public class Board extends JPanel {
 
 	private Container container;
 	
-	private Vector<CatC> cat = new Vector<>();
-	private Vector<EndPoint> endPointCat = new Vector<>();
+	private Vector<AgentC> agent = new Vector<>();
+	private Vector<EndPoint> endPointAgent = new Vector<>();
 	
 	private Vector<ZaWarudo> zaWarudo = new Vector<>();	
 	
@@ -70,9 +69,9 @@ public class Board extends JPanel {
 				this.map.layer.get(i).draw(g, true);
 			}	
 			
-			if(this.cat != null) {
-				for(int i = 0; i < this.cat.size(); i++) {
-					this.cat.get(i).draw(g, true);
+			if(this.agent != null) {
+				for(int i = 0; i < this.agent.size(); i++) {
+					this.agent.get(i).draw(g, true);
 				}
 			}			
 		}
@@ -81,12 +80,12 @@ public class Board extends JPanel {
 				this.map.layer.get(i).draw(g);
 			}
 			
-			if(this.cat != null) {
-				for(int i = 0; i < this.cat.size(); i++) {
-					this.cat.get(i).draw(g);
+			if(this.agent != null) {
+				for(int i = 0; i < this.agent.size(); i++) {
+					this.agent.get(i).draw(g);
 				}
 			}			
-			this.map.door.drawEnd(g, endPointCat, "cat");
+			this.map.door.drawEnd(g, endPointAgent, "cat");
 		}
 		
 		if(this.zaWarudo != null) {
@@ -108,20 +107,20 @@ public class Board extends JPanel {
 		}	
 	}
 	
-	public void addCat(int x, int y, int id, int end) throws IOException {
-		this.endPointCat.add(new EndPoint(id, end));
-		CatC newCat = new CatC(x, y, id);
-		this.cat.add(newCat);
+	public void addAgent(int x, int y, int id, int end) throws IOException {
+		this.endPointAgent.add(new EndPoint(id, end));
+		AgentC newAgent = new AgentC(x, y, id);
+		this.agent.add(newAgent);
 	}
 	
-	public void catMove(int x, int y, int i) {
-		cat.get(i).position.x = x;
-		cat.get(i).position.y = y;
+	public void agentMove(int x, int y, int i) {
+		agent.get(i).position.x = x;
+		agent.get(i).position.y = y;
 	}
 	
-	public void catDone(int i) {
-		endPointCat.remove(i);
-		cat.remove(i);
+	public void agentDone(int i) {
+		endPointAgent.remove(i);
+		agent.remove(i);
 	}
 	
 	public PlayerC getPlayerHost() {
