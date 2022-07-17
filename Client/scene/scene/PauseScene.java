@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import java.awt.GridLayout;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -27,6 +28,8 @@ import java.awt.Color;
 import javax.swing.JList;
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.ListSelectionModel;
 
 public class PauseScene extends JPanel {
@@ -47,6 +50,12 @@ public class PauseScene extends JPanel {
 		setUp();
 	}
 	
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("data/background.png");
+		g.drawImage(background.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+	}
+	
 	public void setUp() {
 		setBackground(Color.WHITE);
 		
@@ -58,7 +67,7 @@ public class PauseScene extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JPanel pnlButton = new JPanel();
-		pnlButton.setBackground(Color.LIGHT_GRAY);
+		pnlButton.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
 		GridBagConstraints gbc_pnlButton = new GridBagConstraints();
 		gbc_pnlButton.insets = new Insets(0, 0, 0, 5);
 		gbc_pnlButton.fill = GridBagConstraints.BOTH;
@@ -104,7 +113,7 @@ public class PauseScene extends JPanel {
 		btnHome.addActionListener(new BtnHome());
 		
 		JPanel pnlSaveFile = new JPanel();
-		pnlSaveFile.setBackground(Color.WHITE);
+		pnlSaveFile.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
 		GridBagConstraints gbc_pnlSaveFile = new GridBagConstraints();
 		gbc_pnlSaveFile.fill = GridBagConstraints.BOTH;
 		gbc_pnlSaveFile.gridx = 1;
@@ -113,6 +122,7 @@ public class PauseScene extends JPanel {
 		pnlSaveFile.setLayout(new BorderLayout(0, 0));
 		
 		listSaveFile = new JList();
+		listSaveFile.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
 		listSaveFile.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listSaveFile.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		pnlSaveFile.add(listSaveFile);
