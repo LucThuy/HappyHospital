@@ -159,7 +159,7 @@ public class PlayScene extends JPanel {
 		genEndPoint();
 	}
 	
-	public void addDog() throws IOException {
+	public void addAgv() throws IOException {
 		Random rd = new Random();
 		int tmp = rd.nextInt(1000);
 		if(tmp < 3) {
@@ -179,7 +179,7 @@ public class PlayScene extends JPanel {
 		}
 	}
 	
-	public void addCat() throws IOException {
+	public void addAgent() throws IOException {
 		Random rd = new Random();
 		int tmp = rd.nextInt(1000);
 		if(tmp < 10) {
@@ -273,11 +273,11 @@ public class PlayScene extends JPanel {
 		
 		private Vector<Rectangle> playerBlock = new Vector<>();
 		
-		private Vector<Rectangle> dogBlock = new Vector<>();
-		private Vector<Rectangle> dogBound = new Vector<>();
+		private Vector<Rectangle> agvBlock = new Vector<>();
+		private Vector<Rectangle> agvBound = new Vector<>();
 		
-		private Vector<Rectangle> catBlock = new Vector<>();
-		private Vector<Rectangle> catBound = new Vector<>();
+		private Vector<Rectangle> agentBlock = new Vector<>();
+		private Vector<Rectangle> agentBound = new Vector<>();
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {	
@@ -288,17 +288,17 @@ public class PlayScene extends JPanel {
 			
 			if(!ZaWarudo.isZaWarudo) {
 				try {
-					addDog();
+					addAgv();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 				
-				dogBound.clear();
+				agvBound.clear();
 				
-				dogBlock.clear();
-				dogBlock.addAll(map.nopath.bound);
+				agvBlock.clear();
+				agvBlock.addAll(map.nopath.bound);
 //				dogBlock.addAll(catBound);
-				dogBlock.add(player.bound);
+				agvBlock.add(player.bound);
 				for(int i = 0; i < agv.size(); i++) {
 					Vector<Rectangle> tmpBlock = new Vector<>();
 					for(int j = 0; j < agv.size(); j++) {
@@ -307,9 +307,9 @@ public class PlayScene extends JPanel {
 						}
 						tmpBlock.add(agv.get(j).bound);
 					}
-					dogBlock.addAll(tmpBlock);
-					agv.get(i).move(dogBlock);
-					dogBlock.removeAll(tmpBlock);
+					agvBlock.addAll(tmpBlock);
+					agv.get(i).move(agvBlock);
+					agvBlock.removeAll(tmpBlock);
 					
 					if(agv.get(i).isAgvDone && agv.get(i).task == 1) {
 						endPointAgv.get(i).doorID = -1;
@@ -330,23 +330,23 @@ public class PlayScene extends JPanel {
 						agv.remove(i);
 					}
 					else {
-						dogBound.add(agv.get(i).bound);
+						agvBound.add(agv.get(i).bound);
 					}
 				}
 				
 				try {
-					addCat();
+					addAgent();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 				
 				
-				catBound.clear();
+				agentBound.clear();
 				
-				catBlock.clear();
-				catBlock.addAll(map.nopath.bound);
-				catBlock.addAll(dogBound);
-				catBlock.add(player.bound);
+				agentBlock.clear();
+				agentBlock.addAll(map.nopath.bound);
+				agentBlock.addAll(agvBound);
+				agentBlock.add(player.bound);
 				for(int i = 0; i < agent.size(); i++) {
 //					Vector<Rectangle> tmpBlock = new Vector<>();
 //					for(int j = 0; j < cat.size(); j++) {
@@ -356,7 +356,7 @@ public class PlayScene extends JPanel {
 //						tmpBlock.add(cat.get(j).bound);
 //					}
 //					catBlock.addAll(tmpBlock);
-					agent.get(i).move(catBlock);
+					agent.get(i).move(agentBlock);
 //					catBlock.removeAll(tmpBlock);
 					
 					if(agent.get(i).isAgentDone) {
@@ -364,15 +364,15 @@ public class PlayScene extends JPanel {
 						agent.remove(i);
 					}
 					else {
-						catBound.add(agent.get(i).bound);
-						catBlock.add(agent.get(i).bound);
+						agentBound.add(agent.get(i).bound);
+						agentBlock.add(agent.get(i).bound);
 					}
 				}
 			}
 			
 			playerBlock.clear();
 			playerBlock.addAll(map.nopath.bound);
-			playerBlock.addAll(dogBound);
+			playerBlock.addAll(agvBound);
 //			playerBlock.addAll(catBound);
 			player.move(playerBlock);
 			
