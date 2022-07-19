@@ -75,7 +75,7 @@ public class PauseScene extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JPanel pnlButton = new JPanel();
-		pnlButton.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
+		pnlButton.setOpaque(false);
 		GridBagConstraints gbc_pnlButton = new GridBagConstraints();
 		gbc_pnlButton.insets = new Insets(0, 0, 0, 5);
 		gbc_pnlButton.fill = GridBagConstraints.BOTH;
