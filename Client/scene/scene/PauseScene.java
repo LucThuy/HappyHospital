@@ -1,6 +1,7 @@
 package scene;
 
 import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
 
 import org.json.simple.parser.ParseException;
 
@@ -29,6 +30,8 @@ import scene.ServerSelectScene.ServerAvailable;
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JList;
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -122,18 +125,18 @@ public class PauseScene extends JPanel {
 		btnHome.addMouseListener(new MouseHome());
 		
 		JPanel pnlSaveFile = new JPanel();
-		pnlSaveFile.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
+		pnlSaveFile.setOpaque(false);
 		GridBagConstraints gbc_pnlSaveFile = new GridBagConstraints();
-		gbc_pnlSaveFile.fill = GridBagConstraints.BOTH;
+		gbc_pnlSaveFile.fill = GridBagConstraints.VERTICAL;
 		gbc_pnlSaveFile.gridx = 1;
 		gbc_pnlSaveFile.gridy = 0;
 		add(pnlSaveFile, gbc_pnlSaveFile);
 		pnlSaveFile.setLayout(new BorderLayout(0, 0));
 		
 		listSaveFile = new JList();
-		listSaveFile.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
+		listSaveFile.setOpaque(false);
 		listSaveFile.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listSaveFile.setFont(new Font("Tahoma", Font.PLAIN, 20));
+//		listSaveFile.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		pnlSaveFile.add(listSaveFile);
 		model = new DefaultListModel<>();
 		
@@ -143,7 +146,8 @@ public class PauseScene extends JPanel {
 		model.addElement(new SaveFile("Save Slot 4", "save/save4.json"));
 		model.addElement(new SaveFile("Save Slot 5", "save/save5.json"));
 		
-		listSaveFile.setModel(model);				
+		listSaveFile.setModel(model);	
+		listSaveFile.setCellRenderer(new SaveFileRenderer());
 	}
 	
 	public void setSinglePlayerScene(SinglePlayerScene singlePlayerScene) {
@@ -211,5 +215,32 @@ public class PauseScene extends JPanel {
 		}
 		
 	}
+	
+	class SaveFileRenderer extends JPanel implements ListCellRenderer<SaveFile> {
+	 
+		private JLabel name = new JLabel();
+		
+	    public SaveFileRenderer() {
+	        setLayout(new BorderLayout(0, 0));
+	        setOpaque(false);
+	        
+	        add(name, BorderLayout.CENTER);
+	    }
 
+		@Override
+		public Component getListCellRendererComponent(JList<? extends SaveFile> list, SaveFile value, int index,
+			boolean isSelected, boolean cellHasFocus) {
+			
+//			name.setText(value.name);
+			
+			if(isSelected) {
+				name.setIcon(new ImageIcon("data/btnHome.png"));
+			}
+			else {
+				name.setIcon(new ImageIcon("data/btnCredit.png"));
+			}
+			
+			return this;
+		}
+	}
 }

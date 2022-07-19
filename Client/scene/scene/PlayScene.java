@@ -462,8 +462,8 @@ public class PlayScene extends JPanel {
 
 		data.put("player", player);
 		
-		data.put("numDog", this.agv.size());
-		JSONArray dog = new JSONArray();
+		data.put("numAgv", this.agv.size());
+		JSONArray agv = new JSONArray();
 		for(int i = 0; i < this.agv.size(); i++) {
 			JSONObject tmp = new JSONObject();
 			tmp.put("id", this.agv.get(i).agvID);
@@ -471,6 +471,46 @@ public class PlayScene extends JPanel {
 			tmp.put("y", this.agv.get(i).position.y);
 			tmp.put("xEnd", this.agv.get(i).path.get(0).position.x);
 			tmp.put("yEnd", this.agv.get(i).path.get(0).position.y);
+			tmp.put("task", this.agv.get(i).task);
+			
+			agv.add(tmp);
+		}		
+		data.put("agv", agv);
+		
+		data.put("numEndPointAgv", this.endPointAgv.size());
+		JSONArray endPointAgv = new JSONArray();
+		for(int i = 0; i < this.endPointAgv.size(); i++) {
+			JSONObject tmp = new JSONObject();
+			tmp.put("id", this.endPointAgv.get(i).ID);
+			tmp.put("doorID", this.endPointAgv.get(i).doorID);
+			
+			endPointAgv.add(tmp);
 		}
+		data.put("endPointAgv", endPointAgv);
+		
+		data.put("numAgent", this.agent.size());
+		JSONArray agent = new JSONArray();
+		for(int i = 0; i < this.agent.size(); i++) {
+			JSONObject tmp = new JSONObject();
+			tmp.put("id", this.agent.get(i).agentID);
+			tmp.put("x", this.agent.get(i).position.x);
+			tmp.put("y", this.agent.get(i).position.y);
+			tmp.put("xEnd", this.agent.get(i).path.get(0).position.x);
+			tmp.put("yEnd", this.agent.get(i).path.get(0).position.y);
+			
+			agent.add(tmp);
+		}		
+		data.put("agent", agent);
+		
+		data.put("numEndPointAgent", this.endPointAgent.size());
+		JSONArray endPointAgent = new JSONArray();
+		for(int i = 0; i < this.endPointAgent.size(); i++) {
+			JSONObject tmp = new JSONObject();
+			tmp.put("id", this.endPointAgent.get(i).ID);
+			tmp.put("doorID", this.endPointAgent.get(i).doorID);
+			
+			endPointAgent.add(tmp);
+		}
+		data.put("endPointAgent", endPointAgent);
 	}
 }
