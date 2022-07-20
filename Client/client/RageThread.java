@@ -84,14 +84,14 @@ public class RageThread extends Thread {
 		else if(cmdList[0].equals("playerGuestMove")) {
 			playerGuestMove(Integer.parseInt(cmdList[1]), Integer.parseInt(cmdList[2]));
 		}
-		else if(cmdList[0].equals("addCat")) {
-			addCat(Integer.parseInt(cmdList[1]), Integer.parseInt(cmdList[2]), Integer.parseInt(cmdList[3]), Integer.parseInt(cmdList[4]));
+		else if(cmdList[0].equals("addAgent")) {
+			addAgent(Integer.parseInt(cmdList[1]), Integer.parseInt(cmdList[2]), Integer.parseInt(cmdList[3]), Integer.parseInt(cmdList[4]));
 		}
-		else if(cmdList[0].equals("catMove")) {
-			catMove(Integer.parseInt(cmdList[1]), Integer.parseInt(cmdList[2]), Integer.parseInt(cmdList[3]));
+		else if(cmdList[0].equals("agentMove")) {
+			agentMove(Integer.parseInt(cmdList[1]), Integer.parseInt(cmdList[2]), Integer.parseInt(cmdList[3]));
 		}
-		else if(cmdList[0].equals("catDone")) {
-			catDone(Integer.parseInt(cmdList[1]));
+		else if(cmdList[0].equals("agentDone")) {
+			agentDone(Integer.parseInt(cmdList[1]));
 		}
 		else if(cmdList[0].equals("calScoreHost")) {
 			calScoreHost(cmdList[1]);
@@ -139,15 +139,15 @@ public class RageThread extends Thread {
 		playScene.getBoard().setPositionPlayerGuest(x, y);
 	}
 	
-	private void addCat(int x, int y, int id, int end) throws IOException {
+	private void addAgent(int x, int y, int id, int end) throws IOException {
 		playScene.getBoard().addAgent(x, y, id, end);
 	}
 	
-	private void catMove(int x, int y, int i) {
+	private void agentMove(int x, int y, int i) {
 		playScene.getBoard().agentMove(x, y, i);
 	}
 	
-	private void catDone(int i) {
+	private void agentDone(int i) {
 		playScene.getBoard().agentDone(i);
 	}
 	

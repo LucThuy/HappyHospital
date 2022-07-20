@@ -1,11 +1,13 @@
 package scene;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -42,6 +44,12 @@ public class MutilPlayerScene extends JPanel {
 		
 		setUI();
 	}
+	
+//	public void paintComponent(Graphics g){
+//		super.paintComponent(g);
+//		ImageIcon background = new ImageIcon("data/background.png");
+//		g.drawImage(background.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+//	}
 	
 	private void setUI() {
 		setBackground(Color.WHITE);
