@@ -16,12 +16,15 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 
 import java.awt.BorderLayout;
 import javax.swing.JList;
@@ -29,11 +32,15 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.CardLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.ListSelectionModel;
 
 public class ServerSelectScene extends JPanel {
 
 	private Container container;
+	
+	private JButton btnBack;
 	
 	private JList<ServerAvailable> listServer;
 	private DefaultListModel<ServerAvailable> model;
@@ -48,6 +55,12 @@ public class ServerSelectScene extends JPanel {
 		this.container = container;
 	}
 	
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("data/background.png");
+		g.drawImage(background.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+	}
+	
 	private void setUI() {
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -58,7 +71,8 @@ public class ServerSelectScene extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JPanel pnlButton = new JPanel();
-		pnlButton.setBackground(Color.LIGHT_GRAY);
+//		pnlButton.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
+		pnlButton.setOpaque(false);
 		GridBagConstraints gbc_pnlButton = new GridBagConstraints();
 		gbc_pnlButton.fill = GridBagConstraints.BOTH;
 		gbc_pnlButton.insets = new Insets(0, 0, 0, 5);
@@ -72,7 +86,12 @@ public class ServerSelectScene extends JPanel {
 		gbl_pnlButton.rowWeights = new double[]{1.0, 4.0, 2.0, 0.0, 2.0};
 		pnlButton.setLayout(gbl_pnlButton);
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("");
+		btnBack.setOpaque(false);
+		btnBack.setFocusPainted(false);
+		btnBack.setBorderPainted(false);
+		btnBack.setContentAreaFilled(false);
+		btnBack.setIcon(new ImageIcon("data/btnBack.png"));
 		btnBack.setForeground(Color.WHITE);
 		btnBack.setBackground(Color.GRAY);
 		btnBack.setAlignmentX(Component.CENTER_ALIGNMENT);		
@@ -82,7 +101,7 @@ public class ServerSelectScene extends JPanel {
 		gbc_btnBack.gridx = 0;
 		gbc_btnBack.gridy = 0;
 		pnlButton.add(btnBack, gbc_btnBack);
-		btnBack.addActionListener(new BtnBack());
+		btnBack.addMouseListener(new MouseBack());
 		
 		JButton btnNewRoom = new JButton("New Room");
 		btnNewRoom.setForeground(Color.WHITE);
@@ -108,7 +127,8 @@ public class ServerSelectScene extends JPanel {
 		btnGetGo.addActionListener(new BtnGetGo());
 		
 		JPanel pnlServer = new JPanel();
-		pnlServer.setBackground(Color.LIGHT_GRAY);
+//		pnlServer.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
+		pnlServer.setOpaque(false);
 		GridBagConstraints gbc_pnlServer = new GridBagConstraints();
 		gbc_pnlServer.fill = GridBagConstraints.BOTH;
 		gbc_pnlServer.gridx = 1;
@@ -163,12 +183,41 @@ public class ServerSelectScene extends JPanel {
 		}
 	}
 	
-	class BtnBack implements ActionListener {
+//	class BtnBack implements ActionListener {
+//
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			container.showMenuScene();	
+//		}		
+//	}
+	
+	class MouseBack implements MouseListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			container.showMenuScene();	
-		}		
+		public void mouseClicked(MouseEvent e) {
+			container.showMenuScene();
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnBack.setIcon(new ImageIcon("data/btnBackPress.png"));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnBack.setIcon(new ImageIcon("data/btnBack.png"));
+		}
+		
 	}
 	
 	class BtnNewRoom implements ActionListener {
