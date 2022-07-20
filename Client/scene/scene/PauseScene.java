@@ -89,7 +89,12 @@ public class PauseScene extends JPanel {
 		gbl_pnlButton.rowWeights = new double[]{1.0, 4.0, 2.0, 0.0, 2.0, Double.MIN_VALUE};
 		pnlButton.setLayout(gbl_pnlButton);
 		
-		JButton btnBack = new JButton("Back");
+		JButton btnBack = new JButton("");
+		btnBack.setOpaque(false);
+		btnBack.setFocusPainted(false);
+		btnBack.setBorderPainted(false);
+		btnBack.setContentAreaFilled(false);
+		btnBack.setIcon(new ImageIcon("data/btnBack.png"));
 		btnBack.setForeground(Color.WHITE);
 		btnBack.setBackground(Color.GRAY);
 		GridBagConstraints gbc_btnBack = new GridBagConstraints();
@@ -140,11 +145,11 @@ public class PauseScene extends JPanel {
 		pnlSaveFile.add(listSaveFile);
 		model = new DefaultListModel<>();
 		
-		model.addElement(new SaveFile("Save Slot 1", "save/save1.json"));
-		model.addElement(new SaveFile("Save Slot 2", "save/save2.json"));
-		model.addElement(new SaveFile("Save Slot 3", "save/save3.json"));
-		model.addElement(new SaveFile("Save Slot 4", "save/save4.json"));
-		model.addElement(new SaveFile("Save Slot 5", "save/save5.json"));
+		model.addElement(new SaveFile("Save Slot 1", "save/save1.json", 1));
+		model.addElement(new SaveFile("Save Slot 2", "save/save2.json", 2));
+		model.addElement(new SaveFile("Save Slot 3", "save/save3.json", 3));
+		model.addElement(new SaveFile("Save Slot 4", "save/save4.json", 4));
+		model.addElement(new SaveFile("Save Slot 5", "save/save5.json", 5));
 		
 		listSaveFile.setModel(model);	
 		listSaveFile.setCellRenderer(new SaveFileRenderer());
@@ -157,10 +162,12 @@ public class PauseScene extends JPanel {
 	class SaveFile {
 		private String name;
 		private String link;
+		private int id;
 		
-		public SaveFile(String name, String link) {
+		public SaveFile(String name, String link, int id) {
 			this.name = name;
 			this.link = link;
+			this.id = id;
 		}
 		
 		@Override
@@ -233,11 +240,12 @@ public class PauseScene extends JPanel {
 			
 //			name.setText(value.name);
 			
+			int i = value.id ;
 			if(isSelected) {
-				name.setIcon(new ImageIcon("data/btnHome.png"));
+				name.setIcon(new ImageIcon("data/btnSaveFile" + i + ".png"));
 			}
 			else {
-				name.setIcon(new ImageIcon("data/btnCredit.png"));
+				name.setIcon(new ImageIcon("data/btnSaveFile" + i + ".png"));
 			}
 			
 			return this;

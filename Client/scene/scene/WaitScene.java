@@ -4,7 +4,9 @@ import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -25,9 +27,18 @@ public class WaitScene extends JPanel {
 		setUI();
 
 	}
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		ImageIcon waiting = new ImageIcon("data/waiting.png");
+		ImageIcon background = new ImageIcon("data/background.png");
+		
+		g.drawImage(background.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+		g.drawImage(waiting.getImage(), this.getWidth()/4, this.getHeight()/4, this.getWidth()/2, this.getHeight()/4, null);
+
+	}
 	
 	private void setUI() {
-		setBackground(Color.WHITE);
+		//setBackground(new Color(1.0f ,1.0f,1.0f,0.0f));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{100, 0, 0};
 		gridBagLayout.rowHeights = new int[]{25, 0, 0};
@@ -35,19 +46,24 @@ public class WaitScene extends JPanel {
 		gridBagLayout.rowWeights = new double[]{1.0, 5.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JButton btnBack = new JButton("Back");
+		JButton btnBack = new JButton("");
+		btnBack.setOpaque(false);
+		btnBack.setFocusPainted(false);
+		btnBack.setBorderPainted(false);
+		btnBack.setContentAreaFilled(false);
+		btnBack.setIcon(new ImageIcon("data/btnBack.png"));
 		btnBack.setForeground(Color.WHITE);
 		btnBack.setBackground(Color.GRAY);
 		GridBagConstraints gbc_btnBack = new GridBagConstraints();
-		gbc_btnBack.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBack.insets = new Insets(0, 0, 0, 0);
 		gbc_btnBack.gridx = 0;
 		gbc_btnBack.gridy = 0;
 		add(btnBack, gbc_btnBack);
 		btnBack.addActionListener(new BtnBack());
 		
-		btnBack.setMinimumSize(new Dimension(100, 25));
-		btnBack.setPreferredSize(new Dimension(100, 25));
-		btnBack.setMaximumSize(new Dimension(300, 100));
+//		btnBack.setMinimumSize(new Dimension(100, 25));
+//		btnBack.setPreferredSize(new Dimension(100, 25));
+//		btnBack.setMaximumSize(new Dimension(300, 100));
 	}
 
 	class BtnBack implements ActionListener {

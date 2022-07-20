@@ -88,21 +88,21 @@ public class Map {
 					layer.add(nopath);
 					break;
 				}
-//				case "gate":{
-//					gate = new Gate(id, data, name, tiles);
-//					layer.add(gate);
-//					break;
-//				}
+				case "gate":{
+					gate = new Gate(id, data, name, tiles);
+					layer.add(gate);
+					break;
+				}
 				case "elevator":{
 					elevator = new Elevator(id, data, name, tiles);
 					layer.add(elevator);
 					break;
 				}
-//				case "bed":{
-//					bed = new Bed(id, data, name, tiles);
-//					layer.add(bed);
-//					break;
-//				}
+				case "bed":{
+					bed = new Bed(id, data, name, tiles);
+					layer.add(bed);
+					break;
+				}
 			}
 		}
 		
