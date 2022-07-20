@@ -3,6 +3,7 @@ package scene;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -12,10 +13,14 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class CreditScene extends JPanel {
 
 	private Container container;
+	
+	private JButton btnBack;
 	/**
 	 * Create the panel.
 	 */
@@ -39,21 +44,47 @@ public class CreditScene extends JPanel {
 		gridBagLayout.rowWeights = new double[]{5.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JButton btnback = new JButton();
-		btnback.setBackground(Color.WHITE);
+		btnBack = new JButton();
+		btnBack.setOpaque(false);
+		btnBack.setFocusPainted(false);
+		btnBack.setBorderPainted(false);
+		btnBack.setContentAreaFilled(false);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		btnBack.setIcon(new ImageIcon("data/btnBack.png"));
 		GridBagConstraints gbc_btnback = new GridBagConstraints();
 		gbc_btnback.fill = GridBagConstraints.BOTH;
 		gbc_btnback.gridx = 1;
 		gbc_btnback.gridy = 1;
-		add(btnback, gbc_btnback);
-		btnback.addActionListener(new BtnBack());
+		add(btnBack, gbc_btnback);
+		btnBack.addMouseListener(new MouseBack());
 	}
 	
-	class BtnBack implements ActionListener {
-		
+	class MouseBack implements MouseListener {
+
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			container.showCreditScene();
+		public void mouseClicked(MouseEvent e) {
+			
 		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			container.showMenuScene();
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnBack.setIcon(new ImageIcon("data/btnBackPress.png"));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnBack.setIcon(new ImageIcon("data/btnBack.png"));
+		}
+		
 	}
 }

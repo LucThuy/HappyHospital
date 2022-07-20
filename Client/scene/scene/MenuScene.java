@@ -151,36 +151,15 @@ public class MenuScene extends JPanel {
 			
 	}
 	
-	class BtnSinglePlayer implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String name = txtNameInput.getText();
-			container.getClient().setClientName(name);
-			
-			try {
-				container.showSinglePlayerScene();
-			} catch (IOException | ParseException e1) {
-				e1.printStackTrace();
-			}			
-		}	
-	}
-	
-	class BtnMutilPlayer implements ActionListener {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String name = txtNameInput.getText();
-			container.getClient().setClientName(name);
-			
-			container.showServerSelectScene(container.getClient().getChillThread().getServerAvailable());
-		}	
-	}
-	
 	class MouseSinglePlayer implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+				
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
 			String name = txtNameInput.getText();
 			container.getClient().setClientName(name);
 			
@@ -188,12 +167,7 @@ public class MenuScene extends JPanel {
 				container.showSinglePlayerScene();
 			} catch (IOException | ParseException e1) {
 				e1.printStackTrace();
-			}	
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			
+			}
 		}
 
 		@Override
@@ -217,15 +191,15 @@ public class MenuScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			String name = txtNameInput.getText();
-			container.getClient().setClientName(name);
 			
-			container.showServerSelectScene(container.getClient().getChillThread().getServerAvailable());	
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
+			String name = txtNameInput.getText();
+			container.getClient().setClientName(name);
 			
+			container.showServerSelectScene(container.getClient().getChillThread().getServerAvailable());	
 		}
 
 		@Override

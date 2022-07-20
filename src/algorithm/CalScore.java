@@ -24,6 +24,6 @@ public class CalScore {
 		float time = System.currentTimeMillis() / 1000 - preTime / 1000 - expectedTime;
 		preTime = System.currentTimeMillis();
 	
-		return 10 - time / 2;
+		return (10 - time / 4) >= 0 ? (10 - time / 4) : 0;
 	}
 }

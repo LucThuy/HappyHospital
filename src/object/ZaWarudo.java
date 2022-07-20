@@ -8,7 +8,7 @@ import algorithm.Cooldown;
 
 public class ZaWarudo {
 	public static boolean isZaWarudo = false;
-	public static Cooldown zaWarudoCD = new Cooldown(3000);
+	public static Cooldown zaWarudoCD = new Cooldown(5000);
 	public int x;
 	public int y;
 	

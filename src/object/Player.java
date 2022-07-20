@@ -125,6 +125,9 @@ public class Player {
 	}
 	
 	private boolean isRightWay(Position tmp, String direct) {
+		if(ZaWarudo.isZaWarudo) {
+			return true;
+		}
 		int x = tmp.x / SIZE;
 		int y = tmp.y / SIZE;
 		int checkX = tmp.x % SIZE;

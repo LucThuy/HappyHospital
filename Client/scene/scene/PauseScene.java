@@ -242,7 +242,7 @@ public class PauseScene extends JPanel {
 			
 			int i = value.id ;
 			if(isSelected) {
-				name.setIcon(new ImageIcon("data/btnSaveFile" + i + ".png"));
+				name.setIcon(new ImageIcon("data/btnSaveFile" + i + "Press.png"));
 			}
 			else {
 				name.setIcon(new ImageIcon("data/btnSaveFile" + i + ".png"));
