@@ -47,6 +47,7 @@ public class PauseScene extends JPanel {
 	private JList<SaveFile> listSaveFile;
 	private DefaultListModel<SaveFile> model;
 	private JButton btnHome;
+	private JButton btnBack;
 	
 	/**
 	 * Create the panel.
@@ -89,7 +90,7 @@ public class PauseScene extends JPanel {
 		gbl_pnlButton.rowWeights = new double[]{1.0, 4.0, 2.0, 0.0, 2.0, Double.MIN_VALUE};
 		pnlButton.setLayout(gbl_pnlButton);
 		
-		JButton btnBack = new JButton("");
+		btnBack = new JButton("");
 		btnBack.setOpaque(false);
 		btnBack.setFocusPainted(false);
 		btnBack.setBorderPainted(false);
@@ -103,7 +104,7 @@ public class PauseScene extends JPanel {
 		gbc_btnBack.gridx = 0;
 		gbc_btnBack.gridy = 0;
 		pnlButton.add(btnBack, gbc_btnBack);
-		btnBack.addActionListener(new BtnBack());
+		btnBack.addMouseListener(new MouseBack());
 		
 		JButton btnSaveGame = new JButton("Save Game");
 		btnSaveGame.setForeground(Color.WHITE);
@@ -186,14 +187,36 @@ public class PauseScene extends JPanel {
 		
 	}
 	
-	class BtnBack implements ActionListener {
+	
+	class MouseBack implements MouseListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void mouseClicked(MouseEvent e) {
 			container.showSinglePlayerSceneAgain();
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnBack.setIcon(new ImageIcon("data/btnBackPress.png"));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnBack.setIcon(new ImageIcon("data/btnBack.png"));
 		}
 		
 	}
+	
 	class MouseHome implements MouseListener {
 
 		@Override
