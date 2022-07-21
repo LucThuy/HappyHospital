@@ -7,7 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Vector;
@@ -17,6 +20,7 @@ import javax.swing.Timer;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import algorithm.AStar;
@@ -452,7 +456,7 @@ public class PlayScene extends JPanel {
 		}
 	}
 	
-	public void saveData() {
+	public void saveData(String link) throws IOException {
 		JSONObject data = new JSONObject();
 		
 		JSONObject player = new JSONObject();
@@ -512,5 +516,26 @@ public class PlayScene extends JPanel {
 			endPointAgent.add(tmp);
 		}
 		data.put("endPointAgent", endPointAgent);
+		
+		FileWriter file = new FileWriter(link, false);
+		file.write(data.toJSONString());
+		file.flush();
+	}
+	
+	public void loadData(String link) throws FileNotFoundException, IOException, ParseException {
+		Object obj = new JSONParser().parse(new FileReader(link));
+		JSONObject data = (JSONObject)obj;
+		
+		JSONObject player = (JSONObject) data.get("player");	
+		int x = (int) player.get("x");
+		int y = (int) player.get("y");
+		int score = (int)player.get("score");
+		this.player = new Player(x / SIZE, y / SIZE, map.path.dataArr);
+		
+		preNode = this.AStar.map[x / SIZE][y / SIZE];
+		calScore = new CalScore();
+		genEndPoint();
+		
+		
 	}
 }
