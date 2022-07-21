@@ -12,11 +12,14 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 public class WaitScene extends JPanel {
 
 	private Container container;
+	private JButton btnBack;
 	
 	/**
 	 * Create the panel.
@@ -33,7 +36,7 @@ public class WaitScene extends JPanel {
 		ImageIcon background = new ImageIcon("data/background.png");
 		
 		g.drawImage(background.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
-		g.drawImage(waiting.getImage(), this.getWidth()/4, this.getHeight()/2, this.getWidth()/2, this.getHeight()/4, null);
+		g.drawImage(waiting.getImage(), this.getWidth()/4, this.getHeight()/4, this.getWidth()/2, this.getHeight()/4, null);
 
 	}
 	
@@ -46,7 +49,7 @@ public class WaitScene extends JPanel {
 		gridBagLayout.rowWeights = new double[]{1.0, 5.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JButton btnBack = new JButton("");
+		btnBack = new JButton("");
 		btnBack.setOpaque(false);
 		btnBack.setFocusPainted(false);
 		btnBack.setBorderPainted(false);
@@ -57,23 +60,46 @@ public class WaitScene extends JPanel {
 		gbc_btnBack.gridx = 0;
 		gbc_btnBack.gridy = 0;
 		add(btnBack, gbc_btnBack);
-		btnBack.addActionListener(new BtnBack());
+		btnBack.addMouseListener(new MouseBack());
 		
 //		btnBack.setMinimumSize(new Dimension(100, 25));
 //		btnBack.setPreferredSize(new Dimension(100, 25));
 //		btnBack.setMaximumSize(new Dimension(300, 100));
 	}
 
-	class BtnBack implements ActionListener {
+	
+	class MouseBack implements MouseListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void mouseClicked(MouseEvent e) {
 			try {
 				container.getClient().getRageThread().byeBye();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 			container.showServerSelectScene(container.getClient().getChillThread().getServerAvailable());	
-		}		
+				
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnBack.setIcon(new ImageIcon("data/btnBackPress.png"));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnBack.setIcon(new ImageIcon("data/btnBack.png"));
+		}
+		
 	}
 }

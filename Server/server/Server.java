@@ -63,9 +63,11 @@ public class Server extends JFrame {
 	}
 
 	private void setUI() {
-		setTitle("Server cho cho =))");
+		setTitle("Server");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 450, 300);
+		setBounds(0, 0, 350, 200);
+		this.setLocationRelativeTo(null);
+
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
