@@ -239,7 +239,7 @@ public class PlayScene extends JPanel {
 			if(this.player.isCollision(this.player.bound, this.zaWarudo.get(i).bound)) {
 				ZaWarudo.isZaWarudo = true;
 				ZaWarudo.zaWarudoCD.setTime();
-				this.sound.turnOnMusic1(10);
+				this.sound.turnOnMusic(10);
 				this.zaWarudo.remove(i);
 			}
 		}
@@ -270,7 +270,7 @@ public class PlayScene extends JPanel {
 	
 	private boolean isEnd() {
 		if(endPointBound.contains(this.player.bound)) {	
-			this.sound.turnOnMusic1(7);
+			this.sound.turnOnMusic(7);
 			return true;
 		}
 		return false;
@@ -408,67 +408,67 @@ public class PlayScene extends JPanel {
 	}
 	
 	
-	class CustomKeyListener implements KeyListener {
-		
-		private boolean isIPress = false;
-		
-		@Override
-		public void keyTyped(KeyEvent e) {
-
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {	
-			int key  = e.getKeyCode();
-			
-			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-				player.msE = player.ms;
-			}
-			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
-				player.msN = player.ms;
-			}
-			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-				player.msW = player.ms;
-			}
-			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
-				player.msS = player.ms;
-			}
-			
-			if(key == KeyEvent.VK_I) {
-				if(!isIPress) {
-					if(ZaWarudo.isZaWarudo) {
-						player.blink.isBlink = true;
-					}
-					else if(!player.blink.blinkCD.isCD()) {
-						player.blink.isBlink = true;
-					}
-					isIPress = true;
-				}
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			int key  = e.getKeyCode();
-			
-			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-				player.msE = 0;
-			}
-			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
-				player.msN = 0;
-			}
-			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-				player.msW = 0;
-			}
-			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
-				player.msS = 0;
-			}
-			
-			if(key == KeyEvent.VK_I) {
-				isIPress = false;
-			}
-		}
-	}
+//	class CustomKeyListener implements KeyListener {
+//		
+//		private boolean isIPress = false;
+//		
+//		@Override
+//		public void keyTyped(KeyEvent e) {
+//
+//		}
+//
+//		@Override
+//		public void keyPressed(KeyEvent e) {	
+//			int key  = e.getKeyCode();
+//			
+//			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
+//				player.msE = player.ms;
+//			}
+//			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
+//				player.msN = player.ms;
+//			}
+//			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
+//				player.msW = player.ms;
+//			}
+//			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
+//				player.msS = player.ms;
+//			}
+//			
+//			if(key == KeyEvent.VK_I) {
+//				if(!isIPress) {
+//					if(ZaWarudo.isZaWarudo) {
+//						player.blink.isBlink = true;
+//					}
+//					else if(!player.blink.blinkCD.isCD()) {
+//						player.blink.isBlink = true;
+//					}
+//					isIPress = true;
+//				}
+//			}
+//		}
+//
+//		@Override
+//		public void keyReleased(KeyEvent e) {
+//			int key  = e.getKeyCode();
+//			
+//			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
+//				player.msE = 0;
+//			}
+//			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
+//				player.msN = 0;
+//			}
+//			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
+//				player.msW = 0;
+//			}
+//			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
+//				player.msS = 0;
+//			}
+//			
+//			if(key == KeyEvent.VK_I) {
+//				isIPress = false;
+//			}
+//		}
+//	}
 	
 	public void saveData(String link) throws IOException {
 		JSONObject data = new JSONObject();

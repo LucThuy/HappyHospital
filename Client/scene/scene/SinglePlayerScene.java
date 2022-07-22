@@ -7,7 +7,6 @@ import org.json.simple.parser.ParseException;
 
 import object.ZaWarudo;
 import map.Sound;
-import scene.PlayScene.CustomKeyListener;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,13 +40,13 @@ public class SinglePlayerScene extends JPanel {
 
 	public JTextField txtSetAgent;
 
-	JLabel counterLabel;
-	Timer timer;	
-	int second, minute;
-	String ddSecond, ddMinute;	
-	DecimalFormat dFormat = new DecimalFormat("00");
+	private JLabel lblTime;
+	private Timer timer;	
+	private int second, minute;
+	private String ddSecond, ddMinute;	
+	private DecimalFormat dFormat = new DecimalFormat("00");
 	
-	public Sound sound = new Sound();
+	private Sound sound = new Sound();
 	
 	/**
 	 * Create the panel.
@@ -60,6 +59,10 @@ public class SinglePlayerScene extends JPanel {
 
 		setUI();
 		
+		second =0;
+		minute =16;
+		timer = new Timer(1000, new CustomActionListener());	
+		timer.start();
 		addKeyListener(new CustomKeyListener());
 	}
 	
@@ -111,20 +114,20 @@ public class SinglePlayerScene extends JPanel {
 		btnPause.setPreferredSize(new Dimension(65, 25));
 		btnPause.setMaximumSize(new Dimension(100, 50));
 		
-		counterLabel = new JLabel();
-		counterLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		counterLabel.setForeground(Color.DARK_GRAY);
-		counterLabel.setBackground(Color.WHITE);
-		GridBagConstraints gbc_counterLabel = new GridBagConstraints();
-		gbc_counterLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_counterLabel.gridx = 0;
-		gbc_counterLabel.gridy = 1;
-		panel_1.add(counterLabel, gbc_counterLabel);
+		lblTime = new JLabel();
+		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTime.setForeground(Color.DARK_GRAY);
+		lblTime.setBackground(Color.WHITE);
+		GridBagConstraints gbc_lblTime = new GridBagConstraints();
+		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTime.gridx = 0;
+		gbc_lblTime.gridy = 1;
+		panel_1.add(lblTime, gbc_lblTime);
 		
-		counterLabel.setMinimumSize(new Dimension(65, 25));
-		counterLabel.setPreferredSize(new Dimension(65, 25));
-		counterLabel.setMaximumSize(new Dimension(100, 50));
-		counterLabel.setText("16:00");
+		lblTime.setMinimumSize(new Dimension(65, 25));
+		lblTime.setPreferredSize(new Dimension(65, 25));
+		lblTime.setMaximumSize(new Dimension(100, 50));
+		lblTime.setText("16:00");
 		
 		lblScore = new JLabel("0");
 		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
@@ -151,6 +154,8 @@ public class SinglePlayerScene extends JPanel {
 		panel_1.add(lblNumAgent, gbc_lblNumAgent);
 		
 		txtSetAgent = new JTextField();
+		txtSetAgent.setText("0");
+		txtSetAgent.setHorizontalAlignment(SwingConstants.CENTER);
 		txtSetAgent.setSize(100, 50);
 		GridBagConstraints gbc_txtSetAgent = new GridBagConstraints();
 		gbc_txtSetAgent.anchor = GridBagConstraints.NORTH;
@@ -177,41 +182,11 @@ public class SinglePlayerScene extends JPanel {
 		btnApply.setMinimumSize(new Dimension(65, 25));
 		btnApply.setPreferredSize(new Dimension(65, 25));
 		btnApply.setMaximumSize(new Dimension(100, 50));
-		second =0;
-		minute =16;
-		countdownTimer();
-		timer.start();
-
 	}
 	
 	private SinglePlayerScene getSinglePlayerScene() {
 		return this;
-	}
-	public void countdownTimer() {
-		
-		timer = new Timer(1000, new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				second--;
-				ddSecond = dFormat.format(second);
-				ddMinute = dFormat.format(minute);	
-				counterLabel.setText(ddMinute + ":" + ddSecond);
-				
-				if(second==-1) {
-					second = 59;
-					minute--;
-					ddSecond = dFormat.format(second);
-					ddMinute = dFormat.format(minute);	
-					counterLabel.setText(ddMinute + ":" + ddSecond);
-				}
-				if(minute==0 && second==0) {
-					timer.stop();
-				}
-			}
-		});		
-	}		
+	}	
 	
 	class BtnPause implements ActionListener {
 
@@ -234,6 +209,29 @@ public class SinglePlayerScene extends JPanel {
 		
 	}
 	
+	class CustomActionListener implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(isMove) {
+				sound.turnOnMusic(5);
+			}
+			second--;	
+			if(second==-1) {
+				second = 59;
+				minute--;
+			}
+			ddSecond = dFormat.format(second);
+			ddMinute = dFormat.format(minute);	
+			lblTime.setText(ddMinute + ":" + ddSecond);
+			if(minute==0 && second==0) {
+				timer.stop();
+			}
+		}	
+	}
+	
+	private boolean isMove = false;
+	
 	class CustomKeyListener implements KeyListener {
 		
 		private boolean isIPress = false;
@@ -249,16 +247,19 @@ public class SinglePlayerScene extends JPanel {
 			
 			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
 				playScene.player.msE = playScene.player.ms;
+				isMove = true;
 			}
 			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
 				playScene.player.msN = playScene.player.ms;
+				isMove = true;
 			}
 			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
 				playScene.player.msW = playScene.player.ms;
+				isMove = true;
 			}
 			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
 				playScene.player.msS = playScene.player.ms;
-			
+				isMove = true;
 			}
 			
 			if(key == KeyEvent.VK_I) {
@@ -268,6 +269,7 @@ public class SinglePlayerScene extends JPanel {
 					}
 					else if(!playScene.player.blink.blinkCD.isCD()) {
 						playScene.player.blink.isBlink = true;
+						sound.turnOnMusic(4);
 					}
 					isIPress = true;
 				}
@@ -280,24 +282,23 @@ public class SinglePlayerScene extends JPanel {
 			
 			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
 				playScene.player.msE = 0;
-				turnOnMusic1(5);
+				isMove = false;
 			}
 			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
 				playScene.player.msN = 0;
-				turnOnMusic1(5);
+				isMove = false;
 			}
 			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
 				playScene.player.msW = 0;
-				turnOnMusic1(5);
+				isMove = false;
 			}
 			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
 				playScene.player.msS = 0;
-				turnOnMusic1(5);
+				isMove = false;
 			}
 			
 			if(key == KeyEvent.VK_I) {
 				isIPress = false;
-				turnOnMusic1(4);
 			}		
 		}	
 	}
@@ -312,8 +313,9 @@ public class SinglePlayerScene extends JPanel {
 		this.playScene.player.setName(container.getClient().getClientName());
 		add(this.playScene, gbc_panel);
 	}
-	public void turnOnMusic1(int i){
-	      this.sound.setFile(i);
-	      this.sound.playSound();
-	  }
+	
+//	public void turnOnMusic(int i){
+//	      this.sound.setFile(i);
+//	      this.sound.playSound();
+//	}
 }
