@@ -188,7 +188,13 @@ public class PauseScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());		}
+			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());	
+			try {
+				container.getSinglePlayerScene().getPlayScene().saveData(saveFile.link);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {

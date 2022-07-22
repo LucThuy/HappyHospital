@@ -188,7 +188,18 @@ public class LoadGameScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());		}
+			try {
+				container.showSinglePlayerScene();
+			} catch (IOException | ParseException e1) {
+				e1.printStackTrace();
+			}
+			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());	
+			try {
+				container.getSinglePlayerScene().getPlayScene().loadData(saveFile.link);
+			} catch (IOException | ParseException e1) {
+				e1.printStackTrace();
+			}
+		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
