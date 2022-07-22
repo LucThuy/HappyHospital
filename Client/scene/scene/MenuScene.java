@@ -26,6 +26,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
+import map.Sound;
+
 public class MenuScene extends JPanel {
 
 	private Container container;
@@ -35,12 +37,15 @@ public class MenuScene extends JPanel {
 	private JButton btnHowToPlay;
 	private JButton btnCredit;
 	
+	public Sound sound = new Sound();
+	
 	/**
 	 * Create the panel.
 	 */
 	public MenuScene(Container container) {
 		this.container = container;
 		setUI();
+		this.sound.turnOnMusic(6);
 	}
 	
 	public void paintComponent(Graphics g){

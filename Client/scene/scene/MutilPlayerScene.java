@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import object.ZaWarudo;
+import map.Sound;
 
 public class MutilPlayerScene extends JPanel {
 
@@ -29,6 +30,7 @@ public class MutilPlayerScene extends JPanel {
 	
 	public JLabel lblScoreHost;
 	public JLabel lblScoreGuest;
+	private Sound sound = new Sound();
 	
 	private int isHost = 0;
 	
@@ -156,15 +158,19 @@ public class MutilPlayerScene extends JPanel {
 			
 			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
 				container.getClient().getRageThread().keyReleased("D", isHost);
+				turnOnMusic1(5);
 			}
 			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
 				container.getClient().getRageThread().keyReleased("W", isHost);
+				turnOnMusic1(5);
 			}
 			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
 				container.getClient().getRageThread().keyReleased("A", isHost);
+				turnOnMusic1(5);
 			}
 			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
 				container.getClient().getRageThread().keyReleased("S", isHost);
+				turnOnMusic1(5);
 			}
 			if(key == KeyEvent.VK_I) {
 				container.getClient().getRageThread().keyReleased("I", isHost);
@@ -184,4 +190,8 @@ public class MutilPlayerScene extends JPanel {
 	public void setHost() {
 		this.isHost = 1;
 	}
+	public void turnOnMusic1(int i){
+	      this.sound.setFile(i);
+	      this.sound.playSound();
+	  }
 }
