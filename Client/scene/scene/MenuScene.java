@@ -156,6 +156,10 @@ public class MenuScene extends JPanel {
 			
 	}
 	
+	public String getTxtNameInput() {
+		return txtNameInput.getText();
+	}
+	
 	class MouseSinglePlayer implements MouseListener {
 
 		@Override
@@ -165,14 +169,7 @@ public class MenuScene extends JPanel {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			String name = txtNameInput.getText();
-			container.getClient().setClientName(name);
-			
-			try {
-				container.showSinglePlayerScene();
-			} catch (IOException | ParseException e1) {
-				e1.printStackTrace();
-			}
+			container.showLoadGameScene();
 		}
 
 		@Override
@@ -257,7 +254,7 @@ public class MenuScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			container.showHowToPlayScene();
+			container.showCreditScene();
 		}
 
 		@Override

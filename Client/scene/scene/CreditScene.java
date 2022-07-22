@@ -32,7 +32,7 @@ public class CreditScene extends JPanel {
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("data/background.png");
+		ImageIcon background = new ImageIcon("data/creditScene.png");
 		g.drawImage(background.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
 	}
 	
@@ -40,8 +40,8 @@ public class CreditScene extends JPanel {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{31, 0, 0};
-		gridBagLayout.columnWeights = new double[]{5.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{5.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{5.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{5.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		btnBack = new JButton();

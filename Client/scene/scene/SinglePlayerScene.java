@@ -21,11 +21,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
 import java.awt.Font;
 
 public class SinglePlayerScene extends JPanel {
@@ -35,7 +38,15 @@ public class SinglePlayerScene extends JPanel {
 	
 	public GridBagConstraints gbc_panel;
 	public JLabel lblScore;
+<<<<<<< HEAD
 	public JTextField txtSetAgent;
+=======
+	JLabel counterLabel;
+	Timer timer;	
+	int second, minute;
+	String ddSecond, ddMinute;	
+	DecimalFormat dFormat = new DecimalFormat("00");
+>>>>>>> branch 'main' of https://github.com/LucThuy/HappyHospital.git
 	
 	public Sound sound = new Sound();
 	
@@ -116,6 +127,7 @@ public class SinglePlayerScene extends JPanel {
 		lblScore.setPreferredSize(new Dimension(65, 25));
 		lblScore.setMaximumSize(new Dimension(100, 50));
 		
+<<<<<<< HEAD
 		JLabel lblNumAgent = new JLabel("NumAgents");
 		GridBagConstraints gbc_lblNumAgent = new GridBagConstraints();
 		gbc_lblNumAgent.anchor = GridBagConstraints.SOUTH;
@@ -151,11 +163,67 @@ public class SinglePlayerScene extends JPanel {
 		btnApply.setMinimumSize(new Dimension(65, 25));
 		btnApply.setPreferredSize(new Dimension(65, 25));
 		btnApply.setMaximumSize(new Dimension(100, 50));
+=======
+		counterLabel = new JLabel();
+		counterLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		counterLabel.setForeground(Color.DARK_GRAY);
+		counterLabel.setBackground(Color.WHITE);
+		panel_1.add(counterLabel);
+		
+		counterLabel.setMinimumSize(new Dimension(65, 25));
+		counterLabel.setPreferredSize(new Dimension(65, 25));
+		counterLabel.setMaximumSize(new Dimension(100, 50));
+		counterLabel.setText("16:00");
+		second =0;
+		minute =16;
+		countdownTimer();
+		timer.start();
+		
+		JLabel setAgent_ = new JLabel("Number of agents");
+		JTextField setAgent = new JTextField();
+		JButton app = new JButton("Apply");
+		app.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int count = Integer.valueOf(setAgent.getText());
+				PlayScene.setNumberOfAgents(count);
+				app.setFocusable(false);
+			}
+		});
+		setAgent.setSize(100, 50);
+		panel_1.add(setAgent_);
+		panel_1.add(setAgent);
+		panel_1.add(app);		
+>>>>>>> branch 'main' of https://github.com/LucThuy/HappyHospital.git
 	}
 	
 	private SinglePlayerScene getSinglePlayerScene() {
 		return this;
 	}
+	public void countdownTimer() {
+		
+		timer = new Timer(1000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				second--;
+				ddSecond = dFormat.format(second);
+				ddMinute = dFormat.format(minute);	
+				counterLabel.setText(ddMinute + ":" + ddSecond);
+				
+				if(second==-1) {
+					second = 59;
+					minute--;
+					ddSecond = dFormat.format(second);
+					ddMinute = dFormat.format(minute);	
+					counterLabel.setText(ddMinute + ":" + ddSecond);
+				}
+				if(minute==0 && second==0) {
+					timer.stop();
+				}
+			}
+		});		
+	}		
 	
 	class BtnPause implements ActionListener {
 
