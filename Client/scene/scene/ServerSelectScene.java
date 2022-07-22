@@ -41,6 +41,8 @@ public class ServerSelectScene extends JPanel {
 	private Container container;
 	
 	private JButton btnBack;
+	private JButton btnNewRoom;
+	private JButton btnGetGo;
 	
 	private JList<ServerAvailable> listServer;
 	private DefaultListModel<ServerAvailable> model;
@@ -103,7 +105,12 @@ public class ServerSelectScene extends JPanel {
 		pnlButton.add(btnBack, gbc_btnBack);
 		btnBack.addMouseListener(new MouseBack());
 		
-		JButton btnNewRoom = new JButton("New Room");
+		btnNewRoom = new JButton("");
+		btnNewRoom.setOpaque(false);
+		btnNewRoom.setFocusable(false);
+		btnNewRoom.setBorderPainted(false);
+		btnNewRoom.setContentAreaFilled(false);
+		btnNewRoom.setIcon(new ImageIcon("data/btnCreateRoom.png"));
 		btnNewRoom.setForeground(Color.WHITE);
 		btnNewRoom.setBackground(Color.GRAY);
 		btnNewRoom.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -113,9 +120,14 @@ public class ServerSelectScene extends JPanel {
 		gbc_btnNewRoom.gridx = 0;
 		gbc_btnNewRoom.gridy = 2;
 		pnlButton.add(btnNewRoom, gbc_btnNewRoom);		
-		btnNewRoom.addActionListener(new BtnNewRoom());
+		btnNewRoom.addMouseListener(new MouseNewRoom());
 		
-		JButton btnGetGo = new JButton("GetGo");
+		btnGetGo = new JButton("");
+		btnGetGo.setOpaque(false);
+		btnGetGo.setFocusable(false);
+		btnGetGo.setBorderPainted(false);
+		btnGetGo.setContentAreaFilled(false);
+		btnGetGo.setIcon(new ImageIcon("data/btnLetsPlay.png"));
 		btnGetGo.setForeground(Color.WHITE);
 		btnGetGo.setBackground(Color.GRAY);
 		btnGetGo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -124,7 +136,7 @@ public class ServerSelectScene extends JPanel {
 		gbc_btnGetGo.gridx = 0;
 		gbc_btnGetGo.gridy = 4;
 		pnlButton.add(btnGetGo, gbc_btnGetGo);		
-		btnGetGo.addActionListener(new BtnGetGo());
+		btnGetGo.addMouseListener(new MouseGetGo());
 		
 		JPanel pnlServer = new JPanel();
 //		pnlServer.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
@@ -220,21 +232,51 @@ public class ServerSelectScene extends JPanel {
 		
 	}
 	
-	class BtnNewRoom implements ActionListener {
+	class MouseNewRoom implements MouseListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void mouseClicked(MouseEvent e) {
 			String tmp = container.getClient().getChillThread().newRoom();
 			container.getClient().createRageThread(Integer.parseInt(tmp));
 			
-			container.showWaitScene();
-		}
-	}
-	
-	class BtnGetGo implements ActionListener {
+			container.showWaitScene();		}
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void mousePressed(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnNewRoom.setIcon(new ImageIcon("data/btnCreateRoom.png"));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnNewRoom.setIcon(new ImageIcon("data/btnCreateRoom.png"));
+		}
+		
+	}
+	
+//	class BtnNewRoom implements ActionListener {
+//
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			String tmp = container.getClient().getChillThread().newRoom();
+//			container.getClient().createRageThread(Integer.parseInt(tmp));
+//			
+//			container.showWaitScene();
+//		}
+//	}
+	class MouseGetGo implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
 			ServerAvailable serverSelected = model.elementAt(listServer.getSelectedIndex());
 			container.getClient().createRageThread(Integer.parseInt(serverSelected.port));
 			try {
@@ -243,5 +285,40 @@ public class ServerSelectScene extends JPanel {
 				e1.printStackTrace();
 			}
 		}	
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnGetGo.setIcon(new ImageIcon("data/btnLetsPlay.png"));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnGetGo.setIcon(new ImageIcon("data/btnLetsPlay.png"));
+		}
+		
 	}
+	
+//	class BtnGetGo implements ActionListener {
+//
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			ServerAvailable serverSelected = model.elementAt(listServer.getSelectedIndex());
+//			container.getClient().createRageThread(Integer.parseInt(serverSelected.port));
+//			try {
+//				container.showMutilPlayerScene();
+//			} catch (IOException | ParseException e1) {
+//				e1.printStackTrace();
+//			}
+//		}	
+//	}
 }

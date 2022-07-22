@@ -48,6 +48,7 @@ public class PauseScene extends JPanel {
 	private DefaultListModel<SaveFile> model;
 	private JButton btnHome;
 	private JButton btnBack;
+	private JButton btnSaveGame;
 	
 	/**
 	 * Create the panel.
@@ -106,7 +107,12 @@ public class PauseScene extends JPanel {
 		pnlButton.add(btnBack, gbc_btnBack);
 		btnBack.addMouseListener(new MouseBack());
 		
-		JButton btnSaveGame = new JButton("Save Game");
+		btnSaveGame = new JButton("");
+		btnSaveGame.setOpaque(false);
+		btnSaveGame.setFocusPainted(false);
+		btnSaveGame.setBorderPainted(false);
+		btnSaveGame.setContentAreaFilled(false);
+		btnSaveGame.setIcon(new ImageIcon("data/btnSaveGame.png"));
 		btnSaveGame.setForeground(Color.WHITE);
 		btnSaveGame.setBackground(Color.GRAY);
 		GridBagConstraints gbc_btnSaveGame = new GridBagConstraints();
@@ -115,6 +121,7 @@ public class PauseScene extends JPanel {
 		gbc_btnSaveGame.gridx = 0;
 		gbc_btnSaveGame.gridy = 2;
 		pnlButton.add(btnSaveGame, gbc_btnSaveGame);
+		btnSaveGame.addMouseListener(new MouseSaveGame());
 		
 		btnHome = new JButton("");
 		btnHome.setOpaque(false);
@@ -183,6 +190,34 @@ public class PauseScene extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());
+		}
+		
+	}
+	
+	class MouseSaveGame implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnSaveGame.setIcon(new ImageIcon("data/btnSaveGame.png"));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnSaveGame.setIcon(new ImageIcon("data/btnSaveGame.png"));
 		}
 		
 	}
