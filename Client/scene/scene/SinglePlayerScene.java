@@ -35,6 +35,7 @@ public class SinglePlayerScene extends JPanel {
 	
 	public GridBagConstraints gbc_panel;
 	public JLabel lblScore;
+	public JTextField txtSetAgent;
 	
 	public Sound sound = new Sound();
 	
@@ -58,7 +59,7 @@ public class SinglePlayerScene extends JPanel {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{300, 25, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{5.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -76,14 +77,24 @@ public class SinglePlayerScene extends JPanel {
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 0;
 		add(panel_1, gbc_panel_1);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 25, 0, 0, 0, 0};
+		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
 		
 		JButton btnPause = new JButton("ll");
 		btnPause.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnPause.setForeground(Color.WHITE);
 		btnPause.setBackground(Color.GRAY);
 		btnPause.setFocusable(false);
-		panel_1.add(btnPause);
+		GridBagConstraints gbc_btnPause = new GridBagConstraints();
+		gbc_btnPause.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnPause.insets = new Insets(0, 0, 5, 0);
+		gbc_btnPause.gridx = 0;
+		gbc_btnPause.gridy = 0;
+		panel_1.add(btnPause, gbc_btnPause);
 		btnPause.addActionListener(new BtnPause());
 		
 		btnPause.setMinimumSize(new Dimension(65, 25));
@@ -94,26 +105,52 @@ public class SinglePlayerScene extends JPanel {
 		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
 		lblScore.setForeground(Color.DARK_GRAY);
 		lblScore.setBackground(Color.WHITE);
-		panel_1.add(lblScore);
+		GridBagConstraints gbc_lblScore = new GridBagConstraints();
+		gbc_lblScore.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblScore.insets = new Insets(0, 0, 5, 0);
+		gbc_lblScore.gridx = 0;
+		gbc_lblScore.gridy = 1;
+		panel_1.add(lblScore, gbc_lblScore);
 		
 		lblScore.setMinimumSize(new Dimension(65, 25));
 		lblScore.setPreferredSize(new Dimension(65, 25));
 		lblScore.setMaximumSize(new Dimension(100, 50));
 		
-		JLabel setAgent_ = new JLabel("Number of agents");
-		JTextField setAgent = new JTextField();
-		JButton app = new JButton("Apply");
-		app.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int count = Integer.valueOf(setAgent.getText());
-				PlayScene.setNumberOfAgents(count);
-				app.setFocusable(false);
-			}
-		});
-		setAgent.setSize(100, 50);
-		panel_1.add(setAgent_);
-		panel_1.add(setAgent);
-		panel_1.add(app);		
+		JLabel lblNumAgent = new JLabel("NumAgents");
+		GridBagConstraints gbc_lblNumAgent = new GridBagConstraints();
+		gbc_lblNumAgent.anchor = GridBagConstraints.SOUTH;
+		gbc_lblNumAgent.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNumAgent.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNumAgent.gridx = 0;
+		gbc_lblNumAgent.gridy = 2;
+		panel_1.add(lblNumAgent, gbc_lblNumAgent);
+		
+		txtSetAgent = new JTextField();
+		txtSetAgent.setSize(100, 50);
+		GridBagConstraints gbc_txtSetAgent = new GridBagConstraints();
+		gbc_txtSetAgent.anchor = GridBagConstraints.NORTH;
+		gbc_txtSetAgent.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSetAgent.insets = new Insets(0, 0, 5, 0);
+		gbc_txtSetAgent.gridx = 0;
+		gbc_txtSetAgent.gridy = 3;
+		panel_1.add(txtSetAgent, gbc_txtSetAgent);
+		
+		JButton btnApply = new JButton("Apply");
+		btnApply.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnApply.setForeground(Color.WHITE);
+		btnApply.setBackground(Color.GRAY);
+		btnApply.setFocusable(false);
+		GridBagConstraints gbc_btnApply = new GridBagConstraints();
+		gbc_btnApply.anchor = GridBagConstraints.NORTH;
+		gbc_btnApply.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnApply.gridx = 0;
+		gbc_btnApply.gridy = 4;
+		panel_1.add(btnApply, gbc_btnApply);	
+		btnApply.addActionListener(new BtnApply());
+		
+		btnApply.setMinimumSize(new Dimension(65, 25));
+		btnApply.setPreferredSize(new Dimension(65, 25));
+		btnApply.setMaximumSize(new Dimension(100, 50));
 	}
 	
 	private SinglePlayerScene getSinglePlayerScene() {
@@ -128,6 +165,17 @@ public class SinglePlayerScene extends JPanel {
 			
 			container.showPauseScene(getSinglePlayerScene());	
 		}	
+	}
+	
+	class BtnApply implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int count = Integer.valueOf(txtSetAgent.getText());
+			PlayScene.setNumberOfAgents(count);		
+			getSinglePlayerScene().requestFocusInWindow();
+		}
+		
 	}
 	
 	class CustomKeyListener implements KeyListener {

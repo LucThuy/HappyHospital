@@ -73,7 +73,7 @@ public class PlayScene extends JPanel {
 	
 	public final int FPS = 60;
 	public final int SIZE = 28;
-	public static int numberOfAgents;
+	private static int numberOfAgents;
 	
 	
 	public PlayScene(Container container) throws FileNotFoundException, IOException, ParseException {
