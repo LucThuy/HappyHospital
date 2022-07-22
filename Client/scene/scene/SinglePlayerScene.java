@@ -38,15 +38,14 @@ public class SinglePlayerScene extends JPanel {
 	
 	public GridBagConstraints gbc_panel;
 	public JLabel lblScore;
-<<<<<<< HEAD
+
 	public JTextField txtSetAgent;
-=======
+
 	JLabel counterLabel;
 	Timer timer;	
 	int second, minute;
 	String ddSecond, ddMinute;	
 	DecimalFormat dFormat = new DecimalFormat("00");
->>>>>>> branch 'main' of https://github.com/LucThuy/HappyHospital.git
 	
 	public Sound sound = new Sound();
 	
@@ -90,9 +89,9 @@ public class SinglePlayerScene extends JPanel {
 		add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{0, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 25, 0, 0, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0, 25, 0, 0, 0, 0};
 		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
 		JButton btnPause = new JButton("ll");
@@ -102,7 +101,7 @@ public class SinglePlayerScene extends JPanel {
 		btnPause.setFocusable(false);
 		GridBagConstraints gbc_btnPause = new GridBagConstraints();
 		gbc_btnPause.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnPause.insets = new Insets(0, 0, 5, 0);
+		gbc_btnPause.insets = new Insets(0, 0, 5, 5);
 		gbc_btnPause.gridx = 0;
 		gbc_btnPause.gridy = 0;
 		panel_1.add(btnPause, gbc_btnPause);
@@ -112,29 +111,43 @@ public class SinglePlayerScene extends JPanel {
 		btnPause.setPreferredSize(new Dimension(65, 25));
 		btnPause.setMaximumSize(new Dimension(100, 50));
 		
+		counterLabel = new JLabel();
+		counterLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		counterLabel.setForeground(Color.DARK_GRAY);
+		counterLabel.setBackground(Color.WHITE);
+		GridBagConstraints gbc_counterLabel = new GridBagConstraints();
+		gbc_counterLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_counterLabel.gridx = 0;
+		gbc_counterLabel.gridy = 1;
+		panel_1.add(counterLabel, gbc_counterLabel);
+		
+		counterLabel.setMinimumSize(new Dimension(65, 25));
+		counterLabel.setPreferredSize(new Dimension(65, 25));
+		counterLabel.setMaximumSize(new Dimension(100, 50));
+		counterLabel.setText("16:00");
+		
 		lblScore = new JLabel("0");
 		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
 		lblScore.setForeground(Color.DARK_GRAY);
 		lblScore.setBackground(Color.WHITE);
 		GridBagConstraints gbc_lblScore = new GridBagConstraints();
 		gbc_lblScore.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblScore.insets = new Insets(0, 0, 5, 0);
+		gbc_lblScore.insets = new Insets(0, 0, 5, 5);
 		gbc_lblScore.gridx = 0;
-		gbc_lblScore.gridy = 1;
+		gbc_lblScore.gridy = 2;
 		panel_1.add(lblScore, gbc_lblScore);
 		
 		lblScore.setMinimumSize(new Dimension(65, 25));
 		lblScore.setPreferredSize(new Dimension(65, 25));
 		lblScore.setMaximumSize(new Dimension(100, 50));
 		
-<<<<<<< HEAD
 		JLabel lblNumAgent = new JLabel("NumAgents");
 		GridBagConstraints gbc_lblNumAgent = new GridBagConstraints();
 		gbc_lblNumAgent.anchor = GridBagConstraints.SOUTH;
 		gbc_lblNumAgent.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNumAgent.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNumAgent.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNumAgent.gridx = 0;
-		gbc_lblNumAgent.gridy = 2;
+		gbc_lblNumAgent.gridy = 3;
 		panel_1.add(lblNumAgent, gbc_lblNumAgent);
 		
 		txtSetAgent = new JTextField();
@@ -142,9 +155,9 @@ public class SinglePlayerScene extends JPanel {
 		GridBagConstraints gbc_txtSetAgent = new GridBagConstraints();
 		gbc_txtSetAgent.anchor = GridBagConstraints.NORTH;
 		gbc_txtSetAgent.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSetAgent.insets = new Insets(0, 0, 5, 0);
+		gbc_txtSetAgent.insets = new Insets(0, 0, 5, 5);
 		gbc_txtSetAgent.gridx = 0;
-		gbc_txtSetAgent.gridy = 3;
+		gbc_txtSetAgent.gridy = 4;
 		panel_1.add(txtSetAgent, gbc_txtSetAgent);
 		
 		JButton btnApply = new JButton("Apply");
@@ -153,47 +166,22 @@ public class SinglePlayerScene extends JPanel {
 		btnApply.setBackground(Color.GRAY);
 		btnApply.setFocusable(false);
 		GridBagConstraints gbc_btnApply = new GridBagConstraints();
+		gbc_btnApply.insets = new Insets(0, 0, 0, 5);
 		gbc_btnApply.anchor = GridBagConstraints.NORTH;
 		gbc_btnApply.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnApply.gridx = 0;
-		gbc_btnApply.gridy = 4;
+		gbc_btnApply.gridy = 5;
 		panel_1.add(btnApply, gbc_btnApply);	
 		btnApply.addActionListener(new BtnApply());
 		
 		btnApply.setMinimumSize(new Dimension(65, 25));
 		btnApply.setPreferredSize(new Dimension(65, 25));
 		btnApply.setMaximumSize(new Dimension(100, 50));
-=======
-		counterLabel = new JLabel();
-		counterLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		counterLabel.setForeground(Color.DARK_GRAY);
-		counterLabel.setBackground(Color.WHITE);
-		panel_1.add(counterLabel);
-		
-		counterLabel.setMinimumSize(new Dimension(65, 25));
-		counterLabel.setPreferredSize(new Dimension(65, 25));
-		counterLabel.setMaximumSize(new Dimension(100, 50));
-		counterLabel.setText("16:00");
 		second =0;
 		minute =16;
 		countdownTimer();
 		timer.start();
-		
-		JLabel setAgent_ = new JLabel("Number of agents");
-		JTextField setAgent = new JTextField();
-		JButton app = new JButton("Apply");
-		app.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int count = Integer.valueOf(setAgent.getText());
-				PlayScene.setNumberOfAgents(count);
-				app.setFocusable(false);
-			}
-		});
-		setAgent.setSize(100, 50);
-		panel_1.add(setAgent_);
-		panel_1.add(setAgent);
-		panel_1.add(app);		
->>>>>>> branch 'main' of https://github.com/LucThuy/HappyHospital.git
+
 	}
 	
 	private SinglePlayerScene getSinglePlayerScene() {
