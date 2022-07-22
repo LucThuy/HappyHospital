@@ -75,7 +75,7 @@ public class Client extends JFrame {
 	 * @throws FileNotFoundException 
 	 */
 	public Client() throws FileNotFoundException, IOException, ParseException {
-		setTitle("Con cho");
+		setTitle("Client");
 		setUI();
 		
 		this.clientName = "minh";

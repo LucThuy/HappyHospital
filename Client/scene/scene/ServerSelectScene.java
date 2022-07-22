@@ -195,14 +195,6 @@ public class ServerSelectScene extends JPanel {
 		}
 	}
 	
-//	class BtnBack implements ActionListener {
-//
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			container.showMenuScene();	
-//		}		
-//	}
-	
 	class MouseBack implements MouseListener {
 
 		@Override
@@ -253,7 +245,7 @@ public class ServerSelectScene extends JPanel {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			btnNewRoom.setIcon(new ImageIcon("data/btnCreateRoom.png"));
+			btnNewRoom.setIcon(new ImageIcon("data/btnCreateRoomPress.png"));
 		}
 
 		@Override
@@ -263,16 +255,6 @@ public class ServerSelectScene extends JPanel {
 		
 	}
 	
-//	class BtnNewRoom implements ActionListener {
-//
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			String tmp = container.getClient().getChillThread().newRoom();
-//			container.getClient().createRageThread(Integer.parseInt(tmp));
-//			
-//			container.showWaitScene();
-//		}
-//	}
 	class MouseGetGo implements MouseListener {
 
 		@Override
@@ -298,7 +280,7 @@ public class ServerSelectScene extends JPanel {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			btnGetGo.setIcon(new ImageIcon("data/btnLetsPlay.png"));
+			btnGetGo.setIcon(new ImageIcon("data/btnLetsPlayPress.png"));
 		}
 
 		@Override
@@ -307,18 +289,4 @@ public class ServerSelectScene extends JPanel {
 		}
 		
 	}
-	
-//	class BtnGetGo implements ActionListener {
-//
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			ServerAvailable serverSelected = model.elementAt(listServer.getSelectedIndex());
-//			container.getClient().createRageThread(Integer.parseInt(serverSelected.port));
-//			try {
-//				container.showMutilPlayerScene();
-//			} catch (IOException | ParseException e1) {
-//				e1.printStackTrace();
-//			}
-//		}	
-//	}
 }

@@ -36,7 +36,7 @@ public class WaitScene extends JPanel {
 		ImageIcon background = new ImageIcon("data/background.png");
 		
 		g.drawImage(background.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
-		g.drawImage(waiting.getImage(), this.getWidth()/4, this.getHeight()/4, this.getWidth()/2, this.getHeight()/4, null);
+		g.drawImage(waiting.getImage(), this.getWidth()/4, this.getHeight()/2, this.getWidth()/2, this.getHeight()/4, null);
 
 	}
 	

@@ -93,8 +93,12 @@ public class Board extends JPanel {
 				this.zaWarudo.get(i).draw(g);
 			}
 		}
-		this.playerHost.draw(g, "host");
-		this.playerGuest.draw(g, "guest");
+		try {
+			this.playerHost.draw(g, "host");
+			this.playerGuest.draw(g, "guest");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		this.map.door.drawEnd(g, endDoorHostID, "host");
 		this.map.door.drawEnd(g, endDoorGuestID, "guest");
 	}

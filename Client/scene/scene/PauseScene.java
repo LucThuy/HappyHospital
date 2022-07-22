@@ -184,16 +184,6 @@ public class PauseScene extends JPanel {
 		}
 	}
 	
-	
-	class BtnSaveGame implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());
-		}
-		
-	}
-	
 	class MouseSaveGame implements MouseListener {
 
 		@Override
@@ -212,7 +202,7 @@ public class PauseScene extends JPanel {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			btnSaveGame.setIcon(new ImageIcon("data/btnSaveGame.png"));
+			btnSaveGame.setIcon(new ImageIcon("data/btnSaveGamePress.png"));
 		}
 
 		@Override
@@ -271,7 +261,7 @@ public class PauseScene extends JPanel {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			btnHome.setIcon(new ImageIcon("data/btnHome.png"));
+			btnHome.setIcon(new ImageIcon("data/btnHomePress.png"));
 		}
 
 		@Override

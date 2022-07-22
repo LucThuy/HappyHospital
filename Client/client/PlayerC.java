@@ -50,13 +50,19 @@ public class PlayerC {
 		g.drawString(this.name, this.position.x, this.position.y - 3);
 	}
 	
-	public void draw(Graphics g, String type) {
+	public void draw(Graphics g, String type) throws IOException {
 		g.setColor(Color.GREEN);
 		if(type.equals("host")) {
-			g.setColor(Color.ORANGE);
+			g.setColor(Color.MAGENTA);
+			BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+			bigImage = ImageIO.read(new File("data/agv.png"));
+			img = bigImage.getSubimage(3, 5, 24, 24);
 		}
 		else if(type.equals("guest")) {
-			g.setColor(Color.MAGENTA);
+			g.setColor(Color.GREEN);
+			BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+			bigImage = ImageIO.read(new File("data/agv2.png"));
+			img = bigImage.getSubimage(3, 5, 24, 24);
 		}
 		
 		g.drawRect(this.position.x, this.position.y, WIDTH, HEIGHT);
