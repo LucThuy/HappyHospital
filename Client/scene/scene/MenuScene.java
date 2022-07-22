@@ -254,7 +254,7 @@ public class MenuScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			container.showHowToPlayScene();
+			container.showCreditScene();
 		}
 
 		@Override
