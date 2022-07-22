@@ -35,6 +35,12 @@ public class SinglePlayerScene extends JPanel {
 	
 	public GridBagConstraints gbc_panel;
 	public JLabel lblScore;
+	public JLabel countdownTime;
+	
+	Timer timer;	
+	int second, minute;
+	String ddSecond, ddMinute;	
+	DecimalFormat dFormat = new DecimalFormat("00");
 	
 	public Sound sound = new Sound();
 	
@@ -99,6 +105,22 @@ public class SinglePlayerScene extends JPanel {
 		lblScore.setMinimumSize(new Dimension(65, 25));
 		lblScore.setPreferredSize(new Dimension(65, 25));
 		lblScore.setMaximumSize(new Dimension(100, 50));
+		
+		countdownTime = new JLabel();
+		countdownTime.setFont(new Font("Tahoma", Font.BOLD, 15));	
+		countdownTime.setHorizontalAlignment(SwingConstants.CENTER);
+		countdownTime.setForeground(Color.DARK_GRAY);
+		countdownTime.setBackground(Color.WHITE);
+		panel_1.add(countdownTime);
+		countdownTime.setMinimumSize(new Dimension(65, 25));
+		countdownTime.setPreferredSize(new Dimension(65, 25));
+		countdownTime.setMaximumSize(new Dimension(100, 50));
+		
+		countdownTime.setText("16:00");
+		second =0;
+		minute =16;
+		countdownTimer();
+		timer.start();	
 		
 		JLabel setAgent_ = new JLabel("Number of agents");
 		JTextField setAgent = new JTextField();
@@ -201,6 +223,33 @@ public class SinglePlayerScene extends JPanel {
 
 	public PlayScene getPlayScene() {
 		return this.playScene;
+	}
+	
+	public void countdownTimer() {
+
+		
+		timer = new Timer(1000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				second--;
+				ddSecond = dFormat.format(second);
+				ddMinute = dFormat.format(minute);	
+				countdownTime.setText(ddMinute + ":" + ddSecond);
+				
+				if(second==-1) {
+					second = 59;
+					minute--;
+					ddSecond = dFormat.format(second);
+					ddMinute = dFormat.format(minute);	
+					countdownTime.setText(ddMinute + ":" + ddSecond);
+				}
+				if(minute==0 && second==0) {
+					timer.stop();
+				}
+			}
+		});		
 	}
 	
 	public void setPlayScene(PlayScene playScene) {
