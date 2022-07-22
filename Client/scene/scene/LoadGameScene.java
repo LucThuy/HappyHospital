@@ -217,7 +217,7 @@ public class LoadGameScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			container.showSinglePlayerSceneAgain();
+			container.showMenuScene();
 		}
 
 		@Override
