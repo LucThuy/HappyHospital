@@ -1,10 +1,12 @@
 package scene;
 
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import org.json.simple.parser.ParseException;
 
 import object.ZaWarudo;
+import map.Sound;
 import scene.PlayScene.CustomKeyListener;
 
 import java.awt.Color;
@@ -33,6 +35,8 @@ public class SinglePlayerScene extends JPanel {
 	
 	public GridBagConstraints gbc_panel;
 	public JLabel lblScore;
+	
+	public Sound sound = new Sound();
 	
 	/**
 	 * Create the panel.
@@ -95,6 +99,21 @@ public class SinglePlayerScene extends JPanel {
 		lblScore.setMinimumSize(new Dimension(65, 25));
 		lblScore.setPreferredSize(new Dimension(65, 25));
 		lblScore.setMaximumSize(new Dimension(100, 50));
+		
+		JLabel setAgent_ = new JLabel("Number of agents");
+		JTextField setAgent = new JTextField();
+		JButton app = new JButton("Apply");
+		app.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int count = Integer.valueOf(setAgent.getText());
+				PlayScene.setNumberOfAgents(count);
+				app.setFocusable(false);
+			}
+		});
+		setAgent.setSize(100, 50);
+		panel_1.add(setAgent_);
+		panel_1.add(setAgent);
+		panel_1.add(app);		
 	}
 	
 	private SinglePlayerScene getSinglePlayerScene() {
@@ -135,6 +154,7 @@ public class SinglePlayerScene extends JPanel {
 			}
 			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
 				playScene.player.msS = playScene.player.ms;
+			
 			}
 			
 			if(key == KeyEvent.VK_I) {
@@ -156,19 +176,24 @@ public class SinglePlayerScene extends JPanel {
 			
 			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
 				playScene.player.msE = 0;
+				turnOnMusic1(5);
 			}
 			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
 				playScene.player.msN = 0;
+				turnOnMusic1(5);
 			}
 			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
 				playScene.player.msW = 0;
+				turnOnMusic1(5);
 			}
 			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
 				playScene.player.msS = 0;
+				turnOnMusic1(5);
 			}
 			
 			if(key == KeyEvent.VK_I) {
 				isIPress = false;
+				turnOnMusic1(4);
 			}		
 		}	
 	}
@@ -183,4 +208,8 @@ public class SinglePlayerScene extends JPanel {
 		this.playScene.player.setName(container.getClient().getClientName());
 		add(this.playScene, gbc_panel);
 	}
+	public void turnOnMusic1(int i){
+	      this.sound.setFile(i);
+	      this.sound.playSound();
+	  }
 }

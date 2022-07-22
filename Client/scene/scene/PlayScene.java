@@ -29,6 +29,7 @@ import algorithm.Cooldown;
 import algorithm.Node;
 import algorithm.Position;
 import map.EndPoint;
+import map.Sound;
 import map.Map;
 import object.Agent;
 import object.Agv;
@@ -65,12 +66,14 @@ public class PlayScene extends JPanel {
 	public Player player;
 	public Timer update;
 	public AStar AStar;
+	public Sound sound = new Sound();
 	
 	private Node preNode;
 	private CalScore calScore;
 	
 	public final int FPS = 60;
 	public final int SIZE = 28;
+	public static int numberOfAgents;
 	
 	
 	public PlayScene(Container container) throws FileNotFoundException, IOException, ParseException {
@@ -153,6 +156,14 @@ public class PlayScene extends JPanel {
 		this.map.door.drawEnd(g, endDoorID);
 	}
 	
+	public int getNumberOfAgents() {
+		return this.numberOfAgents;
+	}
+	public static void setNumberOfAgents(int count) {
+		PlayScene.numberOfAgents = count;
+	}
+	
+	
 
 	public void addPlayer() throws IOException {
 		Rectangle startPos = new Rectangle(this.map.elevator.bound.get(2));
@@ -184,9 +195,9 @@ public class PlayScene extends JPanel {
 	}
 	
 	public void addAgent() throws IOException {
+		int num = getNumberOfAgents();
 		Random rd = new Random();
-		int tmp = rd.nextInt(1000);
-		if(tmp < 10) {
+		if(this.agent.size() < num) {
 			if(!agentCD.isCD()) {
 				int indexStart = rd.nextInt(this.map.door.bound.size());
 				Rectangle startPos = this.map.door.bound.get(indexStart);
@@ -228,6 +239,7 @@ public class PlayScene extends JPanel {
 			if(this.player.isCollision(this.player.bound, this.zaWarudo.get(i).bound)) {
 				ZaWarudo.isZaWarudo = true;
 				ZaWarudo.zaWarudoCD.setTime();
+				this.sound.turnOnMusic1(10);
 				this.zaWarudo.remove(i);
 			}
 		}
@@ -257,7 +269,8 @@ public class PlayScene extends JPanel {
 	}
 	
 	private boolean isEnd() {
-		if(endPointBound.contains(this.player.bound)) {		
+		if(endPointBound.contains(this.player.bound)) {	
+			this.sound.turnOnMusic1(7);
 			return true;
 		}
 		return false;
@@ -267,6 +280,7 @@ public class PlayScene extends JPanel {
 		Rectangle endPos = new Rectangle(this.map.elevator.bound.get(1));
 		endPos.add(this.map.elevator.bound.get(3));
 		if(endPos.contains(this.player.bound)) {
+			this.sound.turnOnMusic(1);
 			return true;
 		}
 		return false;
@@ -388,7 +402,7 @@ public class PlayScene extends JPanel {
 			}
 			
 			if(isWin()) {
-				container.showWinScene();	
+				container.showWinScene();
 			}		
 		}	
 	}
