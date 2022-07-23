@@ -44,7 +44,7 @@ public class Client extends JFrame {
 	private RageThread rageThread;
 	
 	private Socket socket;
-
+	
 	static GraphicsDevice device = GraphicsEnvironment
 	        .getLocalGraphicsEnvironment().getScreenDevices()[0];
 	
