@@ -374,5 +374,10 @@ public class SinglePlayerScene extends JPanel {
 		this.playScene.player.setName(container.getClient().getClientName());
 		add(this.playScene, gbc_panel);
 	}
+	
+	public void setIsMusic() {
+		this.isMusic = true;
+		this.btnMusic.setIcon(new ImageIcon("data/btnMusic.png"));
+	}
 
 }

@@ -257,6 +257,7 @@ public class PauseScene extends JPanel {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
+			container.getSound().turnOffMusic();
 			container.showMenuScene();
 		}
 

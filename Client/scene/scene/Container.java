@@ -98,6 +98,7 @@ public class Container extends JPanel {
 		singlePlayerScene.setFocusable(true);
 		singlePlayerScene.requestFocusInWindow();
 		sound.turnOffMusic();
+		this.singlePlayerScene.setIsMusic();
 		isMusic = false;
 		sound.turnOnMusicLoop(1);
 	}
