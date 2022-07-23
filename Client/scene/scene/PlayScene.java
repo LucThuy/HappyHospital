@@ -263,16 +263,23 @@ public class PlayScene extends JPanel {
 		preNode = nextNode;
 	}
 	
-	private void calScore() {	
+	private void calScore() throws IOException {	
 		this.player.setScore(this.player.getScore() + calScore.calScore());
+
 		
 		if(this.player.getScore() < 0) {
 			this.player.setScore(0);
 		}
-		
-		this.player.setScore((float) (Math.round(this.player.getScore() * 100) /  100.0));
 
+		this.player.setScore((float) (Math.round(this.player.getScore() * 100) /  100.0)); 
+		if(this.player.getScore() > 20 && this.player.getScore() < 40) {
+			player.LevelUp(2);
+		} else if(this.player.getScore() > 40) {
+			player.LevelUp(1);
+		}
+		
 		this.container.getSinglePlayerScene().lblScore.setText(String.valueOf(this.player.getScore()));
+
 		
 	}
 	private boolean isEnd() {
@@ -403,7 +410,12 @@ public class PlayScene extends JPanel {
 			repaint();
 			
 			if(isEnd()) {
-				calScore();				
+				try {
+					calScore();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}				
 				genEndPoint();
 			}
 			

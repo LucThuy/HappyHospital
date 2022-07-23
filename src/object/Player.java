@@ -53,15 +53,20 @@ public class Player {
 		
 		this.setScore(0);
 		
-		this.name = "minh";
+		this.name = "AGV";
 		
 		this.getBlink().setBlink(false);
 		
 		BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-		bigImage = ImageIO.read(new File("data/agv.png"));
+		bigImage = ImageIO.read(new File("data/agv3.png"));
 		img = bigImage.getSubimage(3, 5, 24, 24);
 	}
 	
+	public void LevelUp(int i) throws IOException {
+		BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+		bigImage = ImageIO.read(new File("data/agv"+i+".png"));
+		img = bigImage.getSubimage(3, 5, 24, 24);
+	}
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.drawRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
