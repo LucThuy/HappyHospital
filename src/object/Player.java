@@ -58,7 +58,7 @@ public class Player {
 		this.getBlink().setBlink(false);
 		
 		BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-		bigImage = ImageIO.read(new File("data/agv3.png"));
+		bigImage = ImageIO.read(new File("data/agv1.png"));
 		img = bigImage.getSubimage(3, 5, 24, 24);
 	}
 	

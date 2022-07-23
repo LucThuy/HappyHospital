@@ -74,9 +74,6 @@ public class PlayScene extends JPanel {
 	public final int FPS = 60;
 	public final int SIZE = 28;
 	private static int numberOfAgents;
-
-	public static float son;
-	
 	
 	public PlayScene(Container container) throws FileNotFoundException, IOException, ParseException {
 		this.container = container;
@@ -275,7 +272,7 @@ public class PlayScene extends JPanel {
 		if(this.player.getScore() > 20 && this.player.getScore() < 40) {
 			player.LevelUp(2);
 		} else if(this.player.getScore() > 40) {
-			player.LevelUp(1);
+			player.LevelUp(3);
 		}
 		
 		this.container.getSinglePlayerScene().lblScore.setText(String.valueOf(this.player.getScore()));
@@ -413,7 +410,6 @@ public class PlayScene extends JPanel {
 				try {
 					calScore();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}				
 				genEndPoint();
