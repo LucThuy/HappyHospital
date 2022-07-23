@@ -33,6 +33,7 @@ import java.awt.Graphics;
 
 
 import java.awt.Insets;
+import javax.swing.SwingConstants;
 
 public class WinScene extends JPanel {
 
@@ -40,17 +41,16 @@ public class WinScene extends JPanel {
 	private Sound sound = new Sound();
 	public PlayScene playScene;
 	private JButton btnHome;
-	private JLabel score_lb;
 	/**
 	 * Create the panel.
 	 */
 	public WinScene(Container container) {
 		this.container = container;
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{5.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{5.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{12.0, 2.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		setUp();
@@ -70,17 +70,19 @@ public class WinScene extends JPanel {
 		btnHome.setContentAreaFilled(false);
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		
-		score_lb = new JLabel();
-		score_lb.setText(String.valueOf(PlayScene.son));
-		GridBagConstraints gbc_score_lb = new GridBagConstraints();
-		gbc_score_lb.insets = new Insets(0, 0, 5, 0);
-		gbc_score_lb.gridx = 1;
-		gbc_score_lb.gridy = 0;
-		add(score_lb, gbc_score_lb);
+		JLabel lblScore = new JLabel("0.0");
+		lblScore.setFont(new Font("Segoe UI Semibold", Font.BOLD, 40));
+		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblScore = new GridBagConstraints();
+		gbc_lblScore.insets = new Insets(0, 0, 5, 5);
+		gbc_lblScore.gridx = 1;
+		gbc_lblScore.gridy = 1;
+		add(lblScore, gbc_lblScore);
 		btnHome.setIcon(new ImageIcon("data/btnHome.png"));
 		GridBagConstraints gbc_btnBack = new GridBagConstraints();
+		gbc_btnBack.insets = new Insets(0, 0, 0, 5);
 		gbc_btnBack.gridx = 1;
-		gbc_btnBack.gridy = 1;
+		gbc_btnBack.gridy = 2;
 		add(btnHome, gbc_btnBack);
 		btnHome.addMouseListener(new MouseHome());
 	}
