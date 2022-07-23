@@ -188,6 +188,11 @@ public class LoadGameScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
 			try {
 				container.showSinglePlayerScene();
 			} catch (IOException | ParseException e1) {
@@ -202,18 +207,13 @@ public class LoadGameScene extends JPanel {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e) {
-			
-		}
-
-		@Override
 		public void mouseReleased(MouseEvent e) {
 			
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			btnLoadGame.setIcon(new ImageIcon("data/btnLoadGame.png"));
+			btnLoadGame.setIcon(new ImageIcon("data/btnLoadGamePress.png"));
 		}
 
 		@Override
@@ -228,12 +228,12 @@ public class LoadGameScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			container.showMenuScene();
+			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			
+			container.showMenuScene();
 		}
 
 		@Override
@@ -257,6 +257,11 @@ public class LoadGameScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
 			String name = container.getMenuScene().getTxtNameInput();
 			container.getClient().setClientName(name);
 			
@@ -268,18 +273,13 @@ public class LoadGameScene extends JPanel {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e) {
-			
-		}
-
-		@Override
 		public void mouseReleased(MouseEvent e) {
 			
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			btnNewGame.setIcon(new ImageIcon("data/btnNewGame.png"));
+			btnNewGame.setIcon(new ImageIcon("data/btnNewGamePress.png"));
 		}
 
 		@Override
