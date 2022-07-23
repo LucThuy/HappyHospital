@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -19,6 +20,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import scene.HowToPlayScene.MouseBack;
+import map.Sound;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -29,11 +31,16 @@ import org.json.simple.parser.ParseException;
 import java.awt.Font;
 import java.awt.Graphics;
 
+
+import java.awt.Insets;
+
 public class WinScene extends JPanel {
 
 	public Container container;
+	private Sound sound = new Sound();
+	public PlayScene playScene;
 	private JButton btnHome;
-	
+	private JLabel score_lb;
 	/**
 	 * Create the panel.
 	 */
@@ -62,6 +69,14 @@ public class WinScene extends JPanel {
 		btnHome.setBorderPainted(false);
 		btnHome.setContentAreaFilled(false);
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		
+		score_lb = new JLabel();
+		score_lb.setText(String.valueOf(PlayScene.son));
+		GridBagConstraints gbc_score_lb = new GridBagConstraints();
+		gbc_score_lb.insets = new Insets(0, 0, 5, 0);
+		gbc_score_lb.gridx = 1;
+		gbc_score_lb.gridy = 0;
+		add(score_lb, gbc_score_lb);
 		btnHome.setIcon(new ImageIcon("data/btnHome.png"));
 		GridBagConstraints gbc_btnBack = new GridBagConstraints();
 		gbc_btnBack.gridx = 1;

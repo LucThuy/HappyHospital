@@ -63,7 +63,7 @@ public class PlayScene extends JPanel {
 	private int endDoorID;
 	
 	public Map map;
-	public Player player;
+	public static Player player;
 	public Timer update;
 	public AStar AStar;
 	public Sound sound = new Sound();
@@ -73,7 +73,8 @@ public class PlayScene extends JPanel {
 	
 	public final int FPS = 60;
 	public final int SIZE = 28;
-	public static int numberOfAgents;
+	private static int numberOfAgents;
+	public static float son;
 	
 	
 	public PlayScene(Container container) throws FileNotFoundException, IOException, ParseException {
@@ -267,7 +268,6 @@ public class PlayScene extends JPanel {
 		
 		this.container.getSinglePlayerScene().lblScore.setText(String.valueOf(this.player.score));
 	}
-	
 	private boolean isEnd() {
 		if(endPointBound.contains(this.player.bound)) {	
 			this.sound.turnOnMusic1(7);
@@ -407,69 +407,6 @@ public class PlayScene extends JPanel {
 		}	
 	}
 	
-	
-	class CustomKeyListener implements KeyListener {
-		
-		private boolean isIPress = false;
-		
-		@Override
-		public void keyTyped(KeyEvent e) {
-
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {	
-			int key  = e.getKeyCode();
-			
-			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-				player.msE = player.ms;
-			}
-			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
-				player.msN = player.ms;
-			}
-			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-				player.msW = player.ms;
-			}
-			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
-				player.msS = player.ms;
-			}
-			
-			if(key == KeyEvent.VK_I) {
-				if(!isIPress) {
-					if(ZaWarudo.isZaWarudo) {
-						player.blink.isBlink = true;
-					}
-					else if(!player.blink.blinkCD.isCD()) {
-						player.blink.isBlink = true;
-					}
-					isIPress = true;
-				}
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			int key  = e.getKeyCode();
-			
-			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-				player.msE = 0;
-			}
-			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
-				player.msN = 0;
-			}
-			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-				player.msW = 0;
-			}
-			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
-				player.msS = 0;
-			}
-			
-			if(key == KeyEvent.VK_I) {
-				isIPress = false;
-			}
-		}
-	}
-	
 	public void saveData(String link) throws IOException {
 		JSONObject data = new JSONObject();
 		
@@ -481,6 +418,7 @@ public class PlayScene extends JPanel {
 		data.put("player", player);
 		
 		data.put("numAgv", this.agv.size());
+		data.put("agvID", agvID);
 		JSONArray agv = new JSONArray();
 		for(int i = 0; i < this.agv.size(); i++) {
 			JSONObject tmp = new JSONObject();
@@ -507,6 +445,7 @@ public class PlayScene extends JPanel {
 		data.put("endPointAgv", endPointAgv);
 		
 		data.put("numAgent", this.agent.size());
+		data.put("agentID", agentID);
 		JSONArray agent = new JSONArray();
 		for(int i = 0; i < this.agent.size(); i++) {
 			JSONObject tmp = new JSONObject();
@@ -534,6 +473,8 @@ public class PlayScene extends JPanel {
 		FileWriter file = new FileWriter(link, false);
 		file.write(data.toJSONString());
 		file.flush();
+		
+		System.out.println("done");
 	}
 	
 	public void loadData(String link) throws FileNotFoundException, IOException, ParseException {
@@ -541,15 +482,80 @@ public class PlayScene extends JPanel {
 		JSONObject data = (JSONObject)obj;
 		
 		JSONObject player = (JSONObject) data.get("player");	
-		int x = (int) player.get("x");
-		int y = (int) player.get("y");
-		int score = (int)player.get("score");
-		this.player = new Player(x / SIZE, y / SIZE, map.path.dataArr);
+		long x = (long) player.get("x");
+		long y = (long) player.get("y");
+		double score = (double)player.get("score");
+		this.player = new Player((int)x, (int)y, map.path.dataArr);
+		this.player.score = (float)score;
 		
-		preNode = this.AStar.map[x / SIZE][y / SIZE];
+		preNode = this.AStar.map[(int)x / SIZE][(int)y / SIZE];
 		calScore = new CalScore();
 		genEndPoint();
 		
+		long nAgv = (long)data.get("numAgv");
+		agvID = (int)((long)data.get("agvID"));
+		if(nAgv != 0) {
+			JSONArray agvList = (JSONArray)data.get("agv");
+			for(int i = 0; i < (int)nAgv; i++) {
+				JSONObject tmp = (JSONObject)agvList.get(i);
+				long id = (long)tmp.get("id");
+				long xAgv = (long)tmp.get("x");
+				long yAgv = (long)tmp.get("y");
+				long xEnd = (long)tmp.get("xEnd");
+				long yEnd = (long)tmp.get("yEnd");
+				long task = (long)tmp.get("task");
+				
+				Node start = this.AStar.map[(int)xAgv / SIZE][(int)yAgv / SIZE];
+				Node end = this.AStar.map[(int)xEnd][(int)yEnd];
+				
+				Vector<Node> path = this.AStar.AStarAlgorithm(start, end);
+				
+				Agv tmpAgv = new Agv((int)x / SIZE * SIZE, (int)y / SIZE * SIZE, path, (int)id);
+				tmpAgv.task = (int)task;
+				agv.add(tmpAgv);
+			}
+			
+			long nEndAgv = (long)data.get("numEndPointAgv");
+			JSONArray endPointAgvList = (JSONArray)data.get("endPointAgv");
+			for(int i = 0; i < (int)nEndAgv; i++) {
+				JSONObject tmp = (JSONObject)endPointAgvList.get(i);
+				long id = (long)tmp.get("id");
+				long doorID = (long)tmp.get("doorID");
+				
+				endPointAgv.add(new EndPoint((int)id, (int)doorID));
+			}
+		}
 		
+		
+		long nAgent = (long)data.get("numAgent");
+		agentID = (int)((long)data.get("agentID"));
+		if(nAgent != 0) {
+			JSONArray agentList = (JSONArray)data.get("agent");
+			for(int i = 0; i < (int)nAgent; i++) {
+				JSONObject tmp = (JSONObject)agentList.get(i);
+				long id = (long)tmp.get("id");
+				long xAgent = (long)tmp.get("x");
+				long yAgent = (long)tmp.get("y");
+				long xEnd = (long)tmp.get("xEnd");
+				long yEnd = (long)tmp.get("yEnd");
+				
+				Node start = this.AStar.mapND[(int)xAgent / SIZE][(int)yAgent / SIZE];
+				Node end = this.AStar.mapND[(int)xEnd][(int)yEnd];
+				
+				Vector<Node> path = this.AStar.AStarAlgorithmND(start, end);
+				
+				agent.add(new Agent((int)x / SIZE * SIZE, (int)y / SIZE * SIZE, path, (int)id));
+			}
+			
+			long nEndAgent = (long)data.get("numEndPointAgent");
+			JSONArray endPointAgentList = (JSONArray)data.get("endPointAgent");
+			for(int i = 0; i < (int)nEndAgent; i++) {
+				JSONObject tmp = (JSONObject)endPointAgentList.get(i);
+				long id = (long)tmp.get("id");
+				long doorID = (long)tmp.get("doorID");
+				
+				endPointAgent.add(new EndPoint((int)id, (int)doorID));
+			}
+		}	
 	}
 }

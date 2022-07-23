@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 
 import client.ChillThread;
 import client.Client;
+import map.Sound;
 
 import java.awt.Color;
 
@@ -26,6 +27,7 @@ public class Container extends JPanel {
 	private PauseScene pauseScene;
 	private HowToPlayScene howToPlayScene;
 	private CreditScene creditScene;
+	private Sound sound = new Sound();
 	
 	private Client client;
 	
@@ -72,6 +74,7 @@ public class Container extends JPanel {
 		cardLayout.show(this, "menuScene");
 		menuScene.setFocusable(true);
 		menuScene.requestFocusInWindow();
+		sound.turnOnMusic(1);
 	}
 
 	public void showServerSelectScene(Map<String, String> serverAvailable) {
@@ -86,11 +89,12 @@ public class Container extends JPanel {
 		cardLayout.show(this, "singlePlayerScene");
 		singlePlayerScene.setFocusable(true);
 		singlePlayerScene.requestFocusInWindow();
+		sound.turnOffMusic();
+		sound.turnOnMusic(6);
 	}
 	
 	public void showMutilPlayerScene() throws FileNotFoundException, IOException, ParseException {
 		this.client.getRageThread().setPlayScene(mutilPlayerScene);
-		
 		mutilPlayerScene.setBoard(new Board(this));
 		cardLayout.show(this, "mutilPlayerScene");
 		mutilPlayerScene.setFocusable(true);
@@ -140,6 +144,7 @@ public class Container extends JPanel {
 		cardLayout.show(this, "winScene");
 		winScene.setFocusable(true);
 		winScene.requestFocusInWindow();
+		sound.turnOnMusic(1);
 	}
 
 	public Client getClient() {
