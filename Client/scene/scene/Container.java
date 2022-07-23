@@ -81,7 +81,8 @@ public class Container extends JPanel {
 		menuScene.requestFocusInWindow();
 		if(!isMusic) {
 			isMusic = true;
-			sound.turnOnMusic(1);
+			sound.turnOffMusic();
+			sound.turnOnMusic(0);
 		}
 	}
 
@@ -99,7 +100,7 @@ public class Container extends JPanel {
 		singlePlayerScene.requestFocusInWindow();
 		sound.turnOffMusic();
 		isMusic = false;
-		sound.turnOnMusic(6);
+		sound.turnOnMusicLoop(1);
 	}
 	
 	public void showMutilPlayerScene() throws FileNotFoundException, IOException, ParseException {
@@ -134,14 +135,12 @@ public class Container extends JPanel {
 		cardLayout.show(this, "howToPlayScene");
 		howToPlayScene.setFocusable(true);
 		howToPlayScene.requestFocusInWindow();
-		sound.turnOffMusic();
 	}
 	
 	public void showCreditScene() {
 		cardLayout.show(this, "creditScene");
 		creditScene.setFocusable(true);
 		creditScene.requestFocusInWindow();
-		sound.turnOffMusic();
 	}
 	
 //	public void showPlayScene() throws FileNotFoundException, IOException, ParseException {
@@ -155,9 +154,8 @@ public class Container extends JPanel {
 		cardLayout.show(this, "winScene");
 		winScene.setFocusable(true);
 		winScene.requestFocusInWindow();
-		sound.turnOffMusic();
 		this.winScene.getLblScore().setText(String.valueOf(getSinglePlayerScene().getPlayScene().player.score));
-		
+		sound.turnOffMusic();
 	}
 	
 	public void showLoadGameScene() {
