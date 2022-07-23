@@ -156,6 +156,7 @@ public class Container extends JPanel {
 		winScene.requestFocusInWindow();
 		this.winScene.getLblScore().setText(String.valueOf(getSinglePlayerScene().getPlayScene().player.score));
 		sound.turnOffMusic();
+		sound.turnOnMusicLoop(3);
 	}
 	
 	public void showLoadGameScene() {
@@ -164,6 +165,10 @@ public class Container extends JPanel {
 		loadGameScene.requestFocusInWindow();
 	}
 
+	public Sound getSound() {
+		return sound;
+	}
+	
 	public Client getClient() {
 		return client;
 	}
