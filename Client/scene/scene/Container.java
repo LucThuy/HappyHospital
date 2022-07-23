@@ -81,7 +81,6 @@ public class Container extends JPanel {
 		menuScene.requestFocusInWindow();
 		if(!isMusic) {
 			isMusic = true;
-			sound.turnOffMusic();
 			sound.turnOnMusic(0);
 		}
 	}
