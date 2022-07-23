@@ -13,7 +13,7 @@ public class Sound {
         this.nameOfFile[0] = "sound/Ailatrieuphu.wav";
         this.nameOfFile[1] = "sound/BusyCityTrackTribe.wav";
         this.nameOfFile[2] = "sound/canhbao.wav";
-        this.nameOfFile[3] = "sound/Sai.wav";
+        this.nameOfFile[3] = "sound/game_over.wav";
         this.nameOfFile[4] = "sound/Blink.wav";
         this.nameOfFile[5] = "sound/LocCoc.wav";
         this.nameOfFile[6] = "sound/BlueBoyAdventure.wav";
