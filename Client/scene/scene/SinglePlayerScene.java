@@ -284,7 +284,7 @@ public class SinglePlayerScene extends JPanel {
 			lblTime.setText(ddMinute + ":" + ddSecond);
 			if(minute==0 && second==0) {
 				timer.stop();
-				container.showWinScene();			
+				container.showWinScene(getPlayScene().player.score);			
 			}		
 		}	
 	}

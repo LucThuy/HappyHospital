@@ -143,18 +143,11 @@ public class Container extends JPanel {
 		creditScene.requestFocusInWindow();
 	}
 	
-//	public void showPlayScene() throws FileNotFoundException, IOException, ParseException {
-//		playScene.setUp();
-//		cardLayout.show(this, "playScene");
-//		playScene.setFocusable(true);
-//		playScene.requestFocusInWindow();
-//	}
-	
-	public void showWinScene() {
+	public void showWinScene(float score) {
 		cardLayout.show(this, "winScene");
 		winScene.setFocusable(true);
 		winScene.requestFocusInWindow();
-		this.winScene.getLblScore().setText(String.valueOf(getSinglePlayerScene().getPlayScene().player.score));
+		this.winScene.getLblScore().setText(String.valueOf(score));
 		sound.turnOffMusic();
 		sound.turnOnMusicLoop(3);
 	}
