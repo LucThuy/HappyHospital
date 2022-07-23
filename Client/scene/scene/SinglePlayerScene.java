@@ -326,7 +326,7 @@ public class SinglePlayerScene extends JPanel {
 					if(ZaWarudo.isZaWarudo) {
 						playScene.player.getBlink().setBlink(true);
 					}
-					else /*if(!playScene.player.blink.blinkCD.isCD())*/ {
+					else if(!getPlayScene().player.getBlink().getBlinkCD().isCD()) {
 						playScene.player.getBlink().setBlink(true);
 						if(isMusic) {
 							sound.turnOnMusic(4);

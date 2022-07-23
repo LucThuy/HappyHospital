@@ -271,8 +271,15 @@ public class PlayScene extends JPanel {
 		this.player.setScore((float) (Math.round(this.player.getScore() * 100) /  100.0)); 
 		if(this.player.getScore() > 20 && this.player.getScore() < 40) {
 			player.LevelUp(2);
-		} else if(this.player.getScore() > 40) {
+		}
+		else if(this.player.getScore() > 40) {
 			player.LevelUp(3);
+		}
+		else if(this.player.getScore() > 60) {
+			player.LevelUp(4);
+		}
+		else if(this.player.getScore() > 80) {
+			player.LevelUp(5);
 		}
 		
 		this.container.getSinglePlayerScene().lblScore.setText(String.valueOf(this.player.getScore()));

@@ -72,7 +72,7 @@ public class Player {
 		g.drawRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
 		g.drawImage(this.img, this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT, null);
 		
-		g.setColor(Color.ORANGE);
+		g.setColor(Color.BLACK);
 		g.setFont(new Font("Georgia", Font.PLAIN, 10));
 		g.drawString(this.name, this.getPosition().x, this.getPosition().y - 3);
 	}
