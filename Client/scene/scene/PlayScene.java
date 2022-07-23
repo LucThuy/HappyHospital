@@ -269,7 +269,9 @@ public class PlayScene extends JPanel {
 		if(this.player.score < 0) {
 			this.player.score = 0;
 		}
-		this.player.score = Math.round(this.player.score * 10 *10)/(10*10);
+		
+		this.player.score = (float) (Math.round(this.player.score * 100) /  100.0);
+
 		this.container.getSinglePlayerScene().lblScore.setText(String.valueOf(this.player.score));
 	}
 	private boolean isEnd() {
