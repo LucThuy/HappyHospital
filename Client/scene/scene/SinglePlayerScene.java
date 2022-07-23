@@ -233,7 +233,7 @@ public class SinglePlayerScene extends JPanel {
 		}	
 	}
 	
-	private boolean isMove = false;
+	public boolean isMove = false;
 	
 	class CustomKeyListener implements KeyListener {
 		

@@ -281,7 +281,6 @@ public class PlayScene extends JPanel {
 		Rectangle endPos = new Rectangle(this.map.elevator.bound.get(1));
 		endPos.add(this.map.elevator.bound.get(3));
 		if(endPos.contains(this.player.bound)) {
-			this.sound.turnOnMusic(1);
 			return true;
 		}
 		return false;
