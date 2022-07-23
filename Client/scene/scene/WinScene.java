@@ -40,7 +40,7 @@ public class WinScene extends JPanel {
 	private Sound sound = new Sound();
 	public PlayScene playScene;
 	private JButton btnHome;
-	private JLabel score_lb;
+	public JLabel score_lb;
 	/**
 	 * Create the panel.
 	 */
@@ -71,7 +71,7 @@ public class WinScene extends JPanel {
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		
 		score_lb = new JLabel();
-		score_lb.setText(String.valueOf(PlayScene.son));
+
 		GridBagConstraints gbc_score_lb = new GridBagConstraints();
 		gbc_score_lb.insets = new Insets(0, 0, 5, 0);
 		gbc_score_lb.gridx = 1;
@@ -83,6 +83,8 @@ public class WinScene extends JPanel {
 		gbc_btnBack.gridy = 1;
 		add(btnHome, gbc_btnBack);
 		btnHome.addMouseListener(new MouseHome());
+		
+		
 	}
 	
 	
