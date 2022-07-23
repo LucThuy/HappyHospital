@@ -237,10 +237,10 @@ public class Caculate {
 			if(key.equals("I")) {
 				if(!isIHostPress) {
 					if(ZaWarudo.isZaWarudo) {
-						playerHost.blink.isBlink = true;
+						playerHost.blink.setBlink(true);
 					}
-					else if(!playerHost.blink.blinkCD.isCD()) {
-						playerHost.blink.isBlink = true;
+					else if(!playerHost.blink.getBlinkCD().isCD()) {
+						playerHost.blink.setBlink(true);
 					}
 					isIHostPress = true;
 				}
@@ -263,10 +263,10 @@ public class Caculate {
 			if(key.equals("I")) {
 				if(!isIGuestPress) {
 					if(ZaWarudo.isZaWarudo) {
-						playerGuest.blink.isBlink = true;
+						playerGuest.blink.setBlink(true);
 					}
-					else if(!playerGuest.blink.blinkCD.isCD()) {
-						playerGuest.blink.isBlink = true;
+					else if(!playerGuest.blink.getBlinkCD().isCD()) {
+						playerGuest.blink.setBlink(true);
 					}
 					isIGuestPress = true;
 				}

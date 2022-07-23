@@ -18,44 +18,44 @@ import algorithm.Position;
 
 public class Player {
 	
-	public Position position = new Position();
-	public int msE;
-	public int msN;
-	public int msW;
-	public int msS;
-	public int ms;
+	private Position position = new Position();
+	private int msE;
+	private int msN;
+	private int msW;
+	private int msS;
+	private int ms;
 	
-	public float score;
+	private float score;
 	
-	public long[][] data;
+	private long[][] data;
 	
-	public Blink blink = new Blink();
+	private Blink blink = new Blink();
 	
-	public Rectangle bound = new Rectangle();
+	private Rectangle bound = new Rectangle();
 	
-	public Image img;
+	private Image img;
 	
-	public int WIDTH = 28;
-	public int HEIGHT = 28;
+	private int WIDTH = 28;
+	private int HEIGHT = 28;
 	public final int SIZE = 28;
 	
 	private String name;
 	
 	public Player(int x, int y, long[][] data) throws IOException {
-		this.position.x = x;
-		this.position.y = y;
+		this.getPosition().x = x;
+		this.getPosition().y = y;
 		this.data = data;
-		this.ms = 1;
-		this.msE = 0;
-		this.msN = 0;
-		this.msW = 0;
-		this.msS = 0;
+		this.setMs(1);
+		this.setMsE(0);
+		this.setMsN(0);
+		this.setMsW(0);
+		this.setMsS(0);
 		
-		this.score = 0;
+		this.setScore(0);
 		
 		this.name = "minh";
 		
-		this.blink.isBlink = false;
+		this.getBlink().setBlink(false);
 		
 		BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
 		bigImage = ImageIO.read(new File("data/agv.png"));
@@ -64,63 +64,63 @@ public class Player {
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawRect(this.position.x, this.position.y, WIDTH, HEIGHT);
-		g.drawImage(this.img, this.position.x, this.position.y, WIDTH, HEIGHT, null);
+		g.drawRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
+		g.drawImage(this.img, this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT, null);
 		
 		g.setColor(Color.ORANGE);
 		g.setFont(new Font("Georgia", Font.PLAIN, 10));
-		g.drawString(this.name, this.position.x, this.position.y - 3);
+		g.drawString(this.name, this.getPosition().x, this.getPosition().y - 3);
 	}
 	
 	public void setBound() {
-		this.bound.setBounds(this.position.x, this.position.y, WIDTH, HEIGHT);
+		this.bound.setBounds(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
 	}
 	
 	public void move(Vector<Rectangle> block) {
-		Position tmp = new Position(this.position.x, this.position.y);
+		Position tmp = new Position(this.getPosition().x, this.getPosition().y);
 		
-		if(this.msE != 0 && isRightWay(tmp, "E")) {
-			tmp.x += this.msE;
-			if(this.blink.isBlink) {
-				tmp.x += this.blink.BLINK_RANGE * SIZE;
-				this.blink.isBlink = false;
+		if(this.getMsE() != 0 && isRightWay(tmp, "E")) {
+			tmp.x += this.getMsE();
+			if(this.getBlink().isBlink()) {
+				tmp.x += this.getBlink().BLINK_RANGE * SIZE;
+				this.getBlink().setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
 				tmp.x --;
 			}
 		}
-		if(this.msN != 0 && isRightWay(tmp, "N")) {
-			tmp.y -= this.msN;
-			if(this.blink.isBlink) {
-				tmp.y -= this.blink.BLINK_RANGE * SIZE;
-				this.blink.isBlink = false;
+		if(this.getMsN() != 0 && isRightWay(tmp, "N")) {
+			tmp.y -= this.getMsN();
+			if(this.getBlink().isBlink()) {
+				tmp.y -= this.getBlink().BLINK_RANGE * SIZE;
+				this.getBlink().setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
 				tmp.y ++;
 			}
 		}
-		if(this.msW != 0 && isRightWay(tmp, "W")) {
-			tmp.x -= this.msW;
-			if(this.blink.isBlink) {
-				tmp.x -= this.blink.BLINK_RANGE * SIZE;
-				this.blink.isBlink = false;
+		if(this.getMsW() != 0 && isRightWay(tmp, "W")) {
+			tmp.x -= this.getMsW();
+			if(this.getBlink().isBlink()) {
+				tmp.x -= this.getBlink().BLINK_RANGE * SIZE;
+				this.getBlink().setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
 				tmp.x ++;
 			}
 		}
-		if(this.msS != 0 && isRightWay(tmp, "S")) {
-			tmp.y += this.msS;
-			if(this.blink.isBlink) {
-				tmp.y += this.blink.BLINK_RANGE * SIZE;
-				this.blink.isBlink = false;
+		if(this.getMsS() != 0 && isRightWay(tmp, "S")) {
+			tmp.y += this.getMsS();
+			if(this.getBlink().isBlink()) {
+				tmp.y += this.getBlink().BLINK_RANGE * SIZE;
+				this.getBlink().setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
 				tmp.y --;
 			}
 		}
 		
-		this.position = tmp;
+		this.setPosition(tmp);
 		setBound();
 	}
 	
@@ -198,5 +198,77 @@ public class Player {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Rectangle getBound() {
+		return bound;
+	}
+
+	public void setBound(Rectangle bound) {
+		this.bound = bound;
+	}
+
+	public float getScore() {
+		return score;
+	}
+
+	public void setScore(float score) {
+		this.score = score;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public int getMsN() {
+		return msN;
+	}
+
+	public void setMsN(int msN) {
+		this.msN = msN;
+	}
+
+	public int getMsE() {
+		return msE;
+	}
+
+	public void setMsE(int msE) {
+		this.msE = msE;
+	}
+
+	public int getMsW() {
+		return msW;
+	}
+
+	public void setMsW(int msW) {
+		this.msW = msW;
+	}
+
+	public int getMsS() {
+		return msS;
+	}
+
+	public void setMsS(int msS) {
+		this.msS = msS;
+	}
+
+	public int getMs() {
+		return ms;
+	}
+
+	public void setMs(int ms) {
+		this.ms = ms;
+	}
+
+	public Blink getBlink() {
+		return blink;
+	}
+
+	public void setBlink(Blink blink) {
+		this.blink = blink;
 	}
 }

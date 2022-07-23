@@ -45,7 +45,7 @@ public class PlayerS {
 		
 		this.data = data;
 		
-		this.blink.isBlink = false;
+		this.blink.setBlink(false);
 	}
 	
 	public void setBound() {
@@ -57,9 +57,9 @@ public class PlayerS {
 		
 		if(this.msE != 0 && isRightWay(tmp, "E")) {
 			tmp.x += this.msE;
-			if(this.blink.isBlink) {
+			if(this.blink.isBlink()) {
 				tmp.x += this.blink.BLINK_RANGE * SIZE;
-				this.blink.isBlink = false;
+				this.blink.setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
 				tmp.x --;
@@ -67,9 +67,9 @@ public class PlayerS {
 		}
 		if(this.msN != 0 && isRightWay(tmp, "N")) {
 			tmp.y -= this.msN;
-			if(this.blink.isBlink) {
+			if(this.blink.isBlink()) {
 				tmp.y -= this.blink.BLINK_RANGE * SIZE;
-				this.blink.isBlink = false;
+				this.blink.setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
 				tmp.y ++;
@@ -77,9 +77,9 @@ public class PlayerS {
 		}
 		if(this.msW != 0 && isRightWay(tmp, "W")) {
 			tmp.x -= this.msW;
-			if(this.blink.isBlink) {
+			if(this.blink.isBlink()) {
 				tmp.x -= this.blink.BLINK_RANGE * SIZE;
-				this.blink.isBlink = false;
+				this.blink.setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
 				tmp.x ++;
@@ -87,9 +87,9 @@ public class PlayerS {
 		}
 		if(this.msS != 0 && isRightWay(tmp, "S")) {
 			tmp.y += this.msS;
-			if(this.blink.isBlink) {
+			if(this.blink.isBlink()) {
 				tmp.y += this.blink.BLINK_RANGE * SIZE;
-				this.blink.isBlink = false;
+				this.blink.setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
 				tmp.y --;

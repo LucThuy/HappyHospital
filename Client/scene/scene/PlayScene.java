@@ -241,7 +241,7 @@ public class PlayScene extends JPanel {
 	
 	public void updateZaWarudo() {
 		for(int i = 0; i < this.zaWarudo.size(); i++) {
-			if(this.player.isCollision(this.player.bound, this.zaWarudo.get(i).bound)) {
+			if(this.player.isCollision(this.player.getBound(), this.zaWarudo.get(i).getBound())) {
 				ZaWarudo.isZaWarudo = true;
 				ZaWarudo.zaWarudoCD.setTime();
 				this.sound.turnOnMusic(10);
@@ -264,19 +264,19 @@ public class PlayScene extends JPanel {
 	}
 	
 	private void calScore() {	
-		this.player.score += calScore.calScore();
+		this.player.setScore(this.player.getScore() + calScore.calScore());
 		
-		if(this.player.score < 0) {
-			this.player.score = 0;
+		if(this.player.getScore() < 0) {
+			this.player.setScore(0);
 		}
 		
-		this.player.score = (float) (Math.round(this.player.score * 100) /  100.0);
+		this.player.setScore((float) (Math.round(this.player.getScore() * 100) /  100.0));
 
-		this.container.getSinglePlayerScene().lblScore.setText(String.valueOf(this.player.score));
+		this.container.getSinglePlayerScene().lblScore.setText(String.valueOf(this.player.getScore()));
 		
 	}
 	private boolean isEnd() {
-		if(endPointBound.contains(this.player.bound)) {	
+		if(endPointBound.contains(this.player.getBound())) {	
 			this.sound.turnOnMusic(7);
 			return true;
 		}
@@ -286,7 +286,7 @@ public class PlayScene extends JPanel {
 	public boolean isWin() {
 		Rectangle endPos = new Rectangle(this.map.elevator.bound.get(1));
 		endPos.add(this.map.elevator.bound.get(3));
-		if(endPos.contains(this.player.bound)) {
+		if(endPos.contains(this.player.getBound())) {
 			return true;
 		}
 		return false;
@@ -322,7 +322,7 @@ public class PlayScene extends JPanel {
 				agvBlock.clear();
 				agvBlock.addAll(map.nopath.bound);
 //				dogBlock.addAll(catBound);
-				agvBlock.add(player.bound);
+				agvBlock.add(player.getBound());
 				for(int i = 0; i < agv.size(); i++) {
 //					Vector<Rectangle> tmpBlock = new Vector<>();
 //					for(int j = 0; j < agv.size(); j++) {
@@ -335,26 +335,26 @@ public class PlayScene extends JPanel {
 					agv.get(i).move(agvBlock);
 //					agvBlock.removeAll(tmpBlock);
 					
-					if(agv.get(i).isAgvDone && agv.get(i).task == 1) {
+					if(agv.get(i).isAgvDone() && agv.get(i).getTask() == 1) {
 						endPointAgv.get(i).doorID = -1;
-						agv.get(i).isAgvDone = false;
-						agv.get(i).task = 0;
+						agv.get(i).setAgvDone(false);
+						agv.get(i).setTask(0);
 						Random rd = new Random();
 						int tmp = rd.nextInt(2);
 						if(tmp == 0) {
-							agv.get(i).path = AStar.AStarAlgorithm(agv.get(i).nextNode, AStar.map[50][13]);
+							agv.get(i).setPath(AStar.AStarAlgorithm(agv.get(i).getNextNode(), AStar.map[50][13]));
 						}
 						else {
-							agv.get(i).path = AStar.AStarAlgorithm(agv.get(i).nextNode, AStar.map[50][14]);
+							agv.get(i).setPath(AStar.AStarAlgorithm(agv.get(i).getNextNode(), AStar.map[50][14]));
 						}		
 					}
-					else if(agv.get(i).isAgvDone && agv.get(i).task == 0) {
+					else if(agv.get(i).isAgvDone() && agv.get(i).getTask() == 0) {
 						endPointAgv.remove(i);
 						agv.remove(i);
 					}
 					else {
-						agvBound.add(agv.get(i).bound);
-						agvBlock.add(agv.get(i).bound);
+						agvBound.add(agv.get(i).getBound());
+						agvBlock.add(agv.get(i).getBound());
 					}
 				}
 				
@@ -370,7 +370,7 @@ public class PlayScene extends JPanel {
 				agentBlock.clear();
 				agentBlock.addAll(map.nopath.bound);
 				agentBlock.addAll(agvBound);
-				agentBlock.add(player.bound);
+				agentBlock.add(player.getBound());
 				for(int i = 0; i < agent.size(); i++) {
 //					Vector<Rectangle> tmpBlock = new Vector<>();
 //					for(int j = 0; j < cat.size(); j++) {
@@ -409,7 +409,7 @@ public class PlayScene extends JPanel {
 			
 			if(isWin()) {
 				container.getSinglePlayerScene().isMove = false;
-				float score = player.score;
+				float score = player.getScore();
 				try {
 					setUp();
 				} catch (IOException e1) {
@@ -426,9 +426,9 @@ public class PlayScene extends JPanel {
 		JSONObject data = new JSONObject();
 		
 		JSONObject player = new JSONObject();
-		player.put("x", this.player.position.x);
-		player.put("y", this.player.position.y);
-		player.put("score", this.player.score);
+		player.put("x", this.player.getPosition().x);
+		player.put("y", this.player.getPosition().y);
+		player.put("score", this.player.getScore());
 
 		data.put("player", player);
 		
@@ -437,12 +437,12 @@ public class PlayScene extends JPanel {
 		JSONArray agv = new JSONArray();
 		for(int i = 0; i < this.agv.size(); i++) {
 			JSONObject tmp = new JSONObject();
-			tmp.put("id", this.agv.get(i).agvID);
-			tmp.put("x", this.agv.get(i).position.x);
-			tmp.put("y", this.agv.get(i).position.y);
-			tmp.put("xEnd", this.agv.get(i).path.get(0).position.x);
-			tmp.put("yEnd", this.agv.get(i).path.get(0).position.y);
-			tmp.put("task", this.agv.get(i).task);
+			tmp.put("id", this.agv.get(i).getAgvID());
+			tmp.put("x", this.agv.get(i).getPosition().x);
+			tmp.put("y", this.agv.get(i).getPosition().y);
+			tmp.put("xEnd", this.agv.get(i).getPath().get(0).position.x);
+			tmp.put("yEnd", this.agv.get(i).getPath().get(0).position.y);
+			tmp.put("task", this.agv.get(i).getTask());
 			
 			agv.add(tmp);
 		}		
@@ -503,7 +503,7 @@ public class PlayScene extends JPanel {
 
 		container.getSinglePlayerScene().lblScore.setText(String.valueOf(score));
 		this.player = new Player((int)x, (int)y, map.path.dataArr);
-		this.player.score = (float)score;
+		this.player.setScore((float)score);
 		
 		preNode = this.AStar.map[(int)x / SIZE][(int)y / SIZE];
 		calScore = new CalScore();
@@ -529,7 +529,7 @@ public class PlayScene extends JPanel {
 				
 				Agv tmpAgv = new Agv((int)xAgv / SIZE * SIZE, (int)yAgv / SIZE * SIZE, path, (int)id);
 
-				tmpAgv.task = (int)task;
+				tmpAgv.setTask((int)task);
 				agv.add(tmpAgv);
 			}
 			
