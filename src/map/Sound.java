@@ -46,15 +46,18 @@ public class Sound {
     public void stopSound(){
         this.clip.stop();
     }
-	public void turnOnMusic(int i){
+    
+	public void turnOnMusicLoop(int i){
       setFile(i);
       playSound();
       loopSound();
     }
+	
     public void turnOffMusic(){
       stopSound();
     }
-    public void turnOnMusic1(int i){
+    
+    public void turnOnMusic(int i){
       setFile(i);
       playSound();
     }

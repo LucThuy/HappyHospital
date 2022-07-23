@@ -27,8 +27,10 @@ public class Container extends JPanel {
 	private PauseScene pauseScene;
 	private HowToPlayScene howToPlayScene;
 	private CreditScene creditScene;
+
 	private Sound sound = new Sound();
-	
+
+	private LoadGameScene loadGameScene;
 	private Client client;
 	
 	
@@ -66,6 +68,8 @@ public class Container extends JPanel {
 		add(this.howToPlayScene, "howToPlayScene");
 		creditScene = new CreditScene(this);
 		add(this.creditScene, "creditScene");
+		loadGameScene = new LoadGameScene(this);
+		add(this.loadGameScene, "loadGameScene");
 		
 		showMenuScene();
 	}
@@ -144,7 +148,14 @@ public class Container extends JPanel {
 		cardLayout.show(this, "winScene");
 		winScene.setFocusable(true);
 		winScene.requestFocusInWindow();
+		sound.turnOffMusic();
 		sound.turnOnMusic(1);
+	}
+	
+	public void showLoadGameScene() {
+		cardLayout.show(this, "loadGameScene");
+		loadGameScene.setFocusable(true);
+		loadGameScene.requestFocusInWindow();
 	}
 
 	public Client getClient() {
@@ -161,5 +172,9 @@ public class Container extends JPanel {
 	
 	public MutilPlayerScene getMutilPlayerScene() {
 		return this.mutilPlayerScene;
+	}
+	
+	public MenuScene getMenuScene() {
+		return this.menuScene;
 	}
 }

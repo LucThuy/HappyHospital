@@ -74,6 +74,7 @@ public class PlayScene extends JPanel {
 	public final int FPS = 60;
 	public final int SIZE = 28;
 	private static int numberOfAgents;
+
 	public static float son;
 	
 	
@@ -240,7 +241,7 @@ public class PlayScene extends JPanel {
 			if(this.player.isCollision(this.player.bound, this.zaWarudo.get(i).bound)) {
 				ZaWarudo.isZaWarudo = true;
 				ZaWarudo.zaWarudoCD.setTime();
-				this.sound.turnOnMusic1(10);
+				this.sound.turnOnMusic(10);
 				this.zaWarudo.remove(i);
 			}
 		}
@@ -270,7 +271,7 @@ public class PlayScene extends JPanel {
 	}
 	private boolean isEnd() {
 		if(endPointBound.contains(this.player.bound)) {	
-			this.sound.turnOnMusic1(7);
+			this.sound.turnOnMusic(7);
 			return true;
 		}
 		return false;
@@ -318,16 +319,16 @@ public class PlayScene extends JPanel {
 //				dogBlock.addAll(catBound);
 				agvBlock.add(player.bound);
 				for(int i = 0; i < agv.size(); i++) {
-					Vector<Rectangle> tmpBlock = new Vector<>();
-					for(int j = 0; j < agv.size(); j++) {
-						if(j == i) {
-							continue;
-						}
-						tmpBlock.add(agv.get(j).bound);
-					}
-					agvBlock.addAll(tmpBlock);
+//					Vector<Rectangle> tmpBlock = new Vector<>();
+//					for(int j = 0; j < agv.size(); j++) {
+//						if(j == i) {
+//							continue;
+//						}
+//						tmpBlock.add(agv.get(j).bound);
+//					}
+//					agvBlock.addAll(tmpBlock);
 					agv.get(i).move(agvBlock);
-					agvBlock.removeAll(tmpBlock);
+//					agvBlock.removeAll(tmpBlock);
 					
 					if(agv.get(i).isAgvDone && agv.get(i).task == 1) {
 						endPointAgv.get(i).doorID = -1;
@@ -340,8 +341,7 @@ public class PlayScene extends JPanel {
 						}
 						else {
 							agv.get(i).path = AStar.AStarAlgorithm(agv.get(i).nextNode, AStar.map[50][14]);
-						}
-						
+						}		
 					}
 					else if(agv.get(i).isAgvDone && agv.get(i).task == 0) {
 						endPointAgv.remove(i);
@@ -349,6 +349,7 @@ public class PlayScene extends JPanel {
 					}
 					else {
 						agvBound.add(agv.get(i).bound);
+						agvBlock.add(agv.get(i).bound);
 					}
 				}
 				
@@ -407,6 +408,7 @@ public class PlayScene extends JPanel {
 		}	
 	}
 	
+
 	public void saveData(String link) throws IOException {
 		JSONObject data = new JSONObject();
 		
@@ -485,6 +487,8 @@ public class PlayScene extends JPanel {
 		long x = (long) player.get("x");
 		long y = (long) player.get("y");
 		double score = (double)player.get("score");
+
+		container.getSinglePlayerScene().lblScore.setText(String.valueOf(score));
 		this.player = new Player((int)x, (int)y, map.path.dataArr);
 		this.player.score = (float)score;
 		
@@ -510,7 +514,8 @@ public class PlayScene extends JPanel {
 				
 				Vector<Node> path = this.AStar.AStarAlgorithm(start, end);
 				
-				Agv tmpAgv = new Agv((int)x / SIZE * SIZE, (int)y / SIZE * SIZE, path, (int)id);
+				Agv tmpAgv = new Agv((int)xAgv / SIZE * SIZE, (int)yAgv / SIZE * SIZE, path, (int)id);
+
 				tmpAgv.task = (int)task;
 				agv.add(tmpAgv);
 			}
@@ -543,8 +548,9 @@ public class PlayScene extends JPanel {
 				Node end = this.AStar.mapND[(int)xEnd][(int)yEnd];
 				
 				Vector<Node> path = this.AStar.AStarAlgorithmND(start, end);
-				
-				agent.add(new Agent((int)x / SIZE * SIZE, (int)y / SIZE * SIZE, path, (int)id));
+
+				agent.add(new Agent((int)xAgent / SIZE * SIZE, (int)yAgent / SIZE * SIZE, path, (int)id));
+
 			}
 			
 			long nEndAgent = (long)data.get("numEndPointAgent");

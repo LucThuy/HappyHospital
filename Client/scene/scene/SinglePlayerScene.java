@@ -38,14 +38,14 @@ public class SinglePlayerScene extends JPanel {
 	public GridBagConstraints gbc_panel;
 	public JLabel lblScore;
 
+
 	public JTextField txtSetAgent;
 
 	private JLabel lblTime;
 	private Timer timer;	
 	private int second, minute;
 	private String ddSecond, ddMinute;	
-	private DecimalFormat dFormat = new DecimalFormat("00");
-	
+	private DecimalFormat dFormat = new DecimalFormat("00");	
 	private Sound sound = new Sound();
 	
 	/**
@@ -60,7 +60,8 @@ public class SinglePlayerScene extends JPanel {
 		setUI();
 		
 		second =0;
-		minute =15;
+		minute =5;
+
 		timer = new Timer(1000, new CustomActionListener());	
 		timer.start();
 		addKeyListener(new CustomKeyListener());
@@ -127,7 +128,7 @@ public class SinglePlayerScene extends JPanel {
 		lblTime.setMinimumSize(new Dimension(65, 25));
 		lblTime.setPreferredSize(new Dimension(65, 25));
 		lblTime.setMaximumSize(new Dimension(100, 50));
-		lblTime.setText("16:00");
+		lblTime.setText("5:00");
 		
 		lblScore = new JLabel("0");
 		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
@@ -182,6 +183,7 @@ public class SinglePlayerScene extends JPanel {
 		btnApply.setMinimumSize(new Dimension(65, 25));
 		btnApply.setPreferredSize(new Dimension(65, 25));
 		btnApply.setMaximumSize(new Dimension(100, 50));
+		
 	}
 	
 	private SinglePlayerScene getSinglePlayerScene() {
@@ -214,7 +216,7 @@ public class SinglePlayerScene extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(isMove) {
-				sound.turnOnMusic1(5);
+				sound.turnOnMusic(5);
 			}
 			second--;	
 			if(second==-1) {
@@ -227,6 +229,7 @@ public class SinglePlayerScene extends JPanel {
 			if(minute==0 && second==0) {
 				timer.stop();
 				container.showWinScene();			}
+			
 		}	
 	}
 	
@@ -269,7 +272,8 @@ public class SinglePlayerScene extends JPanel {
 					}
 					else /*if(!playScene.player.blink.blinkCD.isCD())*/ {
 						playScene.player.blink.isBlink = true;
-						sound.turnOnMusic1(4);
+
+						sound.turnOnMusic(4);
 					}
 					isIPress = true;
 				}
@@ -313,4 +317,5 @@ public class SinglePlayerScene extends JPanel {
 		this.playScene.player.setName(container.getClient().getClientName());
 		add(this.playScene, gbc_panel);
 	}
+
 }

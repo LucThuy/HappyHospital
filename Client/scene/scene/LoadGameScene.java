@@ -39,21 +39,21 @@ import java.awt.Graphics;
 
 import javax.swing.ListSelectionModel;
 
-public class PauseScene extends JPanel {
+public class LoadGameScene extends JPanel {
 	
 	public Container container;
 	private SinglePlayerScene singlePlayerScene;
 	
 	private JList<SaveFile> listSaveFile;
 	private DefaultListModel<SaveFile> model;
-	private JButton btnHome;
+	private JButton btnNewGame;
 	private JButton btnBack;
-	private JButton btnSaveGame;
+	private JButton btnLoadGame;
 	
 	/**
 	 * Create the panel.
 	 */
-	public PauseScene(Container container) {
+	public LoadGameScene(Container container) {
 		this.container = container;
 		this.singlePlayerScene = singlePlayerScene;
 			
@@ -107,35 +107,35 @@ public class PauseScene extends JPanel {
 		pnlButton.add(btnBack, gbc_btnBack);
 		btnBack.addMouseListener(new MouseBack());
 		
-		btnSaveGame = new JButton("");
-		btnSaveGame.setOpaque(false);
-		btnSaveGame.setFocusPainted(false);
-		btnSaveGame.setBorderPainted(false);
-		btnSaveGame.setContentAreaFilled(false);
-		btnSaveGame.setIcon(new ImageIcon("data/btnSaveGame.png"));
-		btnSaveGame.setForeground(Color.WHITE);
-		btnSaveGame.setBackground(Color.GRAY);
-		GridBagConstraints gbc_btnSaveGame = new GridBagConstraints();
-		gbc_btnSaveGame.fill = GridBagConstraints.BOTH;
-		gbc_btnSaveGame.insets = new Insets(0, 0, 5, 0);
-		gbc_btnSaveGame.gridx = 0;
-		gbc_btnSaveGame.gridy = 2;
-		pnlButton.add(btnSaveGame, gbc_btnSaveGame);
-		btnSaveGame.addMouseListener(new MouseSaveGame());
+		btnLoadGame = new JButton("");
+		btnLoadGame.setOpaque(false);
+		btnLoadGame.setFocusPainted(false);
+		btnLoadGame.setBorderPainted(false);
+		btnLoadGame.setContentAreaFilled(false);
+		btnLoadGame.setIcon(new ImageIcon("data/btnLoadGame.png"));
+		btnLoadGame.setForeground(Color.WHITE);
+		btnLoadGame.setBackground(Color.GRAY);
+		GridBagConstraints gbc_btnLoadGame = new GridBagConstraints();
+		gbc_btnLoadGame.fill = GridBagConstraints.BOTH;
+		gbc_btnLoadGame.insets = new Insets(0, 0, 5, 0);
+		gbc_btnLoadGame.gridx = 0;
+		gbc_btnLoadGame.gridy = 2;
+		pnlButton.add(btnLoadGame, gbc_btnLoadGame);
+		btnLoadGame.addMouseListener(new MouseLoadGame());
 		
-		btnHome = new JButton("");
-		btnHome.setOpaque(false);
-		btnHome.setFocusPainted(false);
-		btnHome.setBorderPainted(false);
-		btnHome.setContentAreaFilled(false);
+		btnNewGame = new JButton("");
+		btnNewGame.setOpaque(false);
+		btnNewGame.setFocusPainted(false);
+		btnNewGame.setBorderPainted(false);
+		btnNewGame.setContentAreaFilled(false);
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-		btnHome.setIcon(new ImageIcon("data/btnHome.png"));
-		GridBagConstraints gbc_btnHome = new GridBagConstraints();
-		gbc_btnHome.fill = GridBagConstraints.BOTH;
-		gbc_btnHome.gridx = 0;
-		gbc_btnHome.gridy = 4;
-		pnlButton.add(btnHome, gbc_btnHome);
-		btnHome.addMouseListener(new MouseHome());
+		btnNewGame.setIcon(new ImageIcon("data/btnNewGame.png"));
+		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
+		gbc_btnNewGame.fill = GridBagConstraints.BOTH;
+		gbc_btnNewGame.gridx = 0;
+		gbc_btnNewGame.gridy = 4;
+		pnlButton.add(btnNewGame, gbc_btnNewGame);
+		btnNewGame.addMouseListener(new MouseNewGame());
 		
 		JPanel pnlSaveFile = new JPanel();
 		pnlSaveFile.setOpaque(false);
@@ -184,21 +184,26 @@ public class PauseScene extends JPanel {
 		}
 	}
 	
-	class MouseSaveGame implements MouseListener {
+	class MouseLoadGame implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());	
-			try {
-				container.getSinglePlayerScene().getPlayScene().saveData(saveFile.link);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			
+			try {
+				container.showSinglePlayerScene();
+			} catch (IOException | ParseException e1) {
+				e1.printStackTrace();
+			}
+			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());	
+			try {
+				container.getSinglePlayerScene().getPlayScene().loadData(saveFile.link);
+			} catch (IOException | ParseException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 		@Override
@@ -208,12 +213,12 @@ public class PauseScene extends JPanel {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			btnSaveGame.setIcon(new ImageIcon("data/btnSaveGamePress.png"));
+			btnLoadGame.setIcon(new ImageIcon("data/btnLoadGamePress.png"));
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			btnSaveGame.setIcon(new ImageIcon("data/btnSaveGame.png"));
+			btnLoadGame.setIcon(new ImageIcon("data/btnLoadGame.png"));
 		}
 		
 	}
@@ -223,12 +228,12 @@ public class PauseScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			container.showSinglePlayerSceneAgain();
+			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			
+			container.showMenuScene();
 		}
 
 		@Override
@@ -248,16 +253,23 @@ public class PauseScene extends JPanel {
 		
 	}
 	
-	class MouseHome implements MouseListener {
+	class MouseNewGame implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			container.showMenuScene();
+			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
+			String name = container.getMenuScene().getTxtNameInput();
+			container.getClient().setClientName(name);
 			
+			try {
+				container.showSinglePlayerScene();
+			} catch (IOException | ParseException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 		@Override
@@ -267,12 +279,12 @@ public class PauseScene extends JPanel {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			btnHome.setIcon(new ImageIcon("data/btnHomePress.png"));
+			btnNewGame.setIcon(new ImageIcon("data/btnNewGamePress.png"));
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			btnHome.setIcon(new ImageIcon("data/btnHome.png"));
+			btnNewGame.setIcon(new ImageIcon("data/btnNewGame.png"));
 		}
 		
 	}
