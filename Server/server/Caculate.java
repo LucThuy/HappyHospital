@@ -70,7 +70,7 @@ public class Caculate {
 		this.zaWarudoCD = new Cooldown(20000);
 		
 		this.map = new Map();
-		this.AStar = new AStar(map.path.dataArr, (int) map.path.WIDTH, (int) map.path.HEIGHT);	
+		this.AStar = new AStar(map.getPath().getDataArr(), (int) map.getPath().WIDTH, (int) map.getPath().HEIGHT);	
 
 		setUp();
 		
@@ -90,9 +90,9 @@ public class Caculate {
 	}
 	
 	private void addPlayerHost() {
-		Rectangle startPos = new Rectangle(this.map.elevator.bound.get(0));
+		Rectangle startPos = new Rectangle(this.map.getElevator().getBound().get(0));
 		this.hostName = this.server.getServerName();
-		this.playerHost = new PlayerS(startPos.x, startPos.y, this.map.path.dataArr);	
+		this.playerHost = new PlayerS(startPos.x, startPos.y, this.map.getPath().getDataArr());	
 		this.server.sendToAll("addPlayerHost " + startPos.x + " " + startPos.y + " " + hostName);
 		
 		preNodeHost = this.AStar.map[startPos.x / SIZE][startPos.y / SIZE];
@@ -102,9 +102,9 @@ public class Caculate {
 	}
 	
 	private void addPlayerGuest() {
-		Rectangle startPos = new Rectangle(this.map.elevator.bound.get(2));
+		Rectangle startPos = new Rectangle(this.map.getElevator().getBound().get(2));
 		this.guestName = this.server.getClientname();
-		this.playerGuest = new PlayerS(startPos.x, startPos.y, this.map.path.dataArr);		
+		this.playerGuest = new PlayerS(startPos.x, startPos.y, this.map.getPath().getDataArr());		
 		this.server.sendToAll("addPlayerGuest " + startPos.x + " " + startPos.y + " " + guestName);
 		
 		preNodeGuest = this.AStar.map[startPos.x / SIZE][startPos.y / SIZE];
@@ -115,8 +115,8 @@ public class Caculate {
 	
 	private void genEndPointHost() {
 		Random rd = new Random();
-		endDoorHostID = rd.nextInt(this.map.door.bound.size());
-		endPointHostBound = this.map.door.bound.get(endDoorHostID);
+		endDoorHostID = rd.nextInt(this.map.getDoor().getBound().size());
+		endPointHostBound = this.map.getDoor().getBound().get(endDoorHostID);
 		
 		Node nextNodeHost = this.AStar.map[endPointHostBound.x / SIZE][endPointHostBound.y / SIZE];		
 		calScoreHost.calExpectedTime(preNodeHost, nextNodeHost, this.AStar);
@@ -127,8 +127,8 @@ public class Caculate {
 	
 	private void genEndPointGuest() {
 		Random rd = new Random();
-		endDoorGuestID = rd.nextInt(this.map.door.bound.size());
-		endPointGuestBound = this.map.door.bound.get(endDoorGuestID);
+		endDoorGuestID = rd.nextInt(this.map.getDoor().getBound().size());
+		endPointGuestBound = this.map.getDoor().getBound().get(endDoorGuestID);
 		
 		Node nextNodeGuest = this.AStar.map[endPointGuestBound.x / SIZE][endPointGuestBound.y / SIZE];		
 		calScoreGuest.calExpectedTime(preNodeGuest, nextNodeGuest, this.AStar);
@@ -162,13 +162,13 @@ public class Caculate {
 		int tmp = rd.nextInt(1000);
 		if(tmp < 10) {
 			if(!agentCD.isCD()) {
-				int indexStart = rd.nextInt(this.map.door.bound.size());
-				Rectangle startPos = this.map.door.bound.get(indexStart);
-				int indexEnd = rd.nextInt(this.map.door.bound.size());
+				int indexStart = rd.nextInt(this.map.getDoor().getBound().size());
+				Rectangle startPos = this.map.getDoor().getBound().get(indexStart);
+				int indexEnd = rd.nextInt(this.map.getDoor().getBound().size());
 				while(indexEnd == indexStart) {
-					indexEnd = rd.nextInt(this.map.door.bound.size());
+					indexEnd = rd.nextInt(this.map.getDoor().getBound().size());
 				}
-				Rectangle endPos = this.map.door.bound.get(indexEnd);			
+				Rectangle endPos = this.map.getDoor().getBound().get(indexEnd);			
 				
 				Node start = this.AStar.mapND[startPos.x / SIZE][startPos.y / SIZE];
 				Node end = this.AStar.mapND[endPos.x / SIZE][endPos.y / SIZE];	
@@ -338,7 +338,7 @@ public class Caculate {
 				catBound.clear();
 				
 				catBlock.clear();
-				catBlock.addAll(map.nopath.bound);
+				catBlock.addAll(map.getNopath().getBound());
 				catBlock.add(playerHost.bound);
 				catBlock.add(playerGuest.bound);
 				for(int i = 0; i < agent.size(); i++) {
@@ -368,7 +368,7 @@ public class Caculate {
 			}
 			
 			playerBlock.clear();
-			playerBlock.addAll(map.nopath.bound);
+			playerBlock.addAll(map.getNopath().getBound());
 //			playerBlock.addAll(catBound);
 			playerBlock.add(playerGuest.bound);
 			playerHost.move(playerBlock);

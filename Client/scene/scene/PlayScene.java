@@ -86,7 +86,7 @@ public class PlayScene extends JPanel {
 		this.zaWarudoCD = new Cooldown(20000);
 		
 		this.map = new Map();
-		this.AStar = new AStar(map.path.dataArr, (int) map.path.WIDTH, (int) map.path.HEIGHT);	
+		this.AStar = new AStar(map.getPath().getDataArr(), (int) map.getPath().WIDTH, (int) map.getPath().HEIGHT);	
 
 		setUp();
 		
@@ -116,8 +116,8 @@ public class PlayScene extends JPanel {
 		g.setFont(new Font("Georgia", Font.PLAIN, 14));
 		
 		if(ZaWarudo.isZaWarudo) {
-			for(int i = 0; i < this.map.layer.size(); i++) {
-				this.map.layer.get(i).draw(g, true);
+			for(int i = 0; i < this.map.getLayer().size(); i++) {
+				this.map.getLayer().get(i).draw(g, true);
 			}	
 			
 			if(this.agv != null) {
@@ -133,8 +133,8 @@ public class PlayScene extends JPanel {
 			}			
 		}
 		else {
-			for(int i = 0; i < this.map.layer.size(); i++) {
-				this.map.layer.get(i).draw(g);
+			for(int i = 0; i < this.map.getLayer().size(); i++) {
+				this.map.getLayer().get(i).draw(g);
 			}
 			
 			if(this.agv != null) {
@@ -142,14 +142,14 @@ public class PlayScene extends JPanel {
 					this.agv.get(i).draw(g);
 				}
 			}
-			this.map.door.drawEnd(g, endPointAgv, "agv");
+			this.map.getDoor().drawEnd(g, endPointAgv, "agv");
 			
 			if(this.agent != null) {
 				for(int i = 0; i < this.agent.size(); i++) {
 					this.agent.get(i).draw(g);
 				}
 			}			
-			this.map.door.drawEnd(g, endPointAgent, "agent");
+			this.map.getDoor().drawEnd(g, endPointAgent, "agent");
 		}
 		
 		if(this.zaWarudo != null) {
@@ -158,7 +158,7 @@ public class PlayScene extends JPanel {
 			}
 		}
 		this.player.draw(g);
-		this.map.door.drawEnd(g, endDoorID);
+		this.map.getDoor().drawEnd(g, endDoorID);
 	}
 	
 	public int getNumberOfAgents() {
@@ -171,8 +171,8 @@ public class PlayScene extends JPanel {
 	
 
 	public void addPlayer() throws IOException {
-		Rectangle startPos = new Rectangle(this.map.elevator.bound.get(2));
-		this.player = new Player(startPos.x, startPos.y, this.map.path.dataArr);
+		Rectangle startPos = new Rectangle(this.map.getElevator().getBound().get(2));
+		this.player = new Player(startPos.x, startPos.y, this.map.getPath().getDataArr());
 		
 		preNode = this.AStar.map[startPos.x / SIZE][startPos.y / SIZE];
 		calScore = new CalScore();
@@ -184,10 +184,10 @@ public class PlayScene extends JPanel {
 		int tmp = rd.nextInt(1000);
 		if(tmp < 3) {
 			if(!agvCD.isCD()) {
-				int index = rd.nextInt(this.map.door.bound.size());
-				Rectangle endPos = this.map.door.bound.get(index);
+				int index = rd.nextInt(this.map.getDoor().getBound().size());
+				Rectangle endPos = this.map.getDoor().getBound().get(index);
 				
-				Rectangle startPos = new Rectangle(this.map.elevator.bound.get(0));
+				Rectangle startPos = new Rectangle(this.map.getElevator().getBound().get(0));
 				Node start = this.AStar.map[startPos.x / SIZE][startPos.y / SIZE];
 				Node end = this.AStar.map[endPos.x / SIZE][endPos.y / SIZE];
 				
@@ -204,13 +204,13 @@ public class PlayScene extends JPanel {
 		Random rd = new Random();
 		if(this.agent.size() < num) {
 			if(!agentCD.isCD()) {
-				int indexStart = rd.nextInt(this.map.door.bound.size());
-				Rectangle startPos = this.map.door.bound.get(indexStart);
-				int indexEnd = rd.nextInt(this.map.door.bound.size());
+				int indexStart = rd.nextInt(this.map.getDoor().getBound().size());
+				Rectangle startPos = this.map.getDoor().getBound().get(indexStart);
+				int indexEnd = rd.nextInt(this.map.getDoor().getBound().size());
 				while(indexEnd == indexStart) {
-					indexEnd = rd.nextInt(this.map.door.bound.size());
+					indexEnd = rd.nextInt(this.map.getDoor().getBound().size());
 				}
-				Rectangle endPos = this.map.door.bound.get(indexEnd);			
+				Rectangle endPos = this.map.getDoor().getBound().get(indexEnd);			
 				
 				Node start = this.AStar.mapND[startPos.x / SIZE][startPos.y / SIZE];
 				Node end = this.AStar.mapND[endPos.x / SIZE][endPos.y / SIZE];	
@@ -230,10 +230,10 @@ public class PlayScene extends JPanel {
 		int tmp = rd.nextInt(1000);
 		if(tmp < 1) {
 			if(!this.zaWarudoCD.isCD()) {
-				int index = rd.nextInt(this.map.path.bound.size());
-				int x = this.map.path.bound.get(index).x;
-				int y = this.map.path.bound.get(index).y;
-				ZaWarudo newZaWarudo = new ZaWarudo(x, y, this.map.path.SIZE);
+				int index = rd.nextInt(this.map.getPath().getBound().size());
+				int x = this.map.getPath().getBound().get(index).x;
+				int y = this.map.getPath().getBound().get(index).y;
+				ZaWarudo newZaWarudo = new ZaWarudo(x, y, this.map.getPath().SIZE);
 				this.zaWarudo.add(newZaWarudo);
 			}
 		}
@@ -255,8 +255,8 @@ public class PlayScene extends JPanel {
 	
 	private void genEndPoint() {
 		Random rd = new Random();
-		endDoorID = rd.nextInt(this.map.door.bound.size());
-		endPointBound = this.map.door.bound.get(endDoorID);
+		endDoorID = rd.nextInt(this.map.getDoor().getBound().size());
+		endPointBound = this.map.getDoor().getBound().get(endDoorID);
 		
 		Node nextNode = this.AStar.map[endPointBound.x / SIZE][endPointBound.y / SIZE];		
 		calScore.calExpectedTime(preNode, nextNode, this.AStar);
@@ -284,8 +284,8 @@ public class PlayScene extends JPanel {
 	}
 	
 	public boolean isWin() {
-		Rectangle endPos = new Rectangle(this.map.elevator.bound.get(1));
-		endPos.add(this.map.elevator.bound.get(3));
+		Rectangle endPos = new Rectangle(this.map.getElevator().getBound().get(1));
+		endPos.add(this.map.getElevator().getBound().get(3));
 		if(endPos.contains(this.player.getBound())) {
 			return true;
 		}
@@ -320,7 +320,7 @@ public class PlayScene extends JPanel {
 				agvBound.clear();
 				
 				agvBlock.clear();
-				agvBlock.addAll(map.nopath.bound);
+				agvBlock.addAll(map.getNopath().getBound());
 //				dogBlock.addAll(catBound);
 				agvBlock.add(player.getBound());
 				for(int i = 0; i < agv.size(); i++) {
@@ -336,7 +336,7 @@ public class PlayScene extends JPanel {
 //					agvBlock.removeAll(tmpBlock);
 					
 					if(agv.get(i).isAgvDone() && agv.get(i).getTask() == 1) {
-						endPointAgv.get(i).doorID = -1;
+						endPointAgv.get(i).setDoorID(-1);
 						agv.get(i).setAgvDone(false);
 						agv.get(i).setTask(0);
 						Random rd = new Random();
@@ -368,7 +368,7 @@ public class PlayScene extends JPanel {
 				agentBound.clear();
 				
 				agentBlock.clear();
-				agentBlock.addAll(map.nopath.bound);
+				agentBlock.addAll(map.getNopath().getBound());
 				agentBlock.addAll(agvBound);
 				agentBlock.add(player.getBound());
 				for(int i = 0; i < agent.size(); i++) {
@@ -395,7 +395,7 @@ public class PlayScene extends JPanel {
 			}
 			
 			playerBlock.clear();
-			playerBlock.addAll(map.nopath.bound);
+			playerBlock.addAll(map.getNopath().getBound());
 			playerBlock.addAll(agvBound);
 //			playerBlock.addAll(catBound);
 			player.move(playerBlock);
@@ -452,8 +452,8 @@ public class PlayScene extends JPanel {
 		JSONArray endPointAgv = new JSONArray();
 		for(int i = 0; i < this.endPointAgv.size(); i++) {
 			JSONObject tmp = new JSONObject();
-			tmp.put("id", this.endPointAgv.get(i).ID);
-			tmp.put("doorID", this.endPointAgv.get(i).doorID);
+			tmp.put("id", this.endPointAgv.get(i).getID());
+			tmp.put("doorID", this.endPointAgv.get(i).getDoorID());
 			
 			endPointAgv.add(tmp);
 		}
@@ -478,8 +478,8 @@ public class PlayScene extends JPanel {
 		JSONArray endPointAgent = new JSONArray();
 		for(int i = 0; i < this.endPointAgent.size(); i++) {
 			JSONObject tmp = new JSONObject();
-			tmp.put("id", this.endPointAgent.get(i).ID);
-			tmp.put("doorID", this.endPointAgent.get(i).doorID);
+			tmp.put("id", this.endPointAgent.get(i).getID());
+			tmp.put("doorID", this.endPointAgent.get(i).getDoorID());
 			
 			endPointAgent.add(tmp);
 		}
@@ -502,7 +502,7 @@ public class PlayScene extends JPanel {
 		double score = (double)player.get("score");
 
 		container.getSinglePlayerScene().lblScore.setText(String.valueOf(score));
-		this.player = new Player((int)x, (int)y, map.path.dataArr);
+		this.player = new Player((int)x, (int)y, map.getPath().getDataArr());
 		this.player.setScore((float)score);
 		
 		preNode = this.AStar.map[(int)x / SIZE][(int)y / SIZE];

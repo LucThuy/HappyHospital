@@ -19,19 +19,19 @@ import org.json.simple.parser.ParseException;
 
 public class Map {
 	
-	public Vector<Layer> layer = new Vector<>();
+	private Vector<Layer> layer = new Vector<>();
 	
-	public Ground ground;
-	public Path path;
-	public Room room;
-	public Door door;
-	public Wall wall;
-	public NoPath nopath;
-	public Gate gate;
-	public Elevator elevator;
-	public Bed bed;
+	private Ground ground;
+	private Path path;
+	private Room room;
+	private Door door;
+	private Wall wall;
+	private NoPath nopath;
+	private Gate gate;
+	private Elevator elevator;
+	private Bed bed;
 	
-	public Vector<Tile> tiles = new Vector<>();
+	private Vector<Tile> tiles = new Vector<>();
 	
 	public Map() throws FileNotFoundException, IOException, ParseException {
 		loadMap();
@@ -60,47 +60,47 @@ public class Map {
 			switch(name) {
 				case "ground":{
 					ground = new Ground(id, data, name, tiles);
-					layer.add(ground);
+					getLayer().add(ground);
 					break;
 				}
 				case "path":{
-					path = new Path(id, data, name, tiles);
-					layer.add(path);
+					setPath(new Path(id, data, name, tiles));
+					getLayer().add(getPath());
 					break;
 				}
 				case "room":{
 					room = new Room(id, data, name, tiles);
-					layer.add(room);
+					getLayer().add(room);
 					break;
 				}
 				case "door":{
-					door = new Door(id, data, name, tiles);
-					layer.add(door);
+					setDoor(new Door(id, data, name, tiles));
+					getLayer().add(getDoor());
 					break;
 				}
 				case "wall":{
 					wall = new Wall(id, data, name, tiles);
-					layer.add(wall);
+					getLayer().add(wall);
 					break;
 				}
 				case "nopath":{
-					nopath = new NoPath(id, data, name, tiles);
-					layer.add(nopath);
+					setNopath(new NoPath(id, data, name, tiles));
+					getLayer().add(getNopath());
 					break;
 				}
 				case "gate":{
 					gate = new Gate(id, data, name, tiles);
-					layer.add(gate);
+					getLayer().add(gate);
 					break;
 				}
 				case "elevator":{
-					elevator = new Elevator(id, data, name, tiles);
-					layer.add(elevator);
+					setElevator(new Elevator(id, data, name, tiles));
+					getLayer().add(getElevator());
 					break;
 				}
 				case "bed":{
 					bed = new Bed(id, data, name, tiles);
-					layer.add(bed);
+					getLayer().add(bed);
 					break;
 				}
 			}
@@ -132,5 +132,45 @@ public class Map {
 			Tile tile = new Tile(id, img);
 			tiles.add(tile);
 		}
+	}
+
+	public Path getPath() {
+		return path;
+	}
+
+	public void setPath(Path path) {
+		this.path = path;
+	}
+
+	public Elevator getElevator() {
+		return elevator;
+	}
+
+	public void setElevator(Elevator elevator) {
+		this.elevator = elevator;
+	}
+
+	public Door getDoor() {
+		return door;
+	}
+
+	public void setDoor(Door door) {
+		this.door = door;
+	}
+
+	public NoPath getNopath() {
+		return nopath;
+	}
+
+	public void setNopath(NoPath nopath) {
+		this.nopath = nopath;
+	}
+
+	public Vector<Layer> getLayer() {
+		return layer;
+	}
+
+	public void setLayer(Vector<Layer> layer) {
+		this.layer = layer;
 	}
 }

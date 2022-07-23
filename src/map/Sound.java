@@ -6,8 +6,8 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 
 public class Sound {
-    public Clip clip ;
-    public String nameOfFile[] = new String[20];
+    private Clip clip ;
+    private String nameOfFile[] = new String[20];
 
     public Sound(){
         this.nameOfFile[0] = "sound/PositiveFuseFrenchFuse.wav";

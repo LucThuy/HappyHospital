@@ -65,8 +65,8 @@ public class Board extends JPanel {
 		g.setFont(new Font("Georgia", Font.PLAIN, 14));
 		
 		if(ZaWarudo.isZaWarudo) {
-			for(int i = 0; i < this.map.layer.size(); i++) {
-				this.map.layer.get(i).draw(g, true);
+			for(int i = 0; i < this.map.getLayer().size(); i++) {
+				this.map.getLayer().get(i).draw(g, true);
 			}	
 			
 			if(this.agent != null) {
@@ -76,8 +76,8 @@ public class Board extends JPanel {
 			}			
 		}
 		else {
-			for(int i = 0; i < this.map.layer.size(); i++) {
-				this.map.layer.get(i).draw(g);
+			for(int i = 0; i < this.map.getLayer().size(); i++) {
+				this.map.getLayer().get(i).draw(g);
 			}
 			
 			if(this.agent != null) {
@@ -85,7 +85,7 @@ public class Board extends JPanel {
 					this.agent.get(i).draw(g);
 				}
 			}			
-			this.map.door.drawEnd(g, endPointAgent, "agent");
+			this.map.getDoor().drawEnd(g, endPointAgent, "agent");
 		}
 		
 		if(this.zaWarudo != null) {
@@ -99,8 +99,8 @@ public class Board extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.map.door.drawEnd(g, endDoorHostID, "host");
-		this.map.door.drawEnd(g, endDoorGuestID, "guest");
+		this.map.getDoor().drawEnd(g, endDoorHostID, "host");
+		this.map.getDoor().drawEnd(g, endDoorGuestID, "guest");
 	}
 	
 	class CustomActionListener implements ActionListener {
