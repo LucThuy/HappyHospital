@@ -407,8 +407,14 @@ public class PlayScene extends JPanel {
 			}
 			
 			if(isWin()) {
-				container.showWinScene();
 				container.getSinglePlayerScene().isMove = false;
+				try {
+					setUp();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				update.stop();
+				container.showWinScene();
 			}		
 		}	
 	}

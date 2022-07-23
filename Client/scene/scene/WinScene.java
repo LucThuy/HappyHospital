@@ -38,7 +38,6 @@ import javax.swing.SwingConstants;
 public class WinScene extends JPanel {
 
 	public Container container;
-	private Sound sound = new Sound();
 	public PlayScene playScene;
 	private JButton btnHome;
 	private JLabel lblScore;
@@ -109,12 +108,7 @@ public class WinScene extends JPanel {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			try {
-				container.getSinglePlayerScene().getPlayScene().setUp();
-				container.getSinglePlayerScene().getPlayScene().update.stop();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			container.getSound().turnOffMusic();
 			container.showMenuScene();
 		}
 
