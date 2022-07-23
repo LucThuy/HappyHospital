@@ -1,1 +1,55 @@
-{"agv":[{"task":0,"xEnd":50,"x":961,"y":196,"yEnd":13,"id":0},{"task":1,"xEnd":44,"x":948,"y":560,"yEnd":20,"id":1},{"task":1,"xEnd":13,"x":112,"y":325,"yEnd":9,"id":2}],"numAgent":3,"numAgv":3,"agentID":7,"agent":[{"xEnd":43,"x":1064,"y":478,"yEnd":20,"id":2},{"xEnd":28,"x":942,"y":252,"yEnd":7,"id":5},{"xEnd":44,"x":914,"y":560,"yEnd":20,"id":6}],"numEndPointAgent":3,"numEndPointAgv":3,"endPointAgent":[{"id":2,"doorID":42},{"id":5,"doorID":6},{"id":6,"doorID":43}],"agvID":3,"endPointAgv":[{"id":0,"doorID":-1},{"id":1,"doorID":43},{"id":2,"doorID":12}],"player":{"score":16.683334,"x":368,"y":196}}
+{
+	"agv": [
+		{
+			"task": 0,
+			"xEnd": 50,
+			"x": 1260,
+			"y": 199,
+			"yEnd": 14,
+			"id": 12
+		},
+		{
+			"task": 0,
+			"xEnd": 50,
+			"x": 952,
+			"y": 238,
+			"yEnd": 13,
+			"id": 13
+		},
+		{
+			"task": 1,
+			"xEnd": 34,
+			"x": 352,
+			"y": 196,
+			"yEnd": 9,
+			"id": 14
+		}
+	],
+	"numAgent": 0,
+	"numAgv": 3,
+	"agentID": 0,
+	"agent": [],
+	"numEndPointAgent": 0,
+	"numEndPointAgv": 3,
+	"endPointAgent": [],
+	"agvID": 15,
+	"endPointAgv": [
+		{
+			"id": 12,
+			"doorID": -1
+		},
+		{
+			"id": 13,
+			"doorID": -1
+		},
+		{
+			"id": 14,
+			"doorID": 18
+		}
+	],
+	"player": {
+		"score": 4.3166666,
+		"x": 380,
+		"y": 196
+	}
+}
