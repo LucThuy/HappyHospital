@@ -548,6 +548,7 @@ public class PlayScene extends JPanel {
 		long x = (long) player.get("x");
 		long y = (long) player.get("y");
 		double score = (double)player.get("score");
+		container.getSinglePlayerScene().lblScore.setText(String.valueOf(score));
 		this.player = new Player((int)x, (int)y, map.path.dataArr);
 		this.player.score = (float)score;
 		
