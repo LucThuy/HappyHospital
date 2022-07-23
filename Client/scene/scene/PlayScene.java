@@ -406,6 +406,7 @@ public class PlayScene extends JPanel {
 			
 			if(isWin()) {
 				container.showWinScene();
+				container.getSinglePlayerScene().isMove = false;
 			}		
 		}	
 	}
