@@ -41,7 +41,7 @@ public class WinScene extends JPanel {
 	private Sound sound = new Sound();
 	public PlayScene playScene;
 	private JButton btnHome;
-	public JLabel lblScore;
+	private JLabel lblScore;
 
 	/**
 	 * Create the panel.
@@ -73,13 +73,13 @@ public class WinScene extends JPanel {
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		
 		lblScore = new JLabel("0.0");
-		lblScore.setFont(new Font("Segoe UI Semibold", Font.BOLD, 40));
-		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
+		getLblScore().setFont(new Font("Segoe UI Semibold", Font.BOLD, 40));
+		getLblScore().setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblScore = new GridBagConstraints();
 		gbc_lblScore.insets = new Insets(0, 0, 5, 5);
 		gbc_lblScore.gridx = 1;
 		gbc_lblScore.gridy = 1;
-		add(lblScore, gbc_lblScore);
+		add(getLblScore(), gbc_lblScore);
 
 		btnHome.setIcon(new ImageIcon("data/btnHome.png"));
 		GridBagConstraints gbc_btnBack = new GridBagConstraints();
@@ -94,6 +94,12 @@ public class WinScene extends JPanel {
 	
 	
 	
+	public JLabel getLblScore() {
+		return lblScore;
+	}
+
+
+
 	class MouseHome implements MouseListener {
 
 		@Override
