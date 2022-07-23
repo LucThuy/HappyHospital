@@ -96,6 +96,9 @@ public class PlayScene extends JPanel {
 	}
 	
 	public void setUp() throws IOException {
+		container.getSinglePlayerScene().minute = 5;
+		container.getSinglePlayerScene().second = 0;
+		
 		this.agvID = 0;
 		endPointAgv.clear();
 		agv.clear();

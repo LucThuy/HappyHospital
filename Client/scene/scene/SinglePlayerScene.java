@@ -43,7 +43,7 @@ public class SinglePlayerScene extends JPanel {
 
 	private JLabel lblTime;
 	private Timer timer;	
-	private int second, minute;
+	public int second, minute;
 	private String ddSecond, ddMinute;	
 	private DecimalFormat dFormat = new DecimalFormat("00");	
 	private Sound sound = new Sound();
