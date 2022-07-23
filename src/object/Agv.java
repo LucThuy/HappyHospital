@@ -16,42 +16,42 @@ import algorithm.Position;
 
 public class Agv {
 
-	public Position position = new Position();
-	public Rectangle bound = new Rectangle();
+	private Position position = new Position();
+	private Rectangle bound = new Rectangle();
 	
-	public int agvID;
+	private int agvID;
 
-	public int msE;
-	public int msN;
-	public int msW;
-	public int msS;
-	public int ms;
+	private int msE;
+	private int msN;
+	private int msW;
+	private int msS;
+	private int ms;
 	
-	public boolean isAgvDone = false;
-	public int task = 1;
+	private boolean isAgvDone = false;
+	private int task = 1;
 	
-	public Vector<Node> path;
-	public Node nextNode = new Node();
+	private Vector<Node> path;
+	private Node nextNode = new Node();
 	
-	public Image img;
+	private Image img;
 	
 	public final int WIDTH = 28;
 	public final int HEIGHT = 28;
 	public final int SIZE = 28;
 
 	public Agv(int x, int y, Vector<Node> path, int agvID) throws IOException {
-		this.position.x = x;
-		this.position.y = y;
+		this.getPosition().x = x;
+		this.getPosition().y = y;
 		this.ms = 1;
 		this.msE = 0;
 		this.msN = 0;
 		this.msW = 0;
 		this.msS = 0;
-		this.agvID = agvID;
+		this.setAgvID(agvID);
 		
-		this.path = path;
-		this.nextNode = path.remove(path.size() - 1);
-		updateDirect(nextNode);
+		this.setPath(path);
+		this.setNextNode(path.remove(path.size() - 1));
+		updateDirect(getNextNode());
 		
 		BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
 		bigImage = ImageIO.read(new File("data/agv.png"));
@@ -60,19 +60,19 @@ public class Agv {
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawRect(this.position.x, this.position.y, WIDTH, HEIGHT);
-		g.drawImage(img, this.position.x, this.position.y, WIDTH, HEIGHT, null);
+		g.drawRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
+		g.drawImage(img, this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT, null);
 		g.setColor(Color.BLACK);
-		g.drawString(String.valueOf(agvID), this.position.x + 3, this.position.y - 3);
+		g.drawString(String.valueOf(getAgvID()), this.getPosition().x + 3, this.getPosition().y - 3);
 	}
 	
 	public void draw(Graphics g, boolean isZaWarudo) {
 		g.setColor(Color.BLACK);
-		g.fillRect(this.position.x, this.position.y, WIDTH, HEIGHT);
+		g.fillRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
 	}
 	
 	public void setBound() {
-		this.bound.setBounds(this.position.x, this.position.y, WIDTH, HEIGHT);
+		this.bound.setBounds(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
 	}
 	
 	public void findNextMove() {
@@ -81,41 +81,41 @@ public class Agv {
 			this.msN = 0;
 			this.msW = 0;
 			this.msS = 0;
-			if(path.isEmpty()) {
-				this.isAgvDone = true;
+			if(getPath().isEmpty()) {
+				this.setAgvDone(true);
 			}
 			else {
-				nextNode = path.remove(path.size() - 1);
-				updateDirect(nextNode);
+				setNextNode(getPath().remove(getPath().size() - 1));
+				updateDirect(getNextNode());
 			}
 		}
 	}
 	
 	private boolean isFinishMove() {
-		if(this.position.x == nextNode.position.x * SIZE && this.position.y == nextNode.position.y * SIZE) {
+		if(this.getPosition().x == getNextNode().position.x * SIZE && this.getPosition().y == getNextNode().position.y * SIZE) {
 			return true;
 		}
 		return false;
 	}
 	
 	private void updateDirect(Node nextNode) {
-		if(this.msE == 0 && nextNode.position.x * SIZE > this.position.x) {
+		if(this.msE == 0 && nextNode.position.x * SIZE > this.getPosition().x) {
 			this.msE = this.ms;
 		}
-		if(this.msN == 0 && nextNode.position.y * SIZE < this.position.y) {
+		if(this.msN == 0 && nextNode.position.y * SIZE < this.getPosition().y) {
 			this.msN = this.ms;
 		}
-		if(this.msW == 0 && nextNode.position.x * SIZE < this.position.x) {
+		if(this.msW == 0 && nextNode.position.x * SIZE < this.getPosition().x) {
 			this.msW = this.ms;
 		}
-		if(this.msS == 0 && nextNode.position.y * SIZE > this.position.y) {
+		if(this.msS == 0 && nextNode.position.y * SIZE > this.getPosition().y) {
 			this.msS = this.ms;
 		}
 	}
 	
 	public void move(Vector<Rectangle> block) {
 		findNextMove();
-		Position tmp = new Position(this.position.x, this.position.y);
+		Position tmp = new Position(this.getPosition().x, this.getPosition().y);
 		
 		if(this.msE != 0) {
 			tmp.x += this.msE;
@@ -142,7 +142,7 @@ public class Agv {
 			}
 		}
 		
-		this.position = tmp;
+		this.setPosition(tmp);
 		setBound();
 	}
 	
@@ -161,5 +161,61 @@ public class Agv {
 			return true;
 		}
 		return false;
+	}
+
+	public int getAgvID() {
+		return agvID;
+	}
+
+	public void setAgvID(int agvID) {
+		this.agvID = agvID;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public Rectangle getBound() {
+		return bound;
+	}
+
+	public void setBound(Rectangle bound) {
+		this.bound = bound;
+	}
+
+	public Node getNextNode() {
+		return nextNode;
+	}
+
+	public void setNextNode(Node nextNode) {
+		this.nextNode = nextNode;
+	}
+
+	public Vector<Node> getPath() {
+		return path;
+	}
+
+	public void setPath(Vector<Node> path) {
+		this.path = path;
+	}
+
+	public boolean isAgvDone() {
+		return isAgvDone;
+	}
+
+	public void setAgvDone(boolean isAgvDone) {
+		this.isAgvDone = isAgvDone;
+	}
+
+	public int getTask() {
+		return task;
+	}
+
+	public void setTask(int task) {
+		this.task = task;
 	}
 }

@@ -3,11 +3,27 @@ package object;
 import algorithm.Cooldown;
 
 public class Blink {
-	public boolean isBlink;
-	public Cooldown blinkCD = new Cooldown(10000);
+	private boolean isBlink;
+	private Cooldown blinkCD = new Cooldown(10000);
 	public final int BLINK_RANGE = 2;
 	
 	public Blink() {
 		
+	}
+
+	public boolean isBlink() {
+		return isBlink;
+	}
+
+	public void setBlink(boolean isBlink) {
+		this.isBlink = isBlink;
+	}
+
+	public Cooldown getBlinkCD() {
+		return blinkCD;
+	}
+
+	public void setBlinkCD(Cooldown blinkCD) {
+		this.blinkCD = blinkCD;
 	}
 }

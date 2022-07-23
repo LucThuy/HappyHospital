@@ -284,7 +284,7 @@ public class SinglePlayerScene extends JPanel {
 			lblTime.setText(ddMinute + ":" + ddSecond);
 			if(minute==0 && second==0) {
 				timer.stop();
-				container.showWinScene(getPlayScene().player.score);			
+				container.showWinScene(getPlayScene().player.getScore());			
 			}		
 		}	
 	}
@@ -305,29 +305,29 @@ public class SinglePlayerScene extends JPanel {
 			int key  = e.getKeyCode();
 			
 			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-				playScene.player.msE = playScene.player.ms;
+				playScene.player.setMsE(playScene.player.getMs());
 				isMove = true;
 			}
 			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
-				playScene.player.msN = playScene.player.ms;
+				playScene.player.setMsN(playScene.player.getMs());
 				isMove = true;
 			}
 			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-				playScene.player.msW = playScene.player.ms;
+				playScene.player.setMsW(playScene.player.getMs());
 				isMove = true;
 			}
 			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
-				playScene.player.msS = playScene.player.ms;
+				playScene.player.setMsS(playScene.player.getMs());
 				isMove = true;
 			}
 			
 			if(key == KeyEvent.VK_I) {
 				if(!isIPress) {
 					if(ZaWarudo.isZaWarudo) {
-						playScene.player.blink.isBlink = true;
+						playScene.player.getBlink().setBlink(true);
 					}
 					else /*if(!playScene.player.blink.blinkCD.isCD())*/ {
-						playScene.player.blink.isBlink = true;
+						playScene.player.getBlink().setBlink(true);
 						if(isMusic) {
 							sound.turnOnMusic(4);
 						}
@@ -342,19 +342,19 @@ public class SinglePlayerScene extends JPanel {
 			int key  = e.getKeyCode();
 			
 			if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-				playScene.player.msE = 0;
+				playScene.player.setMsE(0);
 				isMove = false;
 			}
 			if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
-				playScene.player.msN = 0;
+				playScene.player.setMsN(0);
 				isMove = false;
 			}
 			if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-				playScene.player.msW = 0;
+				playScene.player.setMsW(0);
 				isMove = false;
 			}
 			if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
-				playScene.player.msS = 0;
+				playScene.player.setMsS(0);
 				isMove = false;
 			}
 			

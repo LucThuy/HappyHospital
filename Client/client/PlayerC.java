@@ -34,7 +34,7 @@ public class PlayerC {
 		this.position.y = y;
 		this.name = name;
 		
-		this.blink.isBlink = false;
+		this.blink.setBlink(false);
 		
 		BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
 		bigImage = ImageIO.read(new File("data/agv.png"));
