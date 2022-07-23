@@ -55,13 +55,13 @@ public class PlayerC {
 		if(type.equals("host")) {
 			g.setColor(Color.MAGENTA);
 			BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-			bigImage = ImageIO.read(new File("data/agv.png"));
+			bigImage = ImageIO.read(new File("data/agv2.png"));
 			img = bigImage.getSubimage(3, 5, 24, 24);
 		}
 		else if(type.equals("guest")) {
 			g.setColor(Color.GREEN);
 			BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-			bigImage = ImageIO.read(new File("data/agv2.png"));
+			bigImage = ImageIO.read(new File("data/agv5.png"));
 			img = bigImage.getSubimage(3, 5, 24, 24);
 		}
 		
