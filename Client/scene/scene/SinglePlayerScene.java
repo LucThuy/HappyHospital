@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -39,6 +41,7 @@ public class SinglePlayerScene extends JPanel {
 	public GridBagConstraints gbc_panel;
 	public JLabel lblScore;
 
+	private JButton btnMusic;
 
 	public JTextField txtSetAgent;
 
@@ -116,11 +119,13 @@ public class SinglePlayerScene extends JPanel {
 		btnPause.setPreferredSize(new Dimension(65, 25));
 		btnPause.setMaximumSize(new Dimension(100, 50));
 		
-		JButton btnMusic = new JButton(new ImageIcon("data/btnMusic.png"));
+		btnMusic = new JButton(new ImageIcon("data/btnMusic.png"));
 		btnMusic.setOpaque(false);
+		btnMusic.setFocusable(false);
 		btnMusic.setFocusPainted(false);
 		btnMusic.setBorderPainted(false);
 		btnMusic.setContentAreaFilled(false);
+		btnMusic.addMouseListener(new MouseMusic());
 		
 		GridBagConstraints gbc_btnMusic = new GridBagConstraints();
 		gbc_btnMusic.insets = new Insets(0, 0, 5, 0);
@@ -222,6 +227,37 @@ public class SinglePlayerScene extends JPanel {
 			int count = Integer.valueOf(txtSetAgent.getText());
 			PlayScene.setNumberOfAgents(count);		
 			getSinglePlayerScene().requestFocusInWindow();
+		}
+		
+	}
+	
+	class MouseMusic implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			//container.showSinglePlayerSceneAgain();
+			//sound.turnOffMusic();
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			container.getSound().turnOffMusic();
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnMusic.setIcon(new ImageIcon("data/btnMusic.png"));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnMusic.setIcon(new ImageIcon("data/btnMusic.png"));
 		}
 		
 	}
