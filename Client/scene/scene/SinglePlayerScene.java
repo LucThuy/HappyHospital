@@ -52,6 +52,8 @@ public class SinglePlayerScene extends JPanel {
 	private DecimalFormat dFormat = new DecimalFormat("00");	
 	private Sound sound = new Sound();
 	
+	private boolean isMusic = true;
+	
 	/**
 	 * Create the panel.
 	 * @throws ParseException 
@@ -242,8 +244,14 @@ public class SinglePlayerScene extends JPanel {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			
-			container.getSound().turnOffMusic();
+			if(isMusic) {
+				isMusic = false;
+				container.getSound().turnOffMusic();
+			}
+			else {
+				isMusic = true;
+				container.getSound().turnOnMusicLoop(1);
+			}
 		}
 
 		@Override
@@ -267,7 +275,7 @@ public class SinglePlayerScene extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(isMove) {
+			if(isMove && isMusic) {
 				sound.turnOnMusic(5);
 			}
 			second--;	
@@ -324,8 +332,9 @@ public class SinglePlayerScene extends JPanel {
 					}
 					else /*if(!playScene.player.blink.blinkCD.isCD())*/ {
 						playScene.player.blink.isBlink = true;
-
-						sound.turnOnMusic(4);
+						if(isMusic) {
+							sound.turnOnMusic(4);
+						}
 					}
 					isIPress = true;
 				}
