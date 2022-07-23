@@ -98,18 +98,17 @@ public class WinScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			try {
-				container.getSinglePlayerScene().getPlayScene().setUp();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			container.showMenuScene();
+
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			
+			try {
+				container.getSinglePlayerScene().getPlayScene().setUp();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			container.showMenuScene();
 		}
 
 		@Override
