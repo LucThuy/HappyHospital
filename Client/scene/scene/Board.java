@@ -118,8 +118,8 @@ public class Board extends JPanel {
 	}
 	
 	public void agentMove(int x, int y, int i) {
-		agent.get(i).position.x = x;
-		agent.get(i).position.y = y;
+		agent.get(i).position.setX(x);
+		agent.get(i).position.setY(y);
 	}
 	
 	public void agentDone(int i) {
@@ -164,12 +164,12 @@ public class Board extends JPanel {
 	}
 	
 	public void setPositionPlayerHost(int x, int y) {
-		this.playerHost.position.x = x;
-		this.playerHost.position.y = y;
+		this.playerHost.position.setX(x);
+		this.playerHost.position.setY(y);
 	}
 	
 	public void setPositionPlayerGuest(int x, int y) {
-		this.playerGuest.position.x = x;
-		this.playerGuest.position.y = y;
+		this.playerGuest.position.setX(x);
+		this.playerGuest.position.setY(y);
 	}
 }

@@ -2,8 +2,8 @@ package algorithm;
 
 public class Cooldown {
 	
-	public long time;
-	public long cdTime;
+	private long time;
+	private long cdTime;
 	
 	public Cooldown() {
 		

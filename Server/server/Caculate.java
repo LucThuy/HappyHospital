@@ -95,7 +95,7 @@ public class Caculate {
 		this.playerHost = new PlayerS(startPos.x, startPos.y, this.map.getPath().getDataArr());	
 		this.server.sendToAll("addPlayerHost " + startPos.x + " " + startPos.y + " " + hostName);
 		
-		preNodeHost = this.AStar.map[startPos.x / SIZE][startPos.y / SIZE];
+		preNodeHost = this.AStar.getMap()[startPos.x / SIZE][startPos.y / SIZE];
 		calScoreHost = new CalScore();
 		
 		genEndPointHost();
@@ -107,7 +107,7 @@ public class Caculate {
 		this.playerGuest = new PlayerS(startPos.x, startPos.y, this.map.getPath().getDataArr());		
 		this.server.sendToAll("addPlayerGuest " + startPos.x + " " + startPos.y + " " + guestName);
 		
-		preNodeGuest = this.AStar.map[startPos.x / SIZE][startPos.y / SIZE];
+		preNodeGuest = this.AStar.getMap()[startPos.x / SIZE][startPos.y / SIZE];
 		calScoreGuest = new CalScore();
 		
 		genEndPointGuest();
@@ -118,7 +118,7 @@ public class Caculate {
 		endDoorHostID = rd.nextInt(this.map.getDoor().getBound().size());
 		endPointHostBound = this.map.getDoor().getBound().get(endDoorHostID);
 		
-		Node nextNodeHost = this.AStar.map[endPointHostBound.x / SIZE][endPointHostBound.y / SIZE];		
+		Node nextNodeHost = this.AStar.getMap()[endPointHostBound.x / SIZE][endPointHostBound.y / SIZE];		
 		calScoreHost.calExpectedTime(preNodeHost, nextNodeHost, this.AStar);
 		preNodeHost = nextNodeHost;
 		
@@ -130,7 +130,7 @@ public class Caculate {
 		endDoorGuestID = rd.nextInt(this.map.getDoor().getBound().size());
 		endPointGuestBound = this.map.getDoor().getBound().get(endDoorGuestID);
 		
-		Node nextNodeGuest = this.AStar.map[endPointGuestBound.x / SIZE][endPointGuestBound.y / SIZE];		
+		Node nextNodeGuest = this.AStar.getMap()[endPointGuestBound.x / SIZE][endPointGuestBound.y / SIZE];		
 		calScoreGuest.calExpectedTime(preNodeGuest, nextNodeGuest, this.AStar);
 		preNodeGuest = nextNodeGuest;
 		
@@ -157,7 +157,7 @@ public class Caculate {
 		this.server.sendToAll("calScoreGuest " + this.playerGuest.score);
 	}
 	
-	private void addCat() throws IOException {
+	private void addAgent() throws IOException {
 		Random rd = new Random();
 		int tmp = rd.nextInt(1000);
 		if(tmp < 10) {
@@ -170,8 +170,8 @@ public class Caculate {
 				}
 				Rectangle endPos = this.map.getDoor().getBound().get(indexEnd);			
 				
-				Node start = this.AStar.mapND[startPos.x / SIZE][startPos.y / SIZE];
-				Node end = this.AStar.mapND[endPos.x / SIZE][endPos.y / SIZE];	
+				Node start = this.AStar.getMapND()[startPos.x / SIZE][startPos.y / SIZE];
+				Node end = this.AStar.getMapND()[endPos.x / SIZE][endPos.y / SIZE];	
 				
 				Vector<Node> path = this.AStar.AStarAlgorithmND(start, end);
 				if(path != null) {
@@ -200,20 +200,20 @@ public class Caculate {
 		return false;
 	}
 	
-	private void catMove(int i) {
-		this.server.sendToAll("catMove " + agent.get(i).getPosition().x + " " + agent.get(i).getPosition().y + " " + i);
+	private void agentMove(int i) {
+		this.server.sendToAll("catMove " + agent.get(i).getPosition().getX() + " " + agent.get(i).getPosition().getY() + " " + i);
 	}
 	
-	private void catDone(int i) {
+	private void agentDone(int i) {
 		this.server.sendToAll("catDone " + i);
 	}
 	
 	private void playerHostMove() {
-		this.server.sendToAll("playerHostMove " + playerHost.position.x + " " + playerHost.position.y);
+		this.server.sendToAll("playerHostMove " + playerHost.position.getX() + " " + playerHost.position.getY());
 	}
 	
 	private void playerGuestMove() {
-		this.server.sendToAll("playerGuestMove " + playerGuest.position.x + " " + playerGuest.position.y);
+		this.server.sendToAll("playerGuestMove " + playerGuest.position.getX() + " " + playerGuest.position.getY());
 	}
 	
 	private boolean isIHostPress = false;
@@ -318,8 +318,8 @@ public class Caculate {
 	class CustomActionListener implements ActionListener {
 		private Vector<Rectangle> playerBlock = new Vector<>();
 		
-		private Vector<Rectangle> catBlock = new Vector<>();
-		private Vector<Rectangle> catBound = new Vector<>();
+		private Vector<Rectangle> agentBlock = new Vector<>();
+		private Vector<Rectangle> agentBound = new Vector<>();
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {	
@@ -330,17 +330,17 @@ public class Caculate {
 			
 			if(!ZaWarudo.isZaWarudo) {				
 				try {
-					addCat();
+					addAgent();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 				
-				catBound.clear();
+				agentBound.clear();
 				
-				catBlock.clear();
-				catBlock.addAll(map.getNopath().getBound());
-				catBlock.add(playerHost.bound);
-				catBlock.add(playerGuest.bound);
+				agentBlock.clear();
+				agentBlock.addAll(map.getNopath().getBound());
+				agentBlock.add(playerHost.bound);
+				agentBlock.add(playerGuest.bound);
 				for(int i = 0; i < agent.size(); i++) {
 //					Vector<Rectangle> tmpBlock = new Vector<>();
 //					for(int j = 0; j < cat.size(); j++) {
@@ -350,19 +350,19 @@ public class Caculate {
 //						tmpBlock.add(cat.get(j).bound);
 //					}
 //					catBlock.addAll(tmpBlock);
-					agent.get(i).move(catBlock);
-					catMove(i);
+					agent.get(i).move(agentBlock);
+					agentMove(i);
 					
 //					catBlock.removeAll(tmpBlock);
 					
 					if(agent.get(i).isAgentDone()) {
 						endPointAgent.remove(i);
 						agent.remove(i);
-						catDone(i);
+						agentDone(i);
 					}
 					else {
-						catBound.add(agent.get(i).getBound());
-						catBlock.add(agent.get(i).getBound());
+						agentBound.add(agent.get(i).getBound());
+						agentBlock.add(agent.get(i).getBound());
 					}
 				}
 			}

@@ -39,8 +39,8 @@ public class Agent {
 	public final int SIZE = 28;
 
 	public Agent(int x, int y, Vector<Node> path, int agentID) throws IOException {
-		this.getPosition().x = x;
-		this.getPosition().y = y;
+		this.getPosition().setX(x);
+		this.getPosition().setY(y);
 		this.ms = 1;
 		this.msE = 0;
 		this.msN = 0;
@@ -59,19 +59,19 @@ public class Agent {
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
-		g.drawImage(img, this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT, null);
+		g.drawRect(this.getPosition().getX(), this.getPosition().getY(), WIDTH, HEIGHT);
+		g.drawImage(img, this.getPosition().getX(), this.getPosition().getY(), WIDTH, HEIGHT, null);
 		g.setColor(Color.GRAY);
-		g.drawString(String.valueOf(getAgentID()), this.getPosition().x + 15, this.getPosition().y - 3);
+		g.drawString(String.valueOf(getAgentID()), this.getPosition().getX() + 15, this.getPosition().getY() - 3);
 	}
 	
 	public void draw(Graphics g, boolean isZaWarudo) {
 		g.setColor(Color.BLACK);
-		g.fillRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
+		g.fillRect(this.getPosition().getX(), this.getPosition().getY(), WIDTH, HEIGHT);
 	}
 	
 	public void setBound() {
-		this.bound.setBounds(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
+		this.bound.setBounds(this.getPosition().getX(), this.getPosition().getY(), WIDTH, HEIGHT);
 	}
 	
 	public void findNextMove() {
@@ -91,53 +91,53 @@ public class Agent {
 	}
 	
 	private boolean isFinishMove() {
-		if(this.getPosition().x == nextNode.position.x * SIZE && this.getPosition().y == nextNode.position.y * SIZE) {
+		if(this.getPosition().getX() == nextNode.getPosition().getX() * SIZE && this.getPosition().getY() == nextNode.getPosition().getY() * SIZE) {
 			return true;
 		}
 		return false;
 	}
 	
 	private void updateDirect(Node nextNode) {
-		if(this.msE == 0 && nextNode.position.x * SIZE > this.getPosition().x) {
+		if(this.msE == 0 && nextNode.getPosition().getX() * SIZE > this.getPosition().getX()) {
 			this.msE = this.ms;
 		}
-		if(this.msN == 0 && nextNode.position.y * SIZE < this.getPosition().y) {
+		if(this.msN == 0 && nextNode.getPosition().getY() * SIZE < this.getPosition().getY()) {
 			this.msN = this.ms;
 		}
-		if(this.msW == 0 && nextNode.position.x * SIZE < this.getPosition().x) {
+		if(this.msW == 0 && nextNode.getPosition().getX() * SIZE < this.getPosition().getX()) {
 			this.msW = this.ms;
 		}
-		if(this.msS == 0 && nextNode.position.y * SIZE > this.getPosition().y) {
+		if(this.msS == 0 && nextNode.getPosition().getY() * SIZE > this.getPosition().getY()) {
 			this.msS = this.ms;
 		}
 	}
 	
 	public void move(Vector<Rectangle> block) {
 		findNextMove();
-		Position tmp = new Position(this.getPosition().x, this.getPosition().y);
+		Position tmp = new Position(this.getPosition().getX(), this.getPosition().getY());
 		
 		if(this.msE != 0) {
-			tmp.x += this.msE;
+			tmp.setX(tmp.getX() + this.msE);
 			while(!isOK(tmp, block)) {
-				tmp.x --;
+				tmp.setX(tmp.getX() - 1);
 			}
 		}
 		if(this.msN != 0) {
-			tmp.y -= this.msN;
+			tmp.setY(tmp.getY() - this.msN);
 			while(!isOK(tmp, block)) {
-				tmp.y ++;
+				tmp.setY(tmp.getY() + 1);
 			}
 		}
 		if(this.msW != 0) {
-			tmp.x -= this.msW;
+			tmp.setX(tmp.getX() - this.msW);
 			while(!isOK(tmp, block)) {
-				tmp.x ++;
+				tmp.setX(tmp.getX() + 1);
 			}
 		}
 		if(this.msS != 0) {
-			tmp.y += this.msS;
+			tmp.setY(tmp.getY() + this.msS);
 			while(!isOK(tmp, block)) {
-				tmp.y --;
+				tmp.setY(tmp.getY() - 1);
 			}
 		}
 		
@@ -146,7 +146,7 @@ public class Agent {
 	}
 	
 	public boolean isOK(Position tmp, Vector<Rectangle> block) {
-		Rectangle tmpBound = new Rectangle(tmp.x, tmp.y, WIDTH, HEIGHT);
+		Rectangle tmpBound = new Rectangle(tmp.getX(), tmp.getY(), WIDTH, HEIGHT);
 		for(int i = 0; i < block.size(); i++) {
 			if(isCollision(tmpBound, block.get(i))) {
 				return false;

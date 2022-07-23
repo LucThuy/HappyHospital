@@ -42,8 +42,8 @@ public class Player {
 	private String name;
 	
 	public Player(int x, int y, long[][] data) throws IOException {
-		this.getPosition().x = x;
-		this.getPosition().y = y;
+		this.getPosition().setX(x);
+		this.getPosition().setY(y);
 		this.data = data;
 		this.setMs(1);
 		this.setMsE(0);
@@ -69,59 +69,59 @@ public class Player {
 	}
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
-		g.drawImage(this.img, this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT, null);
+		g.drawRect(this.getPosition().getX(), this.getPosition().getY(), WIDTH, HEIGHT);
+		g.drawImage(this.img, this.getPosition().getX(), this.getPosition().getY(), WIDTH, HEIGHT, null);
 		
 		g.setColor(Color.ORANGE);
 		g.setFont(new Font("Georgia", Font.PLAIN, 10));
-		g.drawString(this.name, this.getPosition().x, this.getPosition().y - 3);
+		g.drawString(this.name, this.getPosition().getX(), this.getPosition().getY() - 3);
 	}
 	
 	public void setBound() {
-		this.bound.setBounds(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
+		this.bound.setBounds(this.getPosition().getX(), this.getPosition().getY(), WIDTH, HEIGHT);
 	}
 	
 	public void move(Vector<Rectangle> block) {
-		Position tmp = new Position(this.getPosition().x, this.getPosition().y);
+		Position tmp = new Position(this.getPosition().getX(), this.getPosition().getY());
 		
 		if(this.getMsE() != 0 && isRightWay(tmp, "E")) {
-			tmp.x += this.getMsE();
+			tmp.setX(tmp.getX() + this.getMsE());
 			if(this.getBlink().isBlink()) {
-				tmp.x += this.getBlink().BLINK_RANGE * SIZE;
+				tmp.setX(tmp.getX() + this.getBlink().BLINK_RANGE * SIZE);
 				this.getBlink().setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
-				tmp.x --;
+				tmp.setX(tmp.getX() - 1);
 			}
 		}
 		if(this.getMsN() != 0 && isRightWay(tmp, "N")) {
-			tmp.y -= this.getMsN();
+			tmp.setY(tmp.getY() - this.getMsN());
 			if(this.getBlink().isBlink()) {
-				tmp.y -= this.getBlink().BLINK_RANGE * SIZE;
+				tmp.setY(tmp.getY() - this.getBlink().BLINK_RANGE * SIZE);
 				this.getBlink().setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
-				tmp.y ++;
+				tmp.setY(tmp.getY() + 1);
 			}
 		}
 		if(this.getMsW() != 0 && isRightWay(tmp, "W")) {
-			tmp.x -= this.getMsW();
+			tmp.setX(tmp.getX() - this.getMsW());
 			if(this.getBlink().isBlink()) {
-				tmp.x -= this.getBlink().BLINK_RANGE * SIZE;
+				tmp.setX(tmp.getX() - this.getBlink().BLINK_RANGE * SIZE);
 				this.getBlink().setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
-				tmp.x ++;
+				tmp.setX(tmp.getX() + 1);
 			}
 		}
 		if(this.getMsS() != 0 && isRightWay(tmp, "S")) {
-			tmp.y += this.getMsS();
+			tmp.setY(tmp.getY() + this.getMsS());
 			if(this.getBlink().isBlink()) {
-				tmp.y += this.getBlink().BLINK_RANGE * SIZE;
+				tmp.setY(tmp.getY() + this.getBlink().BLINK_RANGE * SIZE);
 				this.getBlink().setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
-				tmp.y --;
+				tmp.setY(tmp.getY() - 1);
 			}
 		}
 		
@@ -133,10 +133,10 @@ public class Player {
 		if(ZaWarudo.isZaWarudo) {
 			return true;
 		}
-		int x = tmp.x / SIZE;
-		int y = tmp.y / SIZE;
-		int checkX = tmp.x % SIZE;
-		int checkY = tmp.y % SIZE;
+		int x = tmp.getX() / SIZE;
+		int y = tmp.getY() / SIZE;
+		int checkX = tmp.getX() % SIZE;
+		int checkY = tmp.getY() % SIZE;
 		if(direct == "E") {
 			long check = data[x][y];
 			if(check == 20 || check == 12 || check == 36)
@@ -181,7 +181,7 @@ public class Player {
 	}
 	
 	private boolean isOK(Position tmp, Vector<Rectangle> block) {
-		Rectangle tmpBound = new Rectangle(tmp.x, tmp.y, WIDTH, HEIGHT);
+		Rectangle tmpBound = new Rectangle(tmp.getX(), tmp.getY(), WIDTH, HEIGHT);
 		for(int i = 0; i < block.size(); i++) {
 			if(isCollision(tmpBound, block.get(i))) {
 				return false;

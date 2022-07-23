@@ -23,8 +23,8 @@ public class AgentC {
 	public final int SIZE = 28;
 	
 	public AgentC(int x, int y, int id) throws IOException {
-		this.position.x = x;
-		this.position.y = y;
+		this.position.setX(x);
+		this.position.setY(y);
 		this.id = id;
 		
 		BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
@@ -34,14 +34,14 @@ public class AgentC {
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawRect(this.position.x, this.position.y, WIDTH, HEIGHT);
-		g.drawImage(img, this.position.x, this.position.y, WIDTH, HEIGHT, null);
+		g.drawRect(this.position.getX(), this.position.getY(), WIDTH, HEIGHT);
+		g.drawImage(img, this.position.getX(), this.position.getY(), WIDTH, HEIGHT, null);
 		g.setColor(Color.GRAY);
-		g.drawString(String.valueOf(id), this.position.x + 15, this.position.y - 3);
+		g.drawString(String.valueOf(id), this.position.getX() + 15, this.position.getY() - 3);
 	}
 	
 	public void draw(Graphics g, boolean isZaWarudo) {
 		g.setColor(Color.BLACK);
-		g.fillRect(this.position.x, this.position.y, WIDTH, HEIGHT);
+		g.fillRect(this.position.getX(), this.position.getY(), WIDTH, HEIGHT);
 	}
 }
