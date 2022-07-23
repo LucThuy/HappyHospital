@@ -142,14 +142,14 @@ public class PlayScene extends JPanel {
 					this.agv.get(i).draw(g);
 				}
 			}
-			this.map.door.drawEnd(g, endPointAgv, "dog");
+			this.map.door.drawEnd(g, endPointAgv, "agv");
 			
 			if(this.agent != null) {
 				for(int i = 0; i < this.agent.size(); i++) {
 					this.agent.get(i).draw(g);
 				}
 			}			
-			this.map.door.drawEnd(g, endPointAgent, "cat");
+			this.map.door.drawEnd(g, endPointAgent, "agent");
 		}
 		
 		if(this.zaWarudo != null) {

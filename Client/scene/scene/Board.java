@@ -85,7 +85,7 @@ public class Board extends JPanel {
 					this.agent.get(i).draw(g);
 				}
 			}			
-			this.map.door.drawEnd(g, endPointAgent, "cat");
+			this.map.door.drawEnd(g, endPointAgent, "agent");
 		}
 		
 		if(this.zaWarudo != null) {
