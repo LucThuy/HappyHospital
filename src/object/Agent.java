@@ -16,39 +16,39 @@ import algorithm.Position;
 
 public class Agent {
 
-	public Position position = new Position();
-	public Rectangle bound = new Rectangle();
+	private Position position = new Position();
+	private Rectangle bound = new Rectangle();
 	
-	public int agentID;
+	private int agentID;
 
-	public int msE;
-	public int msN;
-	public int msW;
-	public int msS;
-	public int ms;
+	private int msE;
+	private int msN;
+	private int msW;
+	private int msS;
+	private int ms;
 	
-	public boolean isAgentDone = false;
+	private boolean isAgentDone = false;
 	
-	public Vector<Node> path;
-	public Node nextNode = new Node();
+	private Vector<Node> path;
+	private Node nextNode = new Node();
 	
-	public Image img;
+	private Image img;
 	
 	public final int WIDTH = 28;
 	public final int HEIGHT = 28;
 	public final int SIZE = 28;
 
 	public Agent(int x, int y, Vector<Node> path, int agentID) throws IOException {
-		this.position.x = x;
-		this.position.y = y;
+		this.getPosition().x = x;
+		this.getPosition().y = y;
 		this.ms = 1;
 		this.msE = 0;
 		this.msN = 0;
 		this.msW = 0;
 		this.msS = 0;
-		this.agentID = agentID;
+		this.setAgentID(agentID);
 		
-		this.path = path;
+		this.setPath(path);
 		this.nextNode = path.remove(path.size() - 1);
 		updateDirect(nextNode);	
 		
@@ -59,19 +59,19 @@ public class Agent {
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawRect(this.position.x, this.position.y, WIDTH, HEIGHT);
-		g.drawImage(img, this.position.x, this.position.y, WIDTH, HEIGHT, null);
+		g.drawRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
+		g.drawImage(img, this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT, null);
 		g.setColor(Color.GRAY);
-		g.drawString(String.valueOf(agentID), this.position.x + 15, this.position.y - 3);
+		g.drawString(String.valueOf(getAgentID()), this.getPosition().x + 15, this.getPosition().y - 3);
 	}
 	
 	public void draw(Graphics g, boolean isZaWarudo) {
 		g.setColor(Color.BLACK);
-		g.fillRect(this.position.x, this.position.y, WIDTH, HEIGHT);
+		g.fillRect(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
 	}
 	
 	public void setBound() {
-		this.bound.setBounds(this.position.x, this.position.y, WIDTH, HEIGHT);
+		this.bound.setBounds(this.getPosition().x, this.getPosition().y, WIDTH, HEIGHT);
 	}
 	
 	public void findNextMove() {
@@ -80,41 +80,41 @@ public class Agent {
 			this.msN = 0;
 			this.msW = 0;
 			this.msS = 0;
-			if(path.isEmpty()) {
-				this.isAgentDone = true;
+			if(getPath().isEmpty()) {
+				this.setAgentDone(true);
 			}
 			else {
-				nextNode = path.remove(path.size() - 1);
+				nextNode = getPath().remove(getPath().size() - 1);
 				updateDirect(nextNode);
 			}
 		}
 	}
 	
 	private boolean isFinishMove() {
-		if(this.position.x == nextNode.position.x * SIZE && this.position.y == nextNode.position.y * SIZE) {
+		if(this.getPosition().x == nextNode.position.x * SIZE && this.getPosition().y == nextNode.position.y * SIZE) {
 			return true;
 		}
 		return false;
 	}
 	
 	private void updateDirect(Node nextNode) {
-		if(this.msE == 0 && nextNode.position.x * SIZE > this.position.x) {
+		if(this.msE == 0 && nextNode.position.x * SIZE > this.getPosition().x) {
 			this.msE = this.ms;
 		}
-		if(this.msN == 0 && nextNode.position.y * SIZE < this.position.y) {
+		if(this.msN == 0 && nextNode.position.y * SIZE < this.getPosition().y) {
 			this.msN = this.ms;
 		}
-		if(this.msW == 0 && nextNode.position.x * SIZE < this.position.x) {
+		if(this.msW == 0 && nextNode.position.x * SIZE < this.getPosition().x) {
 			this.msW = this.ms;
 		}
-		if(this.msS == 0 && nextNode.position.y * SIZE > this.position.y) {
+		if(this.msS == 0 && nextNode.position.y * SIZE > this.getPosition().y) {
 			this.msS = this.ms;
 		}
 	}
 	
 	public void move(Vector<Rectangle> block) {
 		findNextMove();
-		Position tmp = new Position(this.position.x, this.position.y);
+		Position tmp = new Position(this.getPosition().x, this.getPosition().y);
 		
 		if(this.msE != 0) {
 			tmp.x += this.msE;
@@ -141,7 +141,7 @@ public class Agent {
 			}
 		}
 		
-		this.position = tmp;
+		this.setPosition(tmp);
 		setBound();
 	}
 	
@@ -160,5 +160,45 @@ public class Agent {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean isAgentDone() {
+		return isAgentDone;
+	}
+
+	public void setAgentDone(boolean isAgentDone) {
+		this.isAgentDone = isAgentDone;
+	}
+
+	public Vector<Node> getPath() {
+		return path;
+	}
+
+	public void setPath(Vector<Node> path) {
+		this.path = path;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public int getAgentID() {
+		return agentID;
+	}
+
+	public void setAgentID(int agentID) {
+		this.agentID = agentID;
+	}
+
+	public Rectangle getBound() {
+		return bound;
+	}
+
+	public void setBound(Rectangle bound) {
+		this.bound = bound;
 	}
 }

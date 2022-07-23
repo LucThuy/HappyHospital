@@ -52,7 +52,7 @@ public class Container extends JPanel {
 //		playScene = new PlayScene(this);
 //		add(this.playScene, "playScene");
 		winScene = new WinScene(this);
-		add(this.winScene, "winScene");
+		add(this.getWinScene(), "winScene");
 		menuScene = new MenuScene(this);
 		add(this.menuScene, "menuScene");
 		serverSelectScene = new ServerSelectScene(this);
@@ -180,5 +180,9 @@ public class Container extends JPanel {
 	
 	public MenuScene getMenuScene() {
 		return this.menuScene;
+	}
+
+	public WinScene getWinScene() {
+		return winScene;
 	}
 }
