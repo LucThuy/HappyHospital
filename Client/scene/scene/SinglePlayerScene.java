@@ -201,11 +201,7 @@ public class SinglePlayerScene extends JPanel {
 		
 		btnApply.setMinimumSize(new Dimension(65, 25));
 		btnApply.setPreferredSize(new Dimension(65, 25));
-		btnApply.setMaximumSize(new Dimension(100, 50));
-		
-		//eeJButton btnMusic = new JButton(new ImageIcon("data/btnMusic.jpg"));
-		
-		
+		btnApply.setMaximumSize(new Dimension(100, 50));				
 	}
 	
 	private SinglePlayerScene getSinglePlayerScene() {
@@ -237,8 +233,6 @@ public class SinglePlayerScene extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			//container.showSinglePlayerSceneAgain();
-			//sound.turnOffMusic();
 			
 		}
 
@@ -246,10 +240,12 @@ public class SinglePlayerScene extends JPanel {
 		public void mousePressed(MouseEvent e) {
 			if(isMusic) {
 				isMusic = false;
+				btnMusic.setIcon(new ImageIcon("data/btnMusicMute.png"));
 				container.getSound().turnOffMusic();
 			}
 			else {
 				isMusic = true;
+				btnMusic.setIcon(new ImageIcon("data/btnMusic.png"));
 				container.getSound().turnOnMusicLoop(1);
 			}
 		}
@@ -261,12 +257,12 @@ public class SinglePlayerScene extends JPanel {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			btnMusic.setIcon(new ImageIcon("data/btnMusic.png"));
+
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			btnMusic.setIcon(new ImageIcon("data/btnMusic.png"));
+
 		}
 		
 	}
