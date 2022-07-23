@@ -10,8 +10,8 @@ public class Sound {
     public String nameOfFile[] = new String[20];
 
     public Sound(){
-        this.nameOfFile[0] = "sound/Ailatrieuphu.wav";
-        this.nameOfFile[1] = "sound/BusyCityTrackTribe.wav";
+        this.nameOfFile[0] = "sound/PositiveFuseFrenchFuse.wav";
+        this.nameOfFile[1] = "sound/TayDuKy.wav";
         this.nameOfFile[2] = "sound/canhbao.wav";
         this.nameOfFile[3] = "sound/game_over.wav";
         this.nameOfFile[4] = "sound/Blink.wav";

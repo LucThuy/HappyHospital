@@ -201,7 +201,7 @@ public class SinglePlayerScene extends JPanel {
 		btnApply.setPreferredSize(new Dimension(65, 25));
 		btnApply.setMaximumSize(new Dimension(100, 50));
 		
-		//JButton btnMusic = new JButton(new ImageIcon("data/btnMusic.jpg"));
+		//eeJButton btnMusic = new JButton(new ImageIcon("data/btnMusic.jpg"));
 		
 		
 	}
@@ -279,8 +279,8 @@ public class SinglePlayerScene extends JPanel {
 			lblTime.setText(ddMinute + ":" + ddSecond);
 			if(minute==0 && second==0) {
 				timer.stop();
-				container.showWinScene();			}
-			
+				container.showWinScene();			
+			}		
 		}	
 	}
 	
