@@ -20,12 +20,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.sql.Time;
 import java.awt.FlowLayout;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import scene.ServerSelectScene.ServerAvailable;
+import scene.SinglePlayerScene;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
@@ -266,7 +268,9 @@ public class LoadGameScene extends JPanel {
 			container.getClient().setClientName(name);
 			
 			try {
+				
 				container.showSinglePlayerScene();
+				
 			} catch (IOException | ParseException e1) {
 				e1.printStackTrace();
 			}

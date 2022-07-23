@@ -116,7 +116,11 @@ public class SinglePlayerScene extends JPanel {
 		btnPause.setPreferredSize(new Dimension(65, 25));
 		btnPause.setMaximumSize(new Dimension(100, 50));
 		
-		JButton btnMusic = new JButton(new ImageIcon("data/btnMusic.jpg"));
+		JButton btnMusic = new JButton(new ImageIcon("data/btnMusic.png"));
+		btnMusic.setOpaque(false);
+		btnMusic.setFocusPainted(false);
+		btnMusic.setBorderPainted(false);
+		btnMusic.setContentAreaFilled(false);
 		
 		GridBagConstraints gbc_btnMusic = new GridBagConstraints();
 		gbc_btnMusic.insets = new Insets(0, 0, 5, 0);
