@@ -129,12 +129,14 @@ public class Container extends JPanel {
 		cardLayout.show(this, "howToPlayScene");
 		howToPlayScene.setFocusable(true);
 		howToPlayScene.requestFocusInWindow();
+		sound.turnOffMusic();
 	}
 	
 	public void showCreditScene() {
 		cardLayout.show(this, "creditScene");
 		creditScene.setFocusable(true);
 		creditScene.requestFocusInWindow();
+		sound.turnOffMusic();
 	}
 	
 //	public void showPlayScene() throws FileNotFoundException, IOException, ParseException {
