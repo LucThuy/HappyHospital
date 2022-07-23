@@ -33,8 +33,9 @@ public class Container extends JPanel {
 	private LoadGameScene loadGameScene;
 	private Client client;
 	
-	
 	private CardLayout cardLayout;
+	
+	private boolean isMusic = false;
 	/**
 	 * Create the panel.
 	 * @throws ParseException 
@@ -78,7 +79,10 @@ public class Container extends JPanel {
 		cardLayout.show(this, "menuScene");
 		menuScene.setFocusable(true);
 		menuScene.requestFocusInWindow();
-		sound.turnOnMusic(1);
+		if(!isMusic) {
+			isMusic = true;
+			sound.turnOnMusic(1);
+		}
 	}
 
 	public void showServerSelectScene(Map<String, String> serverAvailable) {
@@ -94,6 +98,7 @@ public class Container extends JPanel {
 		singlePlayerScene.setFocusable(true);
 		singlePlayerScene.requestFocusInWindow();
 		sound.turnOffMusic();
+		isMusic = false;
 		sound.turnOnMusic(6);
 	}
 	
