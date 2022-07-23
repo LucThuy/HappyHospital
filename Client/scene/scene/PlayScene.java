@@ -171,7 +171,7 @@ public class PlayScene extends JPanel {
 		Rectangle startPos = new Rectangle(this.map.getElevator().getBound().get(2));
 		this.player = new Player(startPos.x, startPos.y, this.map.getPath().getDataArr());
 		
-		preNode = this.AStar.map[startPos.x / SIZE][startPos.y / SIZE];
+		preNode = this.AStar.getMap()[startPos.x / SIZE][startPos.y / SIZE];
 		calScore = new CalScore();
 		genEndPoint();
 	}
@@ -185,8 +185,8 @@ public class PlayScene extends JPanel {
 				Rectangle endPos = this.map.getDoor().getBound().get(index);
 				
 				Rectangle startPos = new Rectangle(this.map.getElevator().getBound().get(0));
-				Node start = this.AStar.map[startPos.x / SIZE][startPos.y / SIZE];
-				Node end = this.AStar.map[endPos.x / SIZE][endPos.y / SIZE];
+				Node start = this.AStar.getMap()[startPos.x / SIZE][startPos.y / SIZE];
+				Node end = this.AStar.getMap()[endPos.x / SIZE][endPos.y / SIZE];
 				
 				this.endPointAgv.add(new EndPoint(agvID, index));
 				Vector<Node> path = this.AStar.AStarAlgorithm(start, end);
@@ -209,8 +209,8 @@ public class PlayScene extends JPanel {
 				}
 				Rectangle endPos = this.map.getDoor().getBound().get(indexEnd);			
 				
-				Node start = this.AStar.mapND[startPos.x / SIZE][startPos.y / SIZE];
-				Node end = this.AStar.mapND[endPos.x / SIZE][endPos.y / SIZE];	
+				Node start = this.AStar.getMapND()[startPos.x / SIZE][startPos.y / SIZE];
+				Node end = this.AStar.getMapND()[endPos.x / SIZE][endPos.y / SIZE];	
 				
 				Vector<Node> path = this.AStar.AStarAlgorithmND(start, end);
 				if(path != null) {
@@ -255,7 +255,7 @@ public class PlayScene extends JPanel {
 		endDoorID = rd.nextInt(this.map.getDoor().getBound().size());
 		endPointBound = this.map.getDoor().getBound().get(endDoorID);
 		
-		Node nextNode = this.AStar.map[endPointBound.x / SIZE][endPointBound.y / SIZE];		
+		Node nextNode = this.AStar.getMap()[endPointBound.x / SIZE][endPointBound.y / SIZE];		
 		calScore.calExpectedTime(preNode, nextNode, this.AStar);
 		preNode = nextNode;
 	}
@@ -353,10 +353,10 @@ public class PlayScene extends JPanel {
 						Random rd = new Random();
 						int tmp = rd.nextInt(2);
 						if(tmp == 0) {
-							agv.get(i).setPath(AStar.AStarAlgorithm(agv.get(i).getNextNode(), AStar.map[50][13]));
+							agv.get(i).setPath(AStar.AStarAlgorithm(agv.get(i).getNextNode(), AStar.getMap()[50][13]));
 						}
 						else {
-							agv.get(i).setPath(AStar.AStarAlgorithm(agv.get(i).getNextNode(), AStar.map[50][14]));
+							agv.get(i).setPath(AStar.AStarAlgorithm(agv.get(i).getNextNode(), AStar.getMap()[50][14]));
 						}		
 					}
 					else if(agv.get(i).isAgvDone() && agv.get(i).getTask() == 0) {
@@ -441,8 +441,8 @@ public class PlayScene extends JPanel {
 		JSONObject data = new JSONObject();
 		
 		JSONObject player = new JSONObject();
-		player.put("x", this.player.getPosition().x);
-		player.put("y", this.player.getPosition().y);
+		player.put("x", this.player.getPosition().getX());
+		player.put("y", this.player.getPosition().getY());
 		player.put("score", this.player.getScore());
 
 		data.put("player", player);
@@ -453,10 +453,10 @@ public class PlayScene extends JPanel {
 		for(int i = 0; i < this.agv.size(); i++) {
 			JSONObject tmp = new JSONObject();
 			tmp.put("id", this.agv.get(i).getAgvID());
-			tmp.put("x", this.agv.get(i).getPosition().x);
-			tmp.put("y", this.agv.get(i).getPosition().y);
-			tmp.put("xEnd", this.agv.get(i).getPath().get(0).position.x);
-			tmp.put("yEnd", this.agv.get(i).getPath().get(0).position.y);
+			tmp.put("x", this.agv.get(i).getPosition().getX());
+			tmp.put("y", this.agv.get(i).getPosition().getY());
+			tmp.put("xEnd", this.agv.get(i).getPath().get(0).getPosition().getX());
+			tmp.put("yEnd", this.agv.get(i).getPath().get(0).getPosition().getY());
 			tmp.put("task", this.agv.get(i).getTask());
 			
 			agv.add(tmp);
@@ -480,10 +480,10 @@ public class PlayScene extends JPanel {
 		for(int i = 0; i < this.agent.size(); i++) {
 			JSONObject tmp = new JSONObject();
 			tmp.put("id", this.agent.get(i).getAgentID());
-			tmp.put("x", this.agent.get(i).getPosition().x);
-			tmp.put("y", this.agent.get(i).getPosition().y);
-			tmp.put("xEnd", this.agent.get(i).getPath().get(0).position.x);
-			tmp.put("yEnd", this.agent.get(i).getPath().get(0).position.y);
+			tmp.put("x", this.agent.get(i).getPosition().getX());
+			tmp.put("y", this.agent.get(i).getPosition().getY());
+			tmp.put("xEnd", this.agent.get(i).getPath().get(0).getPosition().getX());
+			tmp.put("yEnd", this.agent.get(i).getPath().get(0).getPosition().getY());
 			
 			agent.add(tmp);
 		}		
@@ -520,7 +520,7 @@ public class PlayScene extends JPanel {
 		this.player = new Player((int)x, (int)y, map.getPath().getDataArr());
 		this.player.setScore((float)score);
 		
-		preNode = this.AStar.map[(int)x / SIZE][(int)y / SIZE];
+		preNode = this.AStar.getMap()[(int)x / SIZE][(int)y / SIZE];
 		calScore = new CalScore();
 		genEndPoint();
 		
@@ -537,8 +537,8 @@ public class PlayScene extends JPanel {
 				long yEnd = (long)tmp.get("yEnd");
 				long task = (long)tmp.get("task");
 				
-				Node start = this.AStar.map[(int)xAgv / SIZE][(int)yAgv / SIZE];
-				Node end = this.AStar.map[(int)xEnd][(int)yEnd];
+				Node start = this.AStar.getMap()[(int)xAgv / SIZE][(int)yAgv / SIZE];
+				Node end = this.AStar.getMap()[(int)xEnd][(int)yEnd];
 				
 				Vector<Node> path = this.AStar.AStarAlgorithm(start, end);
 				
@@ -572,8 +572,8 @@ public class PlayScene extends JPanel {
 				long xEnd = (long)tmp.get("xEnd");
 				long yEnd = (long)tmp.get("yEnd");
 				
-				Node start = this.AStar.mapND[(int)xAgent / SIZE][(int)yAgent / SIZE];
-				Node end = this.AStar.mapND[(int)xEnd][(int)yEnd];
+				Node start = this.AStar.getMapND()[(int)xAgent / SIZE][(int)yAgent / SIZE];
+				Node end = this.AStar.getMapND()[(int)xEnd][(int)yEnd];
 				
 				Vector<Node> path = this.AStar.AStarAlgorithmND(start, end);
 

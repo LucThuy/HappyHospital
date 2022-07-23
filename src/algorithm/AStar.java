@@ -4,17 +4,17 @@ import java.util.Vector;
 
 public class AStar {
 	
-	public Node[][] map;
-	public Node[][] mapND;
+	private Node[][] map;
+	private Node[][] mapND;
 	
-	public int width;
-	public int height;
+	private int width;
+	private int height;
 	
 	public AStar(long[][] data, int width, int height) {
 		this.width = width;
 		this.height = height;
-		map = new Node[width][height];
-		mapND = new Node[width][height];
+		setMap(new Node[width][height]);
+		setMapND(new Node[width][height]);
 		
 		loadMap(data);
 	}
@@ -50,12 +50,12 @@ public class AStar {
 						break;
 					}
 				}
-				map[j][i] = new Node(position, direct);
+				getMap()[j][i] = new Node(position, direct);
 				if((int)data[j][i] == 0) {
-					mapND[j][i] = new Node(position, Direct.BLOCK);
+					getMapND()[j][i] = new Node(position, Direct.BLOCK);
 				}
 				else {
-					mapND[j][i] = new Node(position, Direct.ALL);
+					getMapND()[j][i] = new Node(position, Direct.ALL);
 				}
 			}
 		}
@@ -66,54 +66,54 @@ public class AStar {
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				
-				switch (map[j][i].direct) {
+				switch (getMap()[j][i].getDirect()) {
 					case BLOCK:{
 						break;
 					}
 					case E:{
-						map[j][i].nextNode.add(map[j+1][i]);
+						getMap()[j][i].getNextNode().add(getMap()[j+1][i]);
 						break;
 					}
 					case N:{
-						map[j][i].nextNode.add(map[j][i-1]);
+						getMap()[j][i].getNextNode().add(getMap()[j][i-1]);
 						break;
 					}
 					case W:{
-						map[j][i].nextNode.add(map[j-1][i]);
+						getMap()[j][i].getNextNode().add(getMap()[j-1][i]);
 						break;
 					}
 					case S:{
-						map[j][i].nextNode.add(map[j][i+1]);
+						getMap()[j][i].getNextNode().add(getMap()[j][i+1]);
 						break;
 					}
 					case ALL:{
-						if(j + 1 < width && map[j+1][i].direct == Direct.E || map[j+1][i].direct == Direct.ALL) {
-							map[j][i].nextNode.add(map[j+1][i]);
+						if(j + 1 < width && getMap()[j+1][i].getDirect() == Direct.E || getMap()[j+1][i].getDirect() == Direct.ALL) {
+							getMap()[j][i].getNextNode().add(getMap()[j+1][i]);
 						}
-						if(j - 1 >= 0 && map[j-1][i].direct == Direct.W || map[j-1][i].direct == Direct.ALL) {
-							map[j][i].nextNode.add(map[j-1][i]);
+						if(j - 1 >= 0 && getMap()[j-1][i].getDirect() == Direct.W || getMap()[j-1][i].getDirect() == Direct.ALL) {
+							getMap()[j][i].getNextNode().add(getMap()[j-1][i]);
 						}
-						if(i - 1 > 0 && map[j][i-1].direct == Direct.N || map[j][i-1].direct == Direct.ALL) {
-							map[j][i].nextNode.add(map[j][i-1]);
+						if(i - 1 > 0 && getMap()[j][i-1].getDirect() == Direct.N || getMap()[j][i-1].getDirect() == Direct.ALL) {
+							getMap()[j][i].getNextNode().add(getMap()[j][i-1]);
 						}
-						if(i + 1 < height && map[j][i+1].direct == Direct.S || map[j][i+1].direct == Direct.ALL) {
-							map[j][i].nextNode.add(map[j][i+1]);
+						if(i + 1 < height && getMap()[j][i+1].getDirect() == Direct.S || getMap()[j][i+1].getDirect() == Direct.ALL) {
+							getMap()[j][i].getNextNode().add(getMap()[j][i+1]);
 						}
 						break;
 					}
 				}
 				
-				if(j + 1 < width && mapND[j+1][i].direct != Direct.BLOCK) {
-					mapND[j][i].nextNode.add(mapND[j+1][i]);
+				if(j + 1 < width && getMapND()[j+1][i].getDirect() != Direct.BLOCK) {
+					getMapND()[j][i].getNextNode().add(getMapND()[j+1][i]);
 				}
-				if(j - 1 >= 0 && mapND[j-1][i].direct != Direct.BLOCK) {
-					mapND[j][i].nextNode.add(mapND[j-1][i]);
+				if(j - 1 >= 0 && getMapND()[j-1][i].getDirect() != Direct.BLOCK) {
+					getMapND()[j][i].getNextNode().add(getMapND()[j-1][i]);
 				}
-				if(i - 1 > 0 && mapND[j][i-1].direct != Direct.BLOCK) {
-					mapND[j][i].nextNode.add(mapND[j][i-1]);
+				if(i - 1 > 0 && getMapND()[j][i-1].getDirect() != Direct.BLOCK) {
+					getMapND()[j][i].getNextNode().add(getMapND()[j][i-1]);
 				}
-				if(i + 1 < height && mapND[j][i+1].direct != Direct.BLOCK) {
-					mapND[j][i].nextNode.add(mapND[j][i+1]);
+				if(i + 1 < height && getMapND()[j][i+1].getDirect() != Direct.BLOCK) {
+					getMapND()[j][i].getNextNode().add(getMapND()[j][i+1]);
 				}
 			}
 		}
@@ -126,9 +126,9 @@ public class AStar {
 		Vector<Node> open = new Vector<>();
 		Vector<Node> close = new Vector<>();
 		
-		start.G = 0;
-		start.H = Position.distance(start.position, end.position);
-		start.F = start.G + start.H;
+		start.setG(0);
+		start.setH(Position.distance(start.getPosition(), end.getPosition()));
+		start.setF(start.getG() + start.getH());
 		
 		open.add(start);
 		
@@ -136,7 +136,7 @@ public class AStar {
 			Node currentNode = open.get(0);
 			for(int i = 0; i < open.size(); i++) {
 				Node nodeIndex = open.get(i);
-				if(nodeIndex.F < currentNode.F) {
+				if(nodeIndex.getF() < currentNode.getF()) {
 					currentNode = nodeIndex;
 				}
 				open.remove(currentNode);
@@ -147,16 +147,16 @@ public class AStar {
 					return tracePath(end);
 				}
 				else {
-					for(Node nextNode : currentNode.nextNode) {
+					for(Node nextNode : currentNode.getNextNode()) {
 						if(close.contains(nextNode)) {
 							continue;
 						}
-						double tmpG = currentNode.G + Position.distance(currentNode.position, nextNode.position);
-						if(!open.contains(nextNode) || tmpG < nextNode.G) {
-							nextNode.preNode = currentNode;
-							nextNode.G = tmpG;
-							nextNode.H = Position.distance(nextNode.position, end.position);
-							nextNode.F = nextNode.G + nextNode.H;
+						double tmpG = currentNode.getG() + Position.distance(currentNode.getPosition(), nextNode.getPosition());
+						if(!open.contains(nextNode) || tmpG < nextNode.getG()) {
+							nextNode.setPreNode(currentNode);
+							nextNode.setG(tmpG);
+							nextNode.setH(Position.distance(nextNode.getPosition(), end.getPosition()));
+							nextNode.setF(nextNode.getG() + nextNode.getH());
 							
 							if(!open.contains(nextNode)) {
 								open.add(nextNode);
@@ -177,9 +177,9 @@ public class AStar {
 		Vector<Node> open = new Vector<>();
 		Vector<Node> close = new Vector<>();
 		
-		start.G = 0;
-		start.H = Position.distance(start.position, end.position);
-		start.F = start.G + start.H;
+		start.setG(0);
+		start.setH(Position.distance(start.getPosition(), end.getPosition()));
+		start.setF(start.getG() + start.getH());
 		
 		open.add(start);
 		
@@ -187,7 +187,7 @@ public class AStar {
 			Node currentNode = open.get(0);
 			for(int i = 0; i < open.size(); i++) {
 				Node nodeIndex = open.get(i);
-				if(nodeIndex.F < currentNode.F) {
+				if(nodeIndex.getF() < currentNode.getF()) {
 					currentNode = nodeIndex;
 				}
 				open.remove(currentNode);
@@ -198,16 +198,16 @@ public class AStar {
 					return tracePath(end);
 				}
 				else {
-					for(Node nextNode : currentNode.nextNode) {
+					for(Node nextNode : currentNode.getNextNode()) {
 						if(close.contains(nextNode)) {
 							continue;
 						}
-						double tmpG = currentNode.G + Position.distance(currentNode.position, nextNode.position);
-						if(!open.contains(nextNode) || tmpG < nextNode.G) {
-							nextNode.preNode = currentNode;
-							nextNode.G = tmpG;
-							nextNode.H = Position.distance(nextNode.position, end.position);
-							nextNode.F = nextNode.G + nextNode.H;
+						double tmpG = currentNode.getG() + Position.distance(currentNode.getPosition(), nextNode.getPosition());
+						if(!open.contains(nextNode) || tmpG < nextNode.getG()) {
+							nextNode.setPreNode(currentNode);
+							nextNode.setG(tmpG);
+							nextNode.setH(Position.distance(nextNode.getPosition(), end.getPosition()));
+							nextNode.setF(nextNode.getG() + nextNode.getH());
 							
 							if(!open.contains(nextNode)) {
 								open.add(nextNode);
@@ -226,11 +226,11 @@ public class AStar {
 		
 		Node tmp = t;
 		while(tmp != null) {
-			if(tmp.preNode == null) {
+			if(tmp.getPreNode() == null) {
 				return path;
 			}
 			path.add(tmp);
-			tmp = tmp.preNode;
+			tmp = tmp.getPreNode();
 		}
 		return path;		
 	}
@@ -238,10 +238,10 @@ public class AStar {
 	private void clearData() {
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
-				map[j][i].F = 9999;
-				map[j][i].G = 9999;
-				map[j][i].H = 9999;
-				map[j][i].preNode = null;
+				getMap()[j][i].setF(9999);
+				getMap()[j][i].setG(9999);
+				getMap()[j][i].setH(9999);
+				getMap()[j][i].setPreNode(null);
 			}
 		}
 	}
@@ -249,11 +249,27 @@ public class AStar {
 	private void clearDataND() {
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
-				mapND[j][i].F = 9999;
-				mapND[j][i].G = 9999;
-				mapND[j][i].H = 9999;
-				mapND[j][i].preNode = null;
+				getMapND()[j][i].setF(9999);
+				getMapND()[j][i].setG(9999);
+				getMapND()[j][i].setH(9999);
+				getMapND()[j][i].setPreNode(null);
 			}
 		}
+	}
+
+	public Node[][] getMap() {
+		return map;
+	}
+
+	public void setMap(Node[][] map) {
+		this.map = map;
+	}
+
+	public Node[][] getMapND() {
+		return mapND;
+	}
+
+	public void setMapND(Node[][] mapND) {
+		this.mapND = mapND;
 	}
 }

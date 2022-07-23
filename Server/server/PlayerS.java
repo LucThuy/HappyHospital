@@ -33,8 +33,8 @@ public class PlayerS {
 	public final int SIZE = 28;
 	
 	public PlayerS(int x, int y, long[][] data) {
-		this.position.x = x;
-		this.position.y = y;
+		this.position.setX(x);
+		this.position.setY(y);
 		this.ms = 1;
 		this.msE = 0;
 		this.msN = 0;
@@ -49,50 +49,50 @@ public class PlayerS {
 	}
 	
 	public void setBound() {
-		this.bound.setBounds(this.position.x, this.position.y, WIDTH, HEIGHT);
+		this.bound.setBounds(this.position.getX(), this.position.getY(), WIDTH, HEIGHT);
 	}
 	
 	public void move(Vector<Rectangle> block) {
-		Position tmp = new Position(this.position.x, this.position.y);
+		Position tmp = new Position(this.position.getX(), this.position.getY());
 		
 		if(this.msE != 0 && isRightWay(tmp, "E")) {
-			tmp.x += this.msE;
+			tmp.setX(tmp.getX() + this.msE);
 			if(this.blink.isBlink()) {
-				tmp.x += this.blink.BLINK_RANGE * SIZE;
+				tmp.setX(tmp.getX() + this.blink.BLINK_RANGE * SIZE);
 				this.blink.setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
-				tmp.x --;
+				tmp.setX(tmp.getX() - 1);
 			}
 		}
 		if(this.msN != 0 && isRightWay(tmp, "N")) {
-			tmp.y -= this.msN;
+			tmp.setY(tmp.getY() - this.msN);
 			if(this.blink.isBlink()) {
-				tmp.y -= this.blink.BLINK_RANGE * SIZE;
+				tmp.setY(tmp.getY() - this.blink.BLINK_RANGE * SIZE);
 				this.blink.setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
-				tmp.y ++;
+				tmp.setY(tmp.getY() + 1);
 			}
 		}
 		if(this.msW != 0 && isRightWay(tmp, "W")) {
-			tmp.x -= this.msW;
+			tmp.setX(tmp.getX() - this.msW);
 			if(this.blink.isBlink()) {
-				tmp.x -= this.blink.BLINK_RANGE * SIZE;
+				tmp.setX(tmp.getX() - this.blink.BLINK_RANGE * SIZE);
 				this.blink.setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
-				tmp.x ++;
+				tmp.setX(tmp.getX() + 1);
 			}
 		}
 		if(this.msS != 0 && isRightWay(tmp, "S")) {
-			tmp.y += this.msS;
+			tmp.setY(tmp.getY() + this.msS);
 			if(this.blink.isBlink()) {
-				tmp.y += this.blink.BLINK_RANGE * SIZE;
+				tmp.setY(tmp.getY() + this.blink.BLINK_RANGE * SIZE);
 				this.blink.setBlink(false);
 			}
 			while(!isOK(tmp, block)) {
-				tmp.y --;
+				tmp.setY(tmp.getY() - 1);
 			}
 		}
 		
@@ -101,10 +101,10 @@ public class PlayerS {
 	}
 	
 	private boolean isRightWay(Position tmp, String direct) {
-		int x = tmp.x / SIZE;
-		int y = tmp.y / SIZE;
-		int checkX = tmp.x % SIZE;
-		int checkY = tmp.y % SIZE;
+		int x = tmp.getX() / SIZE;
+		int y = tmp.getY() / SIZE;
+		int checkX = tmp.getX() % SIZE;
+		int checkY = tmp.getY() % SIZE;
 		if(direct == "E") {
 			long check = data[x][y];
 			if(check == 20 || check == 12 || check == 36)
@@ -149,7 +149,7 @@ public class PlayerS {
 	}
 	
 	public boolean isOK(Position tmp, Vector<Rectangle> block) {
-		Rectangle tmpBound = new Rectangle(tmp.x, tmp.y, WIDTH, HEIGHT);
+		Rectangle tmpBound = new Rectangle(tmp.getX(), tmp.getY(), WIDTH, HEIGHT);
 		for(int i = 0; i < block.size(); i++) {
 			if(isCollision(tmpBound, block.get(i))) {
 				return false;

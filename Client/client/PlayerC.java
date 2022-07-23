@@ -30,8 +30,8 @@ public class PlayerC {
 	private String name;
 	
 	public PlayerC(int x, int y, String name) throws IOException {
-		this.position.x = x;
-		this.position.y = y;
+		this.position.setX(x);
+		this.position.setY(y);
 		this.name = name;
 		
 		this.blink.setBlink(false);
@@ -43,11 +43,11 @@ public class PlayerC {
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawRect(this.position.x, this.position.y, WIDTH, HEIGHT);
-		g.drawImage(this.img, this.position.x, this.position.y, WIDTH, HEIGHT, null);
+		g.drawRect(this.position.getX(), this.position.getY(), WIDTH, HEIGHT);
+		g.drawImage(this.img, this.position.getX(), this.position.getY(), WIDTH, HEIGHT, null);
 		
 		g.setFont(new Font("Georgia", Font.PLAIN, 10));
-		g.drawString(this.name, this.position.x, this.position.y - 3);
+		g.drawString(this.name, this.position.getX(), this.position.getY() - 3);
 	}
 	
 	public void draw(Graphics g, String type) throws IOException {
@@ -65,11 +65,11 @@ public class PlayerC {
 			img = bigImage.getSubimage(3, 5, 24, 24);
 		}
 		
-		g.drawRect(this.position.x, this.position.y, WIDTH, HEIGHT);
-		g.drawImage(this.img, this.position.x, this.position.y, WIDTH, HEIGHT, null);
+		g.drawRect(this.position.getX(), this.position.getY(), WIDTH, HEIGHT);
+		g.drawImage(this.img, this.position.getX(), this.position.getY(), WIDTH, HEIGHT, null);
 		
 		g.setFont(new Font("Georgia", Font.PLAIN, 10));
-		g.drawString(this.name, this.position.x, this.position.y - 3);
+		g.drawString(this.name, this.position.getX(), this.position.getY() - 3);
 	}
 	
 	public String getName() {

@@ -6,8 +6,8 @@ public class CalScore {
 	
 	private final static int SIZE = 28;
 	
-	public float expectedTime;
-	public long preTime;
+	private float expectedTime;
+	private long preTime;
 	
 	public CalScore() {
 		preTime = System.currentTimeMillis();
