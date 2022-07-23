@@ -242,6 +242,7 @@ public class SinglePlayerScene extends JPanel {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
+			
 			container.getSound().turnOffMusic();
 		}
 
