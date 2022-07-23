@@ -149,7 +149,7 @@ public class Container extends JPanel {
 		winScene.setFocusable(true);
 		winScene.requestFocusInWindow();
 		sound.turnOffMusic();
-		this.winScene.score_lb.setText(String.valueOf(getSinglePlayerScene().getPlayScene().player.score));
+		this.winScene.lblScore.setText(String.valueOf(getSinglePlayerScene().getPlayScene().player.score));
 		
 	}
 	

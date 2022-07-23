@@ -96,6 +96,9 @@ public class PlayScene extends JPanel {
 	}
 	
 	public void setUp() throws IOException {
+		container.getSinglePlayerScene().minute = 5;
+		container.getSinglePlayerScene().second = 0;
+		
 		this.agvID = 0;
 		endPointAgv.clear();
 		agv.clear();
@@ -139,14 +142,14 @@ public class PlayScene extends JPanel {
 					this.agv.get(i).draw(g);
 				}
 			}
-			this.map.door.drawEnd(g, endPointAgv, "dog");
+			this.map.door.drawEnd(g, endPointAgv, "agv");
 			
 			if(this.agent != null) {
 				for(int i = 0; i < this.agent.size(); i++) {
 					this.agent.get(i).draw(g);
 				}
 			}			
-			this.map.door.drawEnd(g, endPointAgent, "cat");
+			this.map.door.drawEnd(g, endPointAgent, "agent");
 		}
 		
 		if(this.zaWarudo != null) {

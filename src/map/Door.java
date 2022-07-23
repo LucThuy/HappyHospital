@@ -56,7 +56,7 @@ public class Door extends Layer {
 				continue;
 			}
 			long check = super.dataArr[super.bound.get(doorID).x / super.SIZE][super.bound.get(doorID).y / super.SIZE];
-			if(name == "dog") {
+			if(name == "agv") {
 				g.setColor(Color.BLACK);
 				if(check == 19) {
 					g.drawString(String.valueOf(ID), super.bound.get(doorID).x + 3, super.bound.get(doorID).y - 3);
@@ -65,7 +65,7 @@ public class Door extends Layer {
 					g.drawString(String.valueOf(ID), super.bound.get(doorID).x + 3, super.bound.get(doorID).y + super.SIZE + 10);
 				}
 			}
-			if(name == "cat") {
+			if(name == "agent") {
 				g.setColor(Color.GRAY);
 				if(check == 19) {
 					g.drawString(String.valueOf(ID), super.bound.get(doorID).x + 15, super.bound.get(doorID).y - 3);
