@@ -111,6 +111,7 @@ public class WinScene extends JPanel {
 		public void mousePressed(MouseEvent e) {
 			try {
 				container.getSinglePlayerScene().getPlayScene().setUp();
+				container.getSinglePlayerScene().getPlayScene().update.stop();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
