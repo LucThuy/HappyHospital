@@ -100,7 +100,7 @@ public class Container extends JPanel {
 		sound.turnOffMusic();
 		this.singlePlayerScene.setIsMusic();
 		isMusic = false;
-		sound.turnOnMusicLoop(1);
+		sound.turnOnMusicLoop(6);
 	}
 	
 	public void showMutilPlayerScene() throws FileNotFoundException, IOException, ParseException {
