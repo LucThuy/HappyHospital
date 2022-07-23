@@ -71,7 +71,7 @@ public class WinScene extends JPanel {
 		btnHome.setContentAreaFilled(false);
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		
-		lblScore = new JLabel("0.0");
+		lblScore = new JLabel("");
 		getLblScore().setFont(new Font("Segoe UI Semibold", Font.BOLD, 40));
 		getLblScore().setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblScore = new GridBagConstraints();

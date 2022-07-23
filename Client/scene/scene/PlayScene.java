@@ -273,6 +273,7 @@ public class PlayScene extends JPanel {
 		this.player.score = (float) (Math.round(this.player.score * 100) /  100.0);
 
 		this.container.getSinglePlayerScene().lblScore.setText(String.valueOf(this.player.score));
+		
 	}
 	private boolean isEnd() {
 		if(endPointBound.contains(this.player.bound)) {	
@@ -382,13 +383,13 @@ public class PlayScene extends JPanel {
 					agent.get(i).move(agentBlock);
 //					catBlock.removeAll(tmpBlock);
 					
-					if(agent.get(i).isAgentDone) {
+					if(agent.get(i).isAgentDone()) {
 						endPointAgent.remove(i);
 						agent.remove(i);
 					}
 					else {
-						agentBound.add(agent.get(i).bound);
-						agentBlock.add(agent.get(i).bound);
+						agentBound.add(agent.get(i).getBound());
+						agentBlock.add(agent.get(i).getBound());
 					}
 				}
 			}
@@ -462,11 +463,11 @@ public class PlayScene extends JPanel {
 		JSONArray agent = new JSONArray();
 		for(int i = 0; i < this.agent.size(); i++) {
 			JSONObject tmp = new JSONObject();
-			tmp.put("id", this.agent.get(i).agentID);
-			tmp.put("x", this.agent.get(i).position.x);
-			tmp.put("y", this.agent.get(i).position.y);
-			tmp.put("xEnd", this.agent.get(i).path.get(0).position.x);
-			tmp.put("yEnd", this.agent.get(i).path.get(0).position.y);
+			tmp.put("id", this.agent.get(i).getAgentID());
+			tmp.put("x", this.agent.get(i).getPosition().x);
+			tmp.put("y", this.agent.get(i).getPosition().y);
+			tmp.put("xEnd", this.agent.get(i).getPath().get(0).position.x);
+			tmp.put("yEnd", this.agent.get(i).getPath().get(0).position.y);
 			
 			agent.add(tmp);
 		}		

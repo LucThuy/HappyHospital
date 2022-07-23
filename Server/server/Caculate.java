@@ -201,7 +201,7 @@ public class Caculate {
 	}
 	
 	private void catMove(int i) {
-		this.server.sendToAll("catMove " + agent.get(i).position.x + " " + agent.get(i).position.y + " " + i);
+		this.server.sendToAll("catMove " + agent.get(i).getPosition().x + " " + agent.get(i).getPosition().y + " " + i);
 	}
 	
 	private void catDone(int i) {
@@ -355,14 +355,14 @@ public class Caculate {
 					
 //					catBlock.removeAll(tmpBlock);
 					
-					if(agent.get(i).isAgentDone) {
+					if(agent.get(i).isAgentDone()) {
 						endPointAgent.remove(i);
 						agent.remove(i);
 						catDone(i);
 					}
 					else {
-						catBound.add(agent.get(i).bound);
-						catBlock.add(agent.get(i).bound);
+						catBound.add(agent.get(i).getBound());
+						catBlock.add(agent.get(i).getBound());
 					}
 				}
 			}
