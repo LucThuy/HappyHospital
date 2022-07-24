@@ -248,7 +248,7 @@ public class SinglePlayerScene extends JPanel {
 				isMusic = true;
 				btnMusic.setIcon(new ImageIcon("data/btnMusic.png"));
 				try {
-					container.getSound().turnOnMusicLoopreduceVolume(1, -30);
+					container.getSound().turnOnMusicLoopreduceVolume(1, -40);
 				} catch (LineUnavailableException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
