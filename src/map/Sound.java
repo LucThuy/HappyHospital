@@ -81,10 +81,10 @@ public class Sound {
       loopSound();
     }
 	
-	public void turnOnMusicLoopreduceVolume(int i, float f) throws LineUnavailableException, IOException{
+	public void turnOnMusicLoopReduceVolume(int i, float f) throws LineUnavailableException, IOException{
 	      setVolume(i,f);
 	      playSound();
-	      loopSound();
+	      loopSound(); 
 	      
 	    }
 	

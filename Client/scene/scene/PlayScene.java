@@ -39,6 +39,8 @@ import object.ZaWarudo;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
+
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
@@ -291,9 +293,9 @@ public class PlayScene extends JPanel {
 
 		
 	}
-	private boolean isEnd() {
+	private boolean isEnd() throws LineUnavailableException, IOException {
 		if(endPointBound.contains(this.player.getBound())) {	
-			this.sound.turnOnMusic(7);
+			this.sound.turnOnMusicReduceVolume(7, 6);
 			return true;
 		}
 		return false;
@@ -418,13 +420,17 @@ public class PlayScene extends JPanel {
 			
 			repaint();
 			
-			if(isEnd()) {
-				try {
-					calScore();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}				
-				genEndPoint();
+			try {
+				if(isEnd()) {
+					try {
+						calScore();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}				
+					genEndPoint();
+				}
+			} catch (LineUnavailableException | IOException e2) {
+				e2.printStackTrace();
 			}
 			
 			if(isWin()) {

@@ -102,7 +102,7 @@ public class Container extends JPanel {
 		sound.turnOffMusic();
 		this.singlePlayerScene.setIsMusic();
 		isMusic = false;
-		sound.turnOnMusicReduceVolume(1, -40);
+		sound.turnOnMusicLoopReduceVolume(1, -15);
 	}	
 	public void showMutilPlayerScene() throws FileNotFoundException, IOException, ParseException {
 		this.client.getRageThread().setPlayScene(mutilPlayerScene);
