@@ -53,7 +53,7 @@ public class PlayerC {
 	public void draw(Graphics g, String type) throws IOException {
 		g.setColor(Color.GREEN);
 		if(type.equals("host")) {
-			g.setColor(Color.MAGENTA);
+			g.setColor(Color.ORANGE);
 			BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
 			bigImage = ImageIO.read(new File("data/agv2.png"));
 			img = bigImage.getSubimage(3, 5, 24, 24);
@@ -61,7 +61,7 @@ public class PlayerC {
 		else if(type.equals("guest")) {
 			g.setColor(Color.GREEN);
 			BufferedImage bigImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-			bigImage = ImageIO.read(new File("data/agv5.png"));
+			bigImage = ImageIO.read(new File("data/agv1.png"));
 			img = bigImage.getSubimage(3, 5, 24, 24);
 		}
 		

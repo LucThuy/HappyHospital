@@ -34,7 +34,7 @@ public class Door extends Layer {
 			g2d.setColor(Color.ORANGE);		
 		}
 		else if(type.equals("guest")){
-			g2d.setColor(Color.MAGENTA);
+			g2d.setColor(Color.GREEN);
 		}
 		g2d.drawRect(super.getBound().get(endDoorID).x - 1, super.getBound().get(endDoorID).y - 1, super.SIZE + 2, super.SIZE + 2);
 	}
