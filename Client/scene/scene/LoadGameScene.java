@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 
 import java.awt.GridLayout;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -197,7 +198,7 @@ public class LoadGameScene extends JPanel {
 		public void mousePressed(MouseEvent e) {
 			try {
 				container.showSinglePlayerScene();
-			} catch (IOException | ParseException e1) {
+			} catch (IOException | ParseException | LineUnavailableException e1) {
 				e1.printStackTrace();
 			}
 			SaveFile saveFile = model.elementAt(listSaveFile.getSelectedIndex());	
@@ -271,7 +272,7 @@ public class LoadGameScene extends JPanel {
 				
 				container.showSinglePlayerScene();
 				
-			} catch (IOException | ParseException e1) {
+			} catch (IOException | ParseException | LineUnavailableException e1) {
 				e1.printStackTrace();
 			}
 		}

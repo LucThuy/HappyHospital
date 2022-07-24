@@ -3,7 +3,12 @@ package map;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import java.io.File;
+import java.io.IOException;
 
 public class Sound {
     private Clip clip ;
@@ -35,6 +40,29 @@ public class Sound {
         }
     }
 
+    public void setVolume(int i, float reduceVolume) throws LineUnavailableException, IOException {
+		
+			File file = new File(nameOfFile[i]);
+			AudioInputStream ais = null;
+			try {
+				ais = AudioSystem.getAudioInputStream(file);
+				this.clip = AudioSystem.getClip();
+	    		clip.open(ais);
+	    		FloatControl gainControl = 
+	    		    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+	    		gainControl.setValue(reduceVolume); // Reduce volume by 10 decibels.
+	    		clip.start();
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+
+    }
+
     public void playSound(){
         this.clip.start();
     }
@@ -53,6 +81,13 @@ public class Sound {
       loopSound();
     }
 	
+	public void turnOnMusicLoopreduceVolume(int i, float f) throws LineUnavailableException, IOException{
+	      setVolume(i,f);
+	      playSound();
+	      loopSound();
+	      
+	    }
+	
     public void turnOffMusic(){
       stopSound();
     }
@@ -60,5 +95,9 @@ public class Sound {
     public void turnOnMusic(int i){
       setFile(i);
       playSound();
+    }
+    
+    public void turnOnMusicReduceVolume(int i, float reduceVolume) throws LineUnavailableException, IOException {
+    	setVolume(i, reduceVolume);
     }
 }

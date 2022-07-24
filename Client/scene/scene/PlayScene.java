@@ -269,7 +269,7 @@ public class PlayScene extends JPanel {
 		}
 
 		this.player.setScore((float) (Math.round(this.player.getScore() * 100) /  100.0)); 
-		if(this.player.getScore() > 20 && this.player.getScore() < 40) {
+		if(this.player.getScore() > 20) {
 			player.LevelUp(2);
 			player.getBlink().setCD(8000);
 		}

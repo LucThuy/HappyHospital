@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.JPanel;
+import javax.sound.sampled.*;
+
 
 import org.json.simple.parser.ParseException;
 
@@ -92,7 +94,7 @@ public class Container extends JPanel {
 		serverSelectScene.requestFocusInWindow();
 	}
 	
-	public void showSinglePlayerScene() throws IOException, ParseException {
+	public void showSinglePlayerScene() throws IOException, ParseException, LineUnavailableException {
 		singlePlayerScene.setPlayScene(new PlayScene(this));
 		cardLayout.show(this, "singlePlayerScene");
 		singlePlayerScene.setFocusable(true);
@@ -100,9 +102,8 @@ public class Container extends JPanel {
 		sound.turnOffMusic();
 		this.singlePlayerScene.setIsMusic();
 		isMusic = false;
-		sound.turnOnMusicLoop(1);
-	}
-	
+		sound.turnOnMusicReduceVolume(1, -40);
+	}	
 	public void showMutilPlayerScene() throws FileNotFoundException, IOException, ParseException {
 		this.client.getRageThread().setPlayScene(mutilPlayerScene);
 		mutilPlayerScene.setBoard(new Board(this));
