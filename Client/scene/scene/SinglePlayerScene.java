@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -246,7 +247,12 @@ public class SinglePlayerScene extends JPanel {
 			else {
 				isMusic = true;
 				btnMusic.setIcon(new ImageIcon("data/btnMusic.png"));
-				container.getSound().turnOnMusicLoop(1);
+				try {
+					container.getSound().turnOnMusicLoopreduceVolume(1, -30);
+				} catch (LineUnavailableException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 
