@@ -23,6 +23,10 @@ public class Cooldown {
 		return true;
 	}
 	
+	public void setCDTime(long i) {
+		this.cdTime = i;
+	}
+	
 	public void setTime() {
 		this.time = System.currentTimeMillis();
 	}

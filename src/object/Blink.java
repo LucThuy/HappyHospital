@@ -26,4 +26,8 @@ public class Blink {
 	public void setBlinkCD(Cooldown blinkCD) {
 		this.blinkCD = blinkCD;
 	}
+	
+	public void setCD(long i) {
+		blinkCD.setCDTime(i);
+	}
 }
